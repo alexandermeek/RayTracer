@@ -3,8 +3,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     MyVector v (1,1,1);
     cout << v.getLength() << endl;
     cout << v.toString() << endl;

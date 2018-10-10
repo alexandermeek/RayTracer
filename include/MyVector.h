@@ -25,9 +25,6 @@ class MyVector
         MyVector operator/ (const int k);
 
         std::string toString();
-
-        int main();
-
     protected:
 
     private:
