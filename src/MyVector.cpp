@@ -1,5 +1,6 @@
 #include "MyVector.h"
 #include <math.h>
+#include <cmath>
 
 MyVector::MyVector()
 {
@@ -23,9 +24,9 @@ MyVector::~MyVector()
 double MyVector::getLength()
 {
     int x,y,z;
-    x = this->x^2;
-    y = this->y^2;
-    z = this->z^2;
+    x = std::pow(this->x, 2);
+    y = std::pow(this->y, 2);
+    z = std::pow(this->z, 2);
     return sqrt(x + y + z);
 }
 
