@@ -1,6 +1,7 @@
 #include "MyVector.h"
 #include <math.h>
 #include <cmath>
+#include <string>
 
 MyVector::MyVector()
 {
@@ -63,18 +64,18 @@ void MyVector::setZ(int z)
 MyVector MyVector::operator+(const MyVector& v)
 {
     MyVector vect;
-    vect.setX(this->getX() + v.getX());
-    vect.setY(this->getY() + v.getY());
-    vect.setZ(this->getZ() + v.getZ());
+    vect.setX(x + v.getX());
+    vect.setY(y + v.getY());
+    vect.setZ(z + v.getZ());
     return vect;
 }
 
 MyVector MyVector::operator-(const MyVector& v)
 {
     MyVector vect;
-    vect.setX(this->getX() - v.getX());
-    vect.setY(this->getY() - v.getY());
-    vect.setZ(this->getZ() - v.getZ());
+    vect.setX(x - v.getX());
+    vect.setY(y - v.getY());
+    vect.setZ(z - v.getZ());
     return vect;
 }
 
@@ -87,6 +88,11 @@ MyVector MyVector::operator-(const MyVector& v)
 //{
 //
 //}
+
+std::string MyVector::toString()
+{
+    return "(" + std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z) + ")";
+}
 
 int MyVector::main()
 {

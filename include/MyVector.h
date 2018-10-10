@@ -1,6 +1,7 @@
 #ifndef MYVECTOR_H
 #define MYVECTOR_H
 
+#include <string>
 
 class MyVector
 {
@@ -21,6 +22,8 @@ class MyVector
         MyVector operator- (const MyVector& v);
         MyVector operator* (const MyVector& v);
         MyVector operator/ (const MyVector& v);
+
+        std::string toString();
 
         int main();
 
