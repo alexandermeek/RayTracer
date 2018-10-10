@@ -10,7 +10,7 @@ int main() {
 
     MyVector u (2,2,2);
     cout << u.toString() << endl;
-    u = u / 2;
+    u = u * 2;
     cout << u.toString() << endl;
 
     MyVector w;
@@ -21,6 +21,8 @@ int main() {
     int b [3] = {1,1,1};
     MyVector x (a, b);
     cout << x.toString();
+
+    cout << w.dotP(u);
 
     return 0;
 }

@@ -19,6 +19,7 @@ class MyVector
         void setY(int y);
         void setZ(int z);
 
+        double dotP(const MyVector& v);
         MyVector operator+ (const MyVector& v);
         MyVector operator- (const MyVector& v);
         MyVector operator* (const int k);

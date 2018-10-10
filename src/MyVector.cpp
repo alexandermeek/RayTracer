@@ -57,6 +57,10 @@ void MyVector::setZ(int z) {
     this->z = z;
 }
 
+double MyVector::dotP(const MyVector& v) {
+    return x * v.getX() + y * v.getY() + z * v.getZ();
+}
+
 MyVector MyVector::operator+(const MyVector& v) {
     MyVector vect;
     vect.setX(x + v.getX());
