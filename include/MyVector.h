@@ -20,8 +20,8 @@ class MyVector
 
         MyVector operator+ (const MyVector& v);
         MyVector operator- (const MyVector& v);
-        MyVector operator* (const MyVector& v);
-        MyVector operator/ (const MyVector& v);
+        MyVector operator* (const int k);
+        MyVector operator/ (const int k);
 
         std::string toString();
 

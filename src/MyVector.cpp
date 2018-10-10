@@ -79,15 +79,23 @@ MyVector MyVector::operator-(const MyVector& v)
     return vect;
 }
 
-//Vector Vector::operator*(const Vector& v)
-//{
-//
-//}
+MyVector MyVector::operator*(const int k)
+{
+    MyVector vect;
+    vect.setX(x*k);
+    vect.setY(y*k);
+    vect.setZ(z*k);
+    return vect;
+}
 
-//Vector Vector::operator/(const Vector& v)
-//{
-//
-//}
+MyVector MyVector::operator/(const int k)
+{
+    MyVector vect;
+    vect.setX(x/k);
+    vect.setY(y/k);
+    vect.setZ(z/k);
+    return vect;
+}
 
 std::string MyVector::toString()
 {
