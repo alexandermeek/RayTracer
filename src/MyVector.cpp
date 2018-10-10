@@ -17,6 +17,13 @@ MyVector::MyVector(int x, int y, int z)
     this->z = z;
 }
 
+MyVector::MyVector(const int a [3], const int b [3])
+{
+    this->x = b[0] - a[0];
+    this->y = b[1] - a[1];
+    this->z = b[2] - a[2];
+}
+
 MyVector::~MyVector()
 {
     //dtor

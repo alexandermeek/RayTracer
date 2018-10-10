@@ -8,6 +8,7 @@ class MyVector
     public:
         MyVector();
         MyVector(int x, int y, int z);
+        MyVector(const int a [3], const int b [3]);
         virtual ~MyVector();
 
         double getLength();

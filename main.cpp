@@ -17,5 +17,11 @@ int main()
     MyVector w;
     w = u - v;
     cout << w.toString() << endl;
+
+    int a [3] = {0,0,0};
+    int b [3] = {1,1,1};
+    MyVector x (a, b);
+    cout << x.toString();
+
     return 0;
 }
