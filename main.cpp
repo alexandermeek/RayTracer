@@ -4,22 +4,13 @@
 using namespace std;
 
 int main() {
-    MyVector v (1,1,1);
-    cout << v.toString() << endl;
+    MyVector v (0,1,0);
+    cout << v.magnitude() << " " << v.toString() << endl;
 
-    MyVector u (2,2,2);
-    cout << u.toString() << endl;
-    u = u * 2;
-    cout << u.toString() << endl;
+    MyVector u (1,0,0);
+    cout << u.magnitude() << " " << u.toString() << endl;
 
-    MyVector w;
-    w = u - v;
-    cout << w.toString() << endl;
-
-    int a [3] = {0,0,0};
-    int b [3] = {1,1,1};
-    MyVector x (a, b);
-    cout << x.toString() << endl;
+    cout << v.cosTheta(u);
 
     return 0;
 }

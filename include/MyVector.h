@@ -18,7 +18,9 @@ class MyVector
         void setY(int y);
         void setZ(int z);
 
-        double angle(const MyVector& v);
+        double magnitude() const;
+        double cosTheta(const MyVector& v);
+
         MyVector operator+ (const MyVector& v);
         MyVector operator- (const MyVector& v);
         MyVector operator* (const int k);
@@ -32,7 +34,6 @@ class MyVector
         int y;
         int z;
 
-        double magnitude();
         double dotP(const MyVector& v);
 };
 

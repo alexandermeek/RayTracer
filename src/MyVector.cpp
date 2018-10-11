@@ -49,7 +49,7 @@ void MyVector::setZ(int z) {
     this->z = z;
 }
 
-double MyVector::magnitude() {
+double MyVector::magnitude() const {
     int x,y,z;
     x = std::pow(this->x, 2);
     y = std::pow(this->y, 2);
@@ -59,6 +59,13 @@ double MyVector::magnitude() {
 
 double MyVector::dotP(const MyVector& v) {
     return x * v.getX() + y * v.getY() + z * v.getZ();
+}
+
+double MyVector::cosTheta(const MyVector& v) {
+    double dotProduct = dotP(v);
+    double magA = magnitude();
+    double magB = v.magnitude();
+    return dotProduct / (magA*magB);
 }
 
 MyVector MyVector::operator+(const MyVector& v) {
