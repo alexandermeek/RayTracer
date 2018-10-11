@@ -11,7 +11,6 @@ class MyVector
         MyVector(const int a [3], const int b [3]);
         virtual ~MyVector();
 
-        double magnitude();
         int getX() const;
         int getY() const;
         int getZ() const;
@@ -19,7 +18,7 @@ class MyVector
         void setY(int y);
         void setZ(int z);
 
-        double dotP(const MyVector& v);
+        double angle(const MyVector& v);
         MyVector operator+ (const MyVector& v);
         MyVector operator- (const MyVector& v);
         MyVector operator* (const int k);
@@ -32,6 +31,9 @@ class MyVector
         int x;
         int y;
         int z;
+
+        double magnitude();
+        double dotP(const MyVector& v);
 };
 
 #endif // VECTOR_H

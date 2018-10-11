@@ -25,14 +25,6 @@ MyVector::~MyVector() {
     //dtor
 }
 
-double MyVector::magnitude() {
-    int x,y,z;
-    x = std::pow(this->x, 2);
-    y = std::pow(this->y, 2);
-    z = std::pow(this->z, 2);
-    return sqrt(x + y + z);
-}
-
 int MyVector::getX() const {
     return this->x;
 }
@@ -55,6 +47,14 @@ void MyVector::setY(int y) {
 
 void MyVector::setZ(int z) {
     this->z = z;
+}
+
+double MyVector::magnitude() {
+    int x,y,z;
+    x = std::pow(this->x, 2);
+    y = std::pow(this->y, 2);
+    z = std::pow(this->z, 2);
+    return sqrt(x + y + z);
 }
 
 double MyVector::dotP(const MyVector& v) {
