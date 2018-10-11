@@ -11,7 +11,7 @@ class MyVector
         MyVector(const int a [3], const int b [3]);
         virtual ~MyVector();
 
-        double getLength();
+        double magnitude();
         int getX() const;
         int getY() const;
         int getZ() const;

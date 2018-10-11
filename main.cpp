@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
     MyVector v (1,1,1);
-    cout << v.getLength() << endl;
+    cout << v.magnitude() << endl;
     cout << v.toString() << endl;
 
     MyVector u (2,2,2);
@@ -20,7 +20,7 @@ int main() {
     int a [3] = {0,0,0};
     int b [3] = {1,1,1};
     MyVector x (a, b);
-    cout << x.toString();
+    cout << x.toString() << endl;
 
     cout << w.dotP(u);
 

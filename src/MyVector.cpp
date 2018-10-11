@@ -25,7 +25,7 @@ MyVector::~MyVector() {
     //dtor
 }
 
-double MyVector::getLength() {
+double MyVector::magnitude() {
     int x,y,z;
     x = std::pow(this->x, 2);
     y = std::pow(this->y, 2);
