@@ -36,5 +36,8 @@
 *.depend
 *.layout
 
-bin
-obj
+*.vcxproj
+
+Debug
+RayTracer/Debug
+.vs
