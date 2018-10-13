@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Vector3D.h"
 #include <math.h>
 #include <cmath>
@@ -9,13 +10,13 @@ Vector3D::Vector3D() {
     this->z = 0;
 }
 
-Vector3D::Vector3D(int x, int y, int z) {
+Vector3D::Vector3D(double x, double y, double z) {
     this->x = x;
     this->y = y;
     this->z = z;
 }
 
-Vector3D::Vector3D(const int a [3], const int b [3]) {
+Vector3D::Vector3D(const double a [3], const double b [3]) {
     this->x = b[0] - a[0];
     this->y = b[1] - a[1];
     this->z = b[2] - a[2];
@@ -25,32 +26,32 @@ Vector3D::~Vector3D() {
     //dtor
 }
 
-int Vector3D::getX() const {
+double Vector3D::getX() const {
     return this->x;
 }
 
-int Vector3D::getY() const {
+double Vector3D::getY() const {
     return this->y;
 }
 
-int Vector3D::getZ() const {
+double Vector3D::getZ() const {
     return this->z;
 }
 
-void Vector3D::setX(int x) {
+void Vector3D::setX(double x) {
     this->x = x;
 }
 
-void Vector3D::setY(int y) {
+void Vector3D::setY(double y) {
     this->y = y;
 }
 
-void Vector3D::setZ(int z) {
+void Vector3D::setZ(double z) {
     this->z = z;
 }
 
 double Vector3D::magnitude() const {
-    int x,y,z;
+	double x,y,z;
     x = std::pow(this->x, 2);
     y = std::pow(this->y, 2);
     z = std::pow(this->z, 2);
@@ -84,7 +85,7 @@ Vector3D Vector3D::operator-(const Vector3D& v) {
     return vect;
 }
 
-Vector3D Vector3D::operator*(const int k) {
+Vector3D Vector3D::operator*(const double k) {
     Vector3D vect;
     vect.setX(x*k);
     vect.setY(y*k);
@@ -92,7 +93,7 @@ Vector3D Vector3D::operator*(const int k) {
     return vect;
 }
 
-Vector3D Vector3D::operator/(const int k) {
+Vector3D Vector3D::operator/(const double k) {
     Vector3D vect;
     vect.setX(x/k);
     vect.setY(y/k);
