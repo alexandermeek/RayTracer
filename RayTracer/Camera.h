@@ -3,17 +3,17 @@
 #include "Vector3D.h"
 
 
-class Camera
-{
+class Camera {
     public:
         Camera();
-        Camera(int pos [3]);
+        Camera(double pos [3], double lookPos [3]);
         virtual ~Camera();
 
+		//double [] getViewReferencePoint() const;
     protected:
 
     private:
-        int viewReferencePoint [3];
+        double viewReferencePoint [3];
         Vector3D viewPlaneNormalVector;
         Vector3D viewUpVector;
         Vector3D viewRightVector;

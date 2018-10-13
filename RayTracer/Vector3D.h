@@ -3,8 +3,7 @@
 
 #include <string>
 
-class Vector3D
-{
+class Vector3D {
     public:
         Vector3D();
         Vector3D(double x, double y, double z);

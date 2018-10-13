@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Vector3D.h"
+
 #include <math.h>
 #include <cmath>
-#include <string>
 
 Vector3D::Vector3D() {
     this->x = 0;
@@ -102,5 +102,7 @@ Vector3D Vector3D::operator/(const double k) {
 }
 
 std::string Vector3D::toString() {
-    return "(" + std::to_string(x) + "," + std::to_string(y) + "," + std::to_string(z) + ")";
+    return "Vector: (" + std::to_string(x) + "," 
+		+ std::to_string(y) + "," 
+		+ std::to_string(z) + ")";
 }
