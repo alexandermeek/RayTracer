@@ -1,9 +1,11 @@
 #ifndef POINT3D_H
 #define POINT3D_H
+
 #include <string>
 
 class Point3D {
 	public:
+		Point3D();
 		Point3D(double x, double y, double z);
 		~Point3D();
 
