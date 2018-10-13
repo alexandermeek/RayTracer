@@ -19,8 +19,10 @@ class Vector3D {
 
         double magnitude() const;
         double cosTheta(const Vector3D& v);
+		
+		Vector3D perpendicular();
 
-        Vector3D operator+ (const Vector3D& v);
+		Vector3D operator+ (const Vector3D& v);
         Vector3D operator- (const Vector3D& v);
         Vector3D operator* (const double k);
         Vector3D operator/ (const double k);

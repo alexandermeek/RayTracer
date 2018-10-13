@@ -69,6 +69,13 @@ double Vector3D::cosTheta(const Vector3D& v) {
     return dotProduct / (magA*magB);
 }
 
+Vector3D Vector3D::perpendicular() {
+	Vector3D tempVector;
+	tempVector.setX(4 * x + 2 * y);
+	// TODO: finish this.
+	return tempVector;
+}
+
 Vector3D Vector3D::operator+(const Vector3D& v) {
     Vector3D vect;
     vect.setX(x + v.getX());

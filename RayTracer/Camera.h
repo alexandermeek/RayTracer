@@ -1,19 +1,16 @@
 #ifndef CAMERA_H
 #define CAMERA_H
-#include "Vector3D.h"
-
 
 class Camera {
     public:
         Camera();
-        Camera(double pos [3], double lookPos [3]);
+        Camera(Point3D vRP, Point3D pRef);
         virtual ~Camera();
 
-		//double [] getViewReferencePoint() const;
     protected:
 
     private:
-        double viewReferencePoint [3];
+        Point3D viewReferencePoint;
         Vector3D viewPlaneNormalVector;
         Vector3D viewUpVector;
         Vector3D viewRightVector;

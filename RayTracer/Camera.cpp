@@ -5,10 +5,11 @@ Camera::Camera() {
     //ctor
 }
 
-Camera::Camera(double pos[3], double lookPos[3]) {
-	for (int i = 0; i < 3; i++) {
-		viewReferencePoint[i] = pos[i];
-	}
+Camera::Camera(Point3D vRP, Point3D pRef) {
+	viewReferencePoint = vRP;
+	viewPlaneNormalVector = pRef - vRP;
+	viewUpVector = Vector3D(0, 1, 0);
+	//viewRightVector = 
 }
 
 Camera::~Camera() {
