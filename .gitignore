@@ -36,10 +36,13 @@
 *.depend
 *.layout
 
+# Visual Studio files
 *.vcxproj
 *.user
-*filters
+*.filters
+*.aps
 
+# Unneeded folders
 Debug
 RayTracer/Debug
 .vs
