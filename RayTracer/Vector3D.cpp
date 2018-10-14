@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "Vector3D.h"
 
-#include <math.h>
-#include <cmath>
+//#include <math.h>
+//#include <cmath>
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
+
 
 Vector3D::Vector3D() {
     this->x = 0;
@@ -114,7 +117,8 @@ Vector3D Vector3D::operator/(const double k) {
 }
 
 std::string Vector3D::toString() {
-    return "Vector: (" + std::to_string(x) + "," 
-		+ std::to_string(y) + "," 
-		+ std::to_string(z) + ")";
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(2);
+	stream << "Vector: (" << x << "," << y << "," << z << ")";
+	return stream.str();
 }

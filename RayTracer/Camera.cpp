@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "Camera.h"
 
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
+
+using std::endl;
+
 Camera::Camera() {
     //ctor
 }
@@ -25,8 +30,12 @@ Camera::~Camera() {
 }
 
 std::string Camera::toString() {
-	return "ViewRef " + viewReferencePoint.toString() 
-		+ ", Normal " + viewPlaneNormalVector.toString() 
-		+ ", Up " + viewUpVector.toString() 
-		+ ", Right " + viewRightVector.toString();
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(2);
+	stream << "Camera: {" << endl
+		<< "        " << viewReferencePoint.toString() << endl
+		<< "Normal " << viewPlaneNormalVector.toString() << endl
+		<< "    Up " << viewUpVector.toString() << endl
+		<< " Right " << viewRightVector.toString() << endl << "}";
+	return stream.str();
 }

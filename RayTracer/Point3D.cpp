@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "Point3D.h"
 
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
+
 Point3D::Point3D() {
 	x = 0;
 	y = 0;
@@ -50,7 +53,8 @@ Vector3D Point3D::operator-(const Point3D& p) {
 }
 
 std::string Point3D::toString() {
-	return "Point: (" + std::to_string(x) + ","
-		+ std::to_string(y) + ","
-		+ std::to_string(z) + ")";
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(2);
+	stream << "Point: (" << x << "," << y << "," << z << ")";
+	return stream.str();
 }
