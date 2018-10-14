@@ -21,7 +21,6 @@ class Vector3D {
         double cosTheta(const Vector3D& v);
 
 		Vector3D crossProduct(const Vector3D& v);
-		Vector3D perpendicular();
 		Vector3D unitVector();
 
 		Vector3D operator+ (const Vector3D& v);
