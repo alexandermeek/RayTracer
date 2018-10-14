@@ -11,17 +11,14 @@ Camera::Camera() {
 }
 
 Camera::Camera(Point3D vRP, Point3D pRef) {
-	viewReferencePoint = vRP;
-	
 	Vector3D normal = pRef - vRP;
 	Vector3D up(0, 1, 0);
 	Vector3D right = up.crossProduct(normal);
-
-	viewPlaneNormalVector = normal.unitVector();
-	viewRightVector = right.unitVector();
-
 	up = normal.crossProduct(right);
 
+	viewReferencePoint = vRP;
+	viewPlaneNormalVector = normal.unitVector();
+	viewRightVector = right.unitVector();
 	viewUpVector = up.unitVector();
 }
 
