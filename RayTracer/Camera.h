@@ -9,6 +9,8 @@ class Camera {
         Camera(Point3D vRP, Point3D pRef);
         virtual ~Camera();
 
+
+		std::string toString();
     protected:
 
     private:
