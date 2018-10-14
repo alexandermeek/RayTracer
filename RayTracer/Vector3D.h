@@ -19,8 +19,10 @@ class Vector3D {
 
         double magnitude() const;
         double cosTheta(const Vector3D& v);
-		
+
+		Vector3D crossProduct(const Vector3D& v);
 		Vector3D perpendicular();
+		Vector3D unitVector();
 
 		Vector3D operator+ (const Vector3D& v);
         Vector3D operator- (const Vector3D& v);
@@ -35,7 +37,7 @@ class Vector3D {
         double y;
         double z;
 
-        double dotP(const Vector3D& v);
+        double dotProduct(const Vector3D& v);
 };
 
 #endif // VECTOR_H

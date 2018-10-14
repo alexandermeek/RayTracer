@@ -58,22 +58,27 @@ double Vector3D::magnitude() const {
     return sqrt(x + y + z);
 }
 
-double Vector3D::dotP(const Vector3D& v) {
+double Vector3D::dotProduct(const Vector3D& v) {
     return x * v.getX() + y * v.getY() + z * v.getZ();
 }
 
-double Vector3D::cosTheta(const Vector3D& v) {
-    double dotProduct = dotP(v);
-    double magA = magnitude();
-    double magB = v.magnitude();
-    return dotProduct / (magA*magB);
+Vector3D Vector3D::crossProduct(const Vector3D& v) {
+	Vector3D tempVector;
+	tempVector.setX(y * v.getZ() - z * v.getY());
+	tempVector.setY(z * v.getX() - x * v.getZ());
+	tempVector.setZ(x * v.getY() - y * v.getX());
+	return tempVector;
 }
 
-Vector3D Vector3D::perpendicular() {
-	Vector3D tempVector;
-	tempVector.setX(4 * x + 2 * y);
-	// TODO: finish this.
-	return tempVector;
+double Vector3D::cosTheta(const Vector3D& v) {
+    double dotProd = dotProduct(v);
+    double magA = magnitude();
+    double magB = v.magnitude();
+    return dotProd / (magA*magB);
+}
+
+Vector3D Vector3D::unitVector() {
+	return *this / this->magnitude();
 }
 
 Vector3D Vector3D::operator+(const Vector3D& v) {
