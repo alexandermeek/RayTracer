@@ -6,7 +6,7 @@
 class Camera {
     public:
         Camera();
-        Camera(Point3D vRP, Point3D pRef);
+        Camera(Point3D vRP, Point3D pRef, int width, int height);
         virtual ~Camera();
 		
 		Point3D getVRP() const;
@@ -17,6 +17,7 @@ class Camera {
 		void setVPN(Vector3D v);
 		void setVUV(Vector3D v);
 		void setVRV(Vector3D v);
+		Point3D* getPixels();
 
 		std::string toString();
     protected:
@@ -26,6 +27,13 @@ class Camera {
         Vector3D viewPlaneNormalVector;
         Vector3D viewUpVector;
         Vector3D viewRightVector;
+		int width;
+		int height;
+		Point3D *pixels;
+
+		void computePixels();
+		Point3D getPointUp(Point3D p, double k);
+		Point3D getPointRight(Point3D p, double k);
 };
 
 #endif // CAMERA_H

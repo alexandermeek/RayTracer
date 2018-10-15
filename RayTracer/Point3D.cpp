@@ -16,7 +16,6 @@ Point3D::Point3D(double x, double y, double z) {
 	this->z = z;
 }
 
-
 Point3D::~Point3D() {
 }
 
