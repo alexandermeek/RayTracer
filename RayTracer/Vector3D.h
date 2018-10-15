@@ -7,7 +7,6 @@ class Vector3D {
     public:
         Vector3D();
         Vector3D(double x, double y, double z);
-        Vector3D(const double a [3], const double b [3]);
         virtual ~Vector3D();
 
         double getX() const;
