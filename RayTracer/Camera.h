@@ -7,15 +7,19 @@ class Camera {
         Camera(Vector3D vRP, Vector3D pRef, int width, int height);
         virtual ~Camera();
 		
+		int getWidth() const;
+		int getHeight() const;
 		Vector3D getVRP() const;
 		Vector3D getVPN() const;
 		Vector3D getVUV() const;
 		Vector3D getVRV() const;
+		void setWidth(int x);
+		void setHeight(int y);
 		void setVRP(Vector3D p);
 		void setVPN(Vector3D v);
 		void setVUV(Vector3D v);
 		void setVRV(Vector3D v);
-		Vector3D* getPixels();
+		Vector3D getPixelPosition(int x, int y);
 
 		std::string toString();
     protected:

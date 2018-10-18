@@ -37,6 +37,20 @@ Camera::~Camera() {
 }
 
 /*
+Gets the width of the camera view.
+*/
+int Camera::getWidth() const {
+	return width;
+}
+
+/*
+Gets the height of the camera view.
+*/
+int Camera::getHeight() const {
+	return height;
+}
+
+/*
 Gets the view reference point.
 */
 Vector3D Camera::getVRP() const {
@@ -65,36 +79,62 @@ Vector3D Camera::getVRV() const {
 }
 
 /*
+Sets the width of the camera view.
+Also re-calculates the pixel plane.
+*/
+void Camera::setWidth(int x) {
+	width = x;
+	computePixels();
+}
+
+/*
+Sets the height of the camera view.
+Also re-calculates the pixel plane.
+*/
+void Camera::setHeight(int y) {
+	height = y;
+	computePixels();
+}
+
+/*
 Sets the view reference position.
+Also re-calculates the pixel plane.
 */
 void Camera::setVRP(Vector3D p) {
 	viewReferencePoint = p;
+	computePixels();
 }
 
 /*
 Sets the view plane normal vector.
+Also re-calculates the pixel plane.
 */
 void Camera::setVPN(Vector3D v) {
-	viewPlaneNormalVector = v;
+	viewPlaneNormalVector = v.unitVector();
+	computePixels();
 }
 
 /*
 Sets the view up vector.
+Also re-calculates the pixel plane.
 */
 void Camera::setVUV(Vector3D v) {
-	viewUpVector = v;
+	viewUpVector = v.unitVector();
+	computePixels();
 }
 
 /*
 Sets the view right vector.
+Also re-calculates the pixel plane.
 */
 void Camera::setVRV(Vector3D v) {
-	viewRightVector = v;
+	viewRightVector = v.unitVector;
+	computePixels();
 }
 
 /*
-Gets a point upwards of given p at a distance k.
-(In the perspective of the camera.
+Gets a point downwards of given p at a distance k.
+(In the perspective of the camera.)
 */
 Vector3D Camera::getPointDown(Vector3D p, double k) {
 	Vector3D manipulationVector = viewUpVector * k;
@@ -119,10 +159,10 @@ Vector3D Camera::getPointRight(Vector3D p, double k) {
 }
 
 /*
-Gets the array of pixel positions.
+Gets the pixel position for pixel (x,y) in the camera view.
 */
-Vector3D* Camera::getPixels() {
-	return pixels;
+Vector3D Camera::getPixelPosition(int x, int y) {
+	return pixels[x * height + y];
 }
 
 /*
@@ -132,15 +172,21 @@ void Camera::computePixels() {
 	//Finds the top left corner making sure the VRP is in the centre of the camera view.
 	double x, y;
 	if (width % 2 == 0) {
-		x = (width / 2 - 0.5) * -1;
+		x = (width / 2 - 0.5);
 	} else {
-		x = (width / 2) * -1;
+		x = (width / 2);
 	}
 	if (height % 2 == 0) {
-		y = (height / 2 - 0.5) * -1;
+		y = (height / 2 - 0.5);
 	} else {
-		y = (height / 2) * -1;
+		y = (height / 2);
 	}
+
+	/*x and y need to be in the opposite direction since the methods used to get the top
+	left corner are getPointDown and getPointRight.*/
+	x *= -1;
+	y *= -1;
+	
 	Vector3D tempPoint = getPointRight(viewReferencePoint, x);
 	pixels[0] = getPointDown(tempPoint, y);
 	
