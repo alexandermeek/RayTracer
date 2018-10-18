@@ -96,12 +96,12 @@ void Camera::setVRV(Vector3D v) {
 Gets a point upwards of given p at a distance k.
 (In the perspective of the camera.
 */
-Vector3D Camera::getPointUp(Vector3D p, double k) {
+Vector3D Camera::getPointDown(Vector3D p, double k) {
 	Vector3D manipulationVector = viewUpVector * k;
 	Vector3D tempPoint;
-	tempPoint.setX(p.getX() + manipulationVector.getX());
-	tempPoint.setY(p.getY() + manipulationVector.getY());
-	tempPoint.setZ(p.getZ() + manipulationVector.getZ());
+	tempPoint.setX(p.getX() - manipulationVector.getX());
+	tempPoint.setY(p.getY() - manipulationVector.getY());
+	tempPoint.setZ(p.getZ() - manipulationVector.getZ());
 	return tempPoint;
 }
 
@@ -137,29 +137,25 @@ void Camera::computePixels() {
 		x = (width / 2) * -1;
 	}
 	if (height % 2 == 0) {
-		y = (height / 2 - 0.5);
+		y = (height / 2 - 0.5) * -1;
 	} else {
-		y = height / 2;
+		y = (height / 2) * -1;
 	}
 	Vector3D tempPoint = getPointRight(viewReferencePoint, x);
-	pixels[0] = getPointUp(tempPoint, y);
+	pixels[0] = getPointDown(tempPoint, y);
 	
 	//For each pixel in the camera view.
-	for (int i = 0; i < width; i++) {
-		for (int j = 0; j < height; j++) {
-			/*If you are at the top of a column of pixels (j=0), compute the value 
-			for the first row.*/
-			if (j == 0) {
-				if (i != 0) {
-					pixels[i * height + j] = getPointRight(pixels[0], i);
-				}
-			} else {
-				/*Else work out the pixel position based off the position of the pixel 
-				at the top of the column.*/
-				pixels[i * height + j] = getPointUp(pixels[i * height], j * -1);
-			}
+	for (int j = 0; j < width; j++) {
+		for (int i = 0; i < height; i++) {
+			pixels[i * height + j] = computePixel(i, j, pixels[0]);
 		}
 	}
+}
+
+Vector3D Camera::computePixel(int x, int y, Vector3D topLeftPixel) {
+	Vector3D tempPoint = getPointRight(topLeftPixel, x);
+	tempPoint = getPointDown(tempPoint, y);
+	return tempPoint;
 }
 
 /*
