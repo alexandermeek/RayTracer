@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +165,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RayTracer.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
