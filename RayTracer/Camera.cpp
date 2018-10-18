@@ -14,7 +14,7 @@ Camera::Camera() {
 Construcst a camera given it's position, what it's looking at,
 and the size of the camera view.
 */
-Camera::Camera(Point3D vRP, Point3D pRef, int width, int height) {
+Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height) {
 	Vector3D normal = pRef - vRP;
 	Vector3D up(0, 1, 0);
 	Vector3D right = up.crossProduct(normal);
@@ -28,7 +28,7 @@ Camera::Camera(Point3D vRP, Point3D pRef, int width, int height) {
 	this->width = width;
 	this->height = height;
 
-	pixels = new Point3D[width*height];
+	pixels = new Vector3D[width*height];
 	computePixels();
 }
 
@@ -39,7 +39,7 @@ Camera::~Camera() {
 /*
 Gets the view reference point.
 */
-Point3D Camera::getVRP() const {
+Vector3D Camera::getVRP() const {
 	return viewReferencePoint;
 }
 
@@ -67,7 +67,7 @@ Vector3D Camera::getVRV() const {
 /*
 Sets the view reference position.
 */
-void Camera::setVRP(Point3D p) {
+void Camera::setVRP(Vector3D p) {
 	viewReferencePoint = p;
 }
 
@@ -96,9 +96,9 @@ void Camera::setVRV(Vector3D v) {
 Gets a point upwards of given p at a distance k.
 (In the perspective of the camera.
 */
-Point3D Camera::getPointUp(Point3D p, double k) {
+Vector3D Camera::getPointUp(Vector3D p, double k) {
 	Vector3D manipulationVector = viewUpVector * k;
-	Point3D tempPoint;
+	Vector3D tempPoint;
 	tempPoint.setX(p.getX() + manipulationVector.getX());
 	tempPoint.setY(p.getY() + manipulationVector.getY());
 	tempPoint.setZ(p.getZ() + manipulationVector.getZ());
@@ -109,9 +109,9 @@ Point3D Camera::getPointUp(Point3D p, double k) {
 Gets a point to the right of given p at a distance k.
 (In the perspective of the camera.)
 */
-Point3D Camera::getPointRight(Point3D p, double k) {
+Vector3D Camera::getPointRight(Vector3D p, double k) {
 	Vector3D manipulationVector = viewRightVector * k;
-	Point3D tempPoint;
+	Vector3D tempPoint;
 	tempPoint.setX(p.getX() + manipulationVector.getX());
 	tempPoint.setY(p.getY() + manipulationVector.getY());
 	tempPoint.setZ(p.getZ() + manipulationVector.getZ());
@@ -121,7 +121,7 @@ Point3D Camera::getPointRight(Point3D p, double k) {
 /*
 Gets the array of pixel positions.
 */
-Point3D* Camera::getPixels() {
+Vector3D* Camera::getPixels() {
 	return pixels;
 }
 
@@ -141,7 +141,7 @@ void Camera::computePixels() {
 	} else {
 		y = height / 2;
 	}
-	Point3D tempPoint = getPointRight(viewReferencePoint, x);
+	Vector3D tempPoint = getPointRight(viewReferencePoint, x);
 	pixels[0] = getPointUp(tempPoint, y);
 	
 	//For each pixel in the camera view.
@@ -169,7 +169,7 @@ std::string Camera::toString() {
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2);
 	stream << "Camera: {" << endl
-		<< "        " << viewReferencePoint.toString() << endl
+		<< " Point " << viewReferencePoint.toString() << endl
 		<< "Normal " << viewPlaneNormalVector.toString() << endl
 		<< "    Up " << viewUpVector.toString() << endl
 		<< " Right " << viewRightVector.toString() << endl << "}";
