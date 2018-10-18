@@ -6,36 +6,35 @@
 class Vector3D {
     public:
         Vector3D();
-        Vector3D(double x, double y, double z);
+        Vector3D(float x, float y, float z);
         virtual ~Vector3D();
 
-        double getX() const;
-        double getY() const;
-        double getZ() const;
-        void setX(double x);
-        void setY(double y);
-        void setZ(double z);
+		float getX() const;
+		float getY() const;
+		float getZ() const;
+        void setX(float x);
+        void setY(float y);
+        void setZ(float z);
 
-        double magnitude() const;
-        double cosTheta(const Vector3D& v);
+		float magnitude() const;
+		float cosTheta(const Vector3D& v);
 
+		float dotProduct(const Vector3D& v);
 		Vector3D crossProduct(const Vector3D& v);
 		Vector3D unitVector();
 
 		Vector3D operator+ (const Vector3D& v);
         Vector3D operator- (const Vector3D& v);
-        Vector3D operator* (const double k);
-        Vector3D operator/ (const double k);
+        Vector3D operator* (const float k);
+        Vector3D operator/ (const float k);
 
         std::string toString();
     protected:
 
     private:
-        double x;
-        double y;
-        double z;
-
-        double dotProduct(const Vector3D& v);
+		float x;
+		float y;
+		float z;
 };
 
 #endif // VECTOR_H

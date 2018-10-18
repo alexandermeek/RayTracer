@@ -16,7 +16,7 @@ Vector3D::Vector3D() {
 /*
 Creates a vector with given x,y,z values.
 */
-Vector3D::Vector3D(double x, double y, double z) {
+Vector3D::Vector3D(float x, float y, float z) {
     this->x = x;
     this->y = y;
     this->z = z;
@@ -29,50 +29,50 @@ Vector3D::~Vector3D() {
 /*
 Gets the x value.
 */
-double Vector3D::getX() const {
+float Vector3D::getX() const {
     return this->x;
 }
 
 /*
 Gets the y value.
 */
-double Vector3D::getY() const {
+float Vector3D::getY() const {
     return this->y;
 }
 
 /*
 Gets the z value.
 */
-double Vector3D::getZ() const {
+float Vector3D::getZ() const {
     return this->z;
 }
 
 /*
 Sets the x value.
 */
-void Vector3D::setX(double x) {
+void Vector3D::setX(float x) {
     this->x = x;
 }
 
 /*
 Sets the y value.
 */
-void Vector3D::setY(double y) {
+void Vector3D::setY(float y) {
     this->y = y;
 }
 
 /*
 Sets the z value.
 */
-void Vector3D::setZ(double z) {
+void Vector3D::setZ(float z) {
     this->z = z;
 }
 
 /*
 Calculates the magnitude of a vector.
 */
-double Vector3D::magnitude() const {
-	double x,y,z;
+float Vector3D::magnitude() const {
+	float x,y,z;
     x = std::pow(this->x, 2);
     y = std::pow(this->y, 2);
     z = std::pow(this->z, 2);
@@ -83,7 +83,7 @@ double Vector3D::magnitude() const {
 Calculates the dot product of this vector and the given vector v.
 Returns a scalar value.
 */
-double Vector3D::dotProduct(const Vector3D& v) {
+float Vector3D::dotProduct(const Vector3D& v) {
     return x * v.getX() + y * v.getY() + z * v.getZ();
 }
 
@@ -103,10 +103,10 @@ Vector3D Vector3D::crossProduct(const Vector3D& v) {
 Calculates the cos theta between this vector and the given vector v.
 Can be used to get the angle between vectors.
 */
-double Vector3D::cosTheta(const Vector3D& v) {
-    double dotProd = dotProduct(v);
-    double magA = magnitude();
-    double magB = v.magnitude();
+float Vector3D::cosTheta(const Vector3D& v) {
+	float dotProd = dotProduct(v);
+	float magA = magnitude();
+	float magB = v.magnitude();
     return dotProd / (magA*magB);
 }
 
@@ -142,7 +142,7 @@ Vector3D Vector3D::operator-(const Vector3D& v) {
 /*
 Multiplies this vector by a scalar value.
 */
-Vector3D Vector3D::operator*(const double k) {
+Vector3D Vector3D::operator*(const float k) {
     Vector3D vect;
     vect.setX(x*k);
     vect.setY(y*k);
@@ -153,7 +153,7 @@ Vector3D Vector3D::operator*(const double k) {
 /*
 Divides this vector by a scalar value.
 */
-Vector3D Vector3D::operator/(const double k) {
+Vector3D Vector3D::operator/(const float k) {
     Vector3D vect;
     vect.setX(x/k);
     vect.setY(y/k);

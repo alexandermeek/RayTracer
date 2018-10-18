@@ -128,7 +128,7 @@ Sets the view right vector.
 Also re-calculates the pixel plane.
 */
 void Camera::setVRV(Vector3D v) {
-	viewRightVector = v.unitVector;
+	viewRightVector = v.unitVector();
 	computePixels();
 }
 
@@ -136,7 +136,7 @@ void Camera::setVRV(Vector3D v) {
 Gets a point downwards of given p at a distance k.
 (In the perspective of the camera.)
 */
-Vector3D Camera::getPointDown(Vector3D p, double k) {
+Vector3D Camera::getPointDown(Vector3D p, float k) {
 	Vector3D manipulationVector = viewUpVector * k;
 	Vector3D tempPoint;
 	tempPoint.setX(p.getX() - manipulationVector.getX());
@@ -149,7 +149,7 @@ Vector3D Camera::getPointDown(Vector3D p, double k) {
 Gets a point to the right of given p at a distance k.
 (In the perspective of the camera.)
 */
-Vector3D Camera::getPointRight(Vector3D p, double k) {
+Vector3D Camera::getPointRight(Vector3D p, float k) {
 	Vector3D manipulationVector = viewRightVector * k;
 	Vector3D tempPoint;
 	tempPoint.setX(p.getX() + manipulationVector.getX());
@@ -170,7 +170,7 @@ Calculates the position of each of the pixels in the camera.
 */
 void Camera::computePixels() {
 	//Finds the top left corner making sure the VRP is in the centre of the camera view.
-	double x, y;
+	float x, y;
 	if (width % 2 == 0) {
 		x = (width / 2 - 0.5);
 	} else {

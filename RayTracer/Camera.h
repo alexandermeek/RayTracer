@@ -35,8 +35,8 @@ class Camera {
 
 		void computePixels();
 		Vector3D computePixel(int x, int y, Vector3D topLeftPixel);
-		Vector3D getPointDown(Vector3D p, double k);
-		Vector3D getPointRight(Vector3D p, double k);
+		Vector3D getPointDown(Vector3D p, float k);
+		Vector3D getPointRight(Vector3D p, float k);
 };
 
 #endif // CAMERA_H
