@@ -44,3 +44,7 @@
 Debug
 RayTracer/Debug
 .vs
+
+# Output images
+*.png
+*.ppm
