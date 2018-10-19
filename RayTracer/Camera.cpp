@@ -162,7 +162,7 @@ Vector3D Camera::getPointRight(Vector3D p, float k) {
 Gets the pixel position for pixel (x,y) in the camera view.
 */
 Vector3D Camera::getPixelPosition(int x, int y) {
-	return pixels[x * height + y];
+	return pixels[x + y * width];
 }
 
 /*
@@ -191,9 +191,9 @@ void Camera::computePixels() {
 	pixels[0] = getPointDown(tempPoint, y);
 	
 	//For each pixel in the camera view.
-	for (int j = 0; j < width; j++) {
-		for (int i = 0; i < height; i++) {
-			pixels[i * height + j] = computePixel(i, j, pixels[0]);
+	for (int j = 0; j < height; j++) {
+		for (int i = 0; i < width; i++) {
+			pixels[i + j * width] = computePixel(i, j, pixels[0]);
 		}
 	}
 }
