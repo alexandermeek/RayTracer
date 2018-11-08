@@ -17,20 +17,6 @@ Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour) {
 Sphere::~Sphere() {
 }
 
-bool Sphere::doesIntersect(Vector3D rayOrigin, Vector3D directionVector) {
-	Vector3D oC = rayOrigin - centre;
-	float b2 = std::pow(2 * directionVector.dotProduct(oC), 2);
-	float a = directionVector.dotProduct(directionVector);
-	float c = oC.dotProduct(oC) - std::pow(radius, 2);
-	float b24ac = b2 - 4 * a * c;
-
-	if (b24ac < 0) {
-		return false;
-	} else {
-		return true;
-	}
-}
-
 Vector3D Sphere::getNormal(Vector3D point) {
 	return centre - point;
 }
