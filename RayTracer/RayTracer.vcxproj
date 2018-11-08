@@ -23,6 +23,7 @@
     <ProjectGuid>{7C743815-61C2-4706-8EBC-55F0D196C466}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>RayTracer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -156,14 +157,15 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColourRGB.h" />
+    <ClInclude Include="lodepng.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Vector3D.h" />
-    <ClInclude Include="\\tawe_dfs\Students\4\911454\Downloads\lodepng.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColourRGB.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -173,7 +175,6 @@
     <ClCompile Include="RayTracer.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vector3D.cpp" />
-    <ClCompile Include="\\tawe_dfs\Students\4\911454\Downloads\lodepng.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

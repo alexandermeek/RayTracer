@@ -12,6 +12,18 @@ Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour) {
 	this->centre = centre;
 	this->radius = radius;
 	this->colour = colour;
+	this->kA = 0.5;
+	this->kD = 0.5;
+	this->kS = 0.5;
+}
+
+Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour, float kA, float kD, float kS) {
+	this->centre = centre;
+	this->radius = radius;
+	this->colour = colour;
+	this->kA = kA;
+	this->kD = kD;
+	this->kS = kS;
 }
 
 Sphere::~Sphere() {
@@ -52,7 +64,7 @@ bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D li
 	Vector3D lightDirection = intersectionPoint - lightPos;
 	lightDirection = lightDirection.unitVector();
 
-	colour = (this->colour * 1 + this->colour * normal.dotProduct(lightDirection)) * 0.5;
+	colour = this->colour * kA + this->colour * normal.dotProduct(lightDirection) * kD;
 
 	return true;
 }

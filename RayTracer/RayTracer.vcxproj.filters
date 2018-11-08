@@ -30,7 +30,7 @@
     <ClInclude Include="ColourRGB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="\\tawe_dfs\Students\4\911454\Downloads\lodepng.h">
+    <ClInclude Include="lodepng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,7 +53,7 @@
     <ClCompile Include="ColourRGB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="\\tawe_dfs\Students\4\911454\Downloads\lodepng.cpp">
+    <ClCompile Include="lodepng.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
