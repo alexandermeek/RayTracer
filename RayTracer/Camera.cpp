@@ -211,9 +211,9 @@ std::string Camera::toString() {
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2);
 	stream << "Camera: {" << endl
-		<< " Point " << viewReferencePoint.toString() << endl
-		<< "Normal " << viewPlaneNormalVector.toString() << endl
-		<< "    Up " << viewUpVector.toString() << endl
-		<< " Right " << viewRightVector.toString() << endl << "}";
+		<< "    Point " << viewReferencePoint.toString() << endl
+		<< "   Normal " << viewPlaneNormalVector.toString() << endl
+		<< "       Up " << viewUpVector.toString() << endl
+		<< "    Right " << viewRightVector.toString() << endl << "}";
 	return stream.str();
 }

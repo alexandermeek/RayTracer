@@ -36,7 +36,7 @@ std::string Sphere::toString() {
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2);
 	stream << "Sphere: {" << endl
-		<< " Point " << centre.toString() << endl
-		<< "Radius " << radius << endl << "}";
+		<< "    Point " << centre.toString() << endl
+		<< "   Radius " << radius << endl << "}";
 	return stream.str();
 }
