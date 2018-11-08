@@ -6,7 +6,7 @@ class Sphere {
 		Sphere(Vector3D centre, float radius, ColourRGB colour);
 		~Sphere();
 
-		bool intersect(Vector3D rayOrigin, Vector3D directionVector, ColourRGB& returnColour);
+		bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D lightPos, ColourRGB& returnColour);
 
 		std::string toString();
 	protected:
