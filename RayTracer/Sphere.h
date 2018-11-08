@@ -7,7 +7,13 @@ class Sphere {
 		Sphere(Vector3D centre, float radius, ColourRGB colour, float kA, float kD, float kS);
 		~Sphere();
 
-		bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D lightPos, ColourRGB& returnColour);
+		ColourRGB getColour();
+		float getKA();
+		float getKD();
+		float getKS();
+
+		bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point);
+		Vector3D getNormal(Vector3D point);
 
 		std::string toString();
 	protected:
@@ -20,8 +26,6 @@ class Sphere {
 		float kA;
 		float kD;
 		float kS;
-		
-		Vector3D getNormal(Vector3D point);
 };
 #endif // SPHERE_H
 

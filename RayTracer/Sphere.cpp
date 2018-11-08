@@ -29,11 +29,27 @@ Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour, float kA, float 
 Sphere::~Sphere() {
 }
 
-Vector3D Sphere::getNormal(Vector3D point) {
-	return centre - point;
+ColourRGB Sphere::getColour() {
+	return this->colour;
 }
 
-bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D lightPos, ColourRGB& colour) {
+float Sphere::getKA() {
+	return this->kA;
+}
+
+float Sphere::getKD() {
+	return this->kD;
+}
+
+float Sphere::getKS() {
+	return this->kS;
+}
+
+Vector3D Sphere::getNormal(Vector3D point) {
+	return (centre - point).unitVector();
+}
+
+bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point) {
 	Vector3D oC = rayOrigin - centre;
 	float b = 2 * directionVector.dotProduct(oC);
 	float a = directionVector.dotProduct(directionVector);
@@ -58,13 +74,9 @@ bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D li
 		t = t2;
 	}
 
-	Vector3D intersectionPoint = rayOrigin + directionVector * t;
-	Vector3D normal = getNormal(intersectionPoint);
-	normal = normal.unitVector();
-	Vector3D lightDirection = intersectionPoint - lightPos;
-	lightDirection = lightDirection.unitVector();
+	point = rayOrigin + directionVector * t;
 
-	colour = this->colour * kA + this->colour * normal.dotProduct(lightDirection) * kD;
+	
 
 	return true;
 }
