@@ -159,6 +159,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="\\tawe_dfs\Students\4\911454\Downloads\lodepng.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="RayTracer.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="\\tawe_dfs\Students\4\911454\Downloads\lodepng.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
