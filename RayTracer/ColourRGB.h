@@ -14,5 +14,7 @@ class ColourRGB
 		int r;
 		int g;
 		int b;
+
+		std::string toString();
 };
 #endif // COLOURRGB_H

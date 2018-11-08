@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "ColourRGB.h"
 
+#include <sstream> // stringstream
+
 ColourRGB::ColourRGB() {
 	this->r = 0;
 	this->g = 0;
@@ -33,4 +35,10 @@ ColourRGB ColourRGB::operator+(const ColourRGB colour) {
 	tempColour.g = g + colour.g;
 	tempColour.b = b + colour.b;
 	return tempColour;
+}
+
+std::string ColourRGB::toString() {
+	std::stringstream stream;
+	stream << r << " " << g << " " << b;
+	return stream.str();
 }
