@@ -48,3 +48,6 @@ RayTracer/Debug
 # Output images
 *.png
 *.ppm
+
+# Windows thumbnails
+Thumbs.db
