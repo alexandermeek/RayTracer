@@ -29,11 +29,11 @@ IntensityRGB IntensityRGB::operator*(const float k) {
 	return tempIntensity;
 }
 
-IntensityRGB IntensityRGB::operator+(const IntensityRGB colour) {
+IntensityRGB IntensityRGB::operator+(const IntensityRGB intensity) {
 	IntensityRGB tempIntensity;
-	tempIntensity.r = r + colour.r;
-	tempIntensity.g = g + colour.g;
-	tempIntensity.b = b + colour.b;
+	tempIntensity.r = r + intensity.r;
+	tempIntensity.g = g + intensity.g;
+	tempIntensity.b = b + intensity.b;
 	return tempIntensity;
 }
 

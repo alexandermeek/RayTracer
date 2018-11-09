@@ -7,7 +7,7 @@ class IntensityRGB
 		~IntensityRGB();
 
 		IntensityRGB operator* (const float k);
-		IntensityRGB operator+ (const IntensityRGB colour);
+		IntensityRGB operator+ (const IntensityRGB intensity);
 
 		float r;
 		float g;
