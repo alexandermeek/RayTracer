@@ -8,41 +8,19 @@
 using std::cout;
 using std::endl;
 
-Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour) {
+Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour)
+	: Object3D(colour, 0.33, 0.33, 0.33) {
 	this->centre = centre;
 	this->radius = radius;
-	this->colour = colour;
-	this->kA = 0.5;
-	this->kD = 0.5;
-	this->kS = 0.5;
 }
 
-Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour, float kA, float kD, float kS) {
+Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour, float kA, float kD, float kS)
+	: Object3D(colour, kA, kD, kS) {
 	this->centre = centre;
 	this->radius = radius;
-	this->colour = colour;
-	this->kA = kA;
-	this->kD = kD;
-	this->kS = kS;
 }
 
 Sphere::~Sphere() {
-}
-
-ColourRGB Sphere::getColour() {
-	return this->colour;
-}
-
-float Sphere::getKA() {
-	return this->kA;
-}
-
-float Sphere::getKD() {
-	return this->kD;
-}
-
-float Sphere::getKS() {
-	return this->kS;
 }
 
 Vector3D Sphere::getNormal(Vector3D point) {
@@ -75,8 +53,6 @@ bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& p
 	}
 
 	point = rayOrigin + directionVector * t;
-
-	
 
 	return true;
 }
