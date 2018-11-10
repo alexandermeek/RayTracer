@@ -27,7 +27,8 @@ Vector3D Sphere::getNormal(Vector3D point) {
 	return (centre - point).unitVector();
 }
 
-bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance) {
+bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance, 
+	PointLight& light, FloatRGB& colour) {
 	Vector3D oC = rayOrigin - centre;
 	float b = 2 * directionVector.dotProduct(oC);
 	float a = directionVector.dotProduct(directionVector);
@@ -54,8 +55,14 @@ bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& p
 
 	distance = t;
 	point = rayOrigin + directionVector * t;
+	colour = getColourValue(point, light, rayOrigin);
 
 	return true;
+}
+
+FloatRGB Sphere::getColourValue(Vector3D point, PointLight& light, Vector3D rayOrigin) {
+	Vector3D normal = getNormal(point);
+	return Object3D::getColourValue(point, normal, light, rayOrigin);
 }
 
 std::string Sphere::toString() {

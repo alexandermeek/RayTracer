@@ -22,7 +22,8 @@ FloatRGB Object3D::getKS() {
 	return kS;
 }
 
-bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance)
+bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector, 
+	Vector3D& point, float& distance, PointLight& light, FloatRGB& colour)
 {
 	return false;
 }
@@ -30,6 +31,29 @@ bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D&
 Vector3D Object3D::getNormal(Vector3D point)
 {
 	return Vector3D();
+}
+
+FloatRGB Object3D::getColourValue(Vector3D point, Vector3D normal, PointLight& light, Vector3D rayOrigin) {
+	normal = normal.unitVector();
+	Vector3D lightDirection = (point - light.getPosition()).unitVector();
+	Vector3D viewDirection = (rayOrigin - point).unitVector();
+
+	float nl = normal.dotProduct(lightDirection);
+	nl = nl < 0 ? 0.0f : nl;
+	Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
+
+	FloatRGB temp = light.getIntensity() * kA
+		+ light.getIntensity() * normal.dotProduct(lightDirection) * kD
+		+ light.getIntensity() * std::pow(viewDirection.dotProduct(reflVector), 10) * kS;
+
+	FloatRGB colour(temp.r * 255,
+		temp.g * 255, temp.b * 255);
+
+	return colour;
+}
+
+FloatRGB Object3D::getColourValue(Vector3D point, PointLight& light, Vector3D rayOrigin) {
+	return FloatRGB();
 }
 
 std::string Object3D::toString()
