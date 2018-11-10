@@ -3,11 +3,11 @@
 
 class Sphere : public Object3D {
 	public:
-		Sphere(Vector3D centre, float radius, ColourRGB colour);
-		Sphere(Vector3D centre, float radius, ColourRGB colour, float kA, float kD, float kS);
+		Sphere(Vector3D centre, float radius);
+		Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB kS);
 		~Sphere();
 
-		bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point);
+		bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance);
 		Vector3D getNormal(Vector3D point);
 
 		std::string toString();

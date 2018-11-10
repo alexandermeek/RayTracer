@@ -214,6 +214,8 @@ std::string Camera::toString() {
 		<< "    Point " << viewReferencePoint.toString() << endl
 		<< "   Normal " << viewPlaneNormalVector.toString() << endl
 		<< "       Up " << viewUpVector.toString() << endl
-		<< "    Right " << viewRightVector.toString() << endl << "}";
+		<< "    Right " << viewRightVector.toString() << endl 
+		<< "       View Size: " << width << "x" << height 
+		<< endl << "}";
 	return stream.str();
 }

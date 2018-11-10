@@ -4,22 +4,20 @@
 class Object3D
 {
 	public:
-		Object3D(ColourRGB colour, float kA, float kD, float kS);
+		Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS);
 		~Object3D();
 
-		ColourRGB getColour();
-		float getKA();
-		float getKD();
-		float getKS();
+		FloatRGB getKA();
+		FloatRGB getKD();
+		FloatRGB getKS();
 
-		virtual bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point);
+		virtual bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance);
 		virtual Vector3D getNormal(Vector3D point);
 
 		virtual std::string toString();
 	private:
-		ColourRGB colour;
-		float kA;
-		float kD;
-		float kS;
+		FloatRGB kA;
+		FloatRGB kD;
+		FloatRGB kS;
 };
 #endif // OBJECT3D_H

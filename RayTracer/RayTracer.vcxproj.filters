@@ -27,9 +27,6 @@
     <ClInclude Include="Sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ColourRGB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="lodepng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,7 +36,7 @@
     <ClInclude Include="PointLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IntensityRGB.h">
+    <ClInclude Include="FloatRGB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,9 +56,6 @@
     <ClCompile Include="Sphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ColourRGB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lodepng.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -71,7 +65,7 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IntensityRGB.cpp">
+    <ClCompile Include="FloatRGB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

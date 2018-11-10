@@ -8,14 +8,14 @@
 using std::cout;
 using std::endl;
 
-Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour)
-	: Object3D(colour, 0.33, 0.33, 0.33) {
+Sphere::Sphere(Vector3D centre, float radius)
+	: Object3D(FloatRGB(1,1,1), FloatRGB(1,1,1), FloatRGB(1,1,1)) {
 	this->centre = centre;
 	this->radius = radius;
 }
 
-Sphere::Sphere(Vector3D centre, float radius, ColourRGB colour, float kA, float kD, float kS)
-	: Object3D(colour, kA, kD, kS) {
+Sphere::Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB kS)
+	: Object3D(kA, kD, kS) {
 	this->centre = centre;
 	this->radius = radius;
 }
@@ -27,7 +27,7 @@ Vector3D Sphere::getNormal(Vector3D point) {
 	return (centre - point).unitVector();
 }
 
-bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point) {
+bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance) {
 	Vector3D oC = rayOrigin - centre;
 	float b = 2 * directionVector.dotProduct(oC);
 	float a = directionVector.dotProduct(directionVector);
@@ -52,6 +52,7 @@ bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& p
 		t = t2;
 	}
 
+	distance = t;
 	point = rayOrigin + directionVector * t;
 
 	return true;

@@ -156,8 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="ColourRGB.h" />
-    <ClInclude Include="IntensityRGB.h" />
+    <ClInclude Include="FloatRGB.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Object3D.h" />
     <ClInclude Include="pch.h" />
@@ -167,8 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="ColourRGB.cpp" />
-    <ClCompile Include="IntensityRGB.cpp" />
+    <ClCompile Include="FloatRGB.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="pch.cpp">
