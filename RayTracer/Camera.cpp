@@ -14,7 +14,7 @@ Camera::Camera() {
 Construcst a camera given it's position, what it's looking at,
 and the size of the camera view.
 */
-Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height) {
+Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale) {
 	Vector3D normal = pRef - vRP;
 	Vector3D up(0, 1, 0);
 	Vector3D right = up.crossProduct(normal);
@@ -27,6 +27,7 @@ Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height) {
 
 	this->width = width;
 	this->height = height;
+	this->scale = scale;
 
 	pixels = new Vector3D[width*height];
 	computePixels();
@@ -137,7 +138,7 @@ Gets a point downwards of given p at a distance k.
 (In the perspective of the camera.)
 */
 Vector3D Camera::getPointDown(Vector3D p, float k) {
-	Vector3D manipulationVector = viewUpVector * k;
+	Vector3D manipulationVector = viewUpVector * k * scale;
 	Vector3D tempPoint;
 	tempPoint.setX(p.getX() - manipulationVector.getX());
 	tempPoint.setY(p.getY() - manipulationVector.getY());
@@ -150,7 +151,7 @@ Gets a point to the right of given p at a distance k.
 (In the perspective of the camera.)
 */
 Vector3D Camera::getPointRight(Vector3D p, float k) {
-	Vector3D manipulationVector = viewRightVector * k;
+	Vector3D manipulationVector = viewRightVector * k * scale;
 	Vector3D tempPoint;
 	tempPoint.setX(p.getX() + manipulationVector.getX());
 	tempPoint.setY(p.getY() + manipulationVector.getY());

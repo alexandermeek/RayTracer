@@ -4,7 +4,7 @@
 class Camera {
     public:
         Camera();
-        Camera(Vector3D vRP, Vector3D pRef, int width, int height);
+        Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale);
         virtual ~Camera();
 		
 		int getWidth() const;
@@ -31,6 +31,7 @@ class Camera {
         Vector3D viewRightVector;
 		int width;
 		int height;
+		float scale;
 		Vector3D *pixels;
 
 		void computePixels();
