@@ -58,15 +58,15 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 
 	FloatRGB ambientLight = light.getIntensity() * kA;
 	FloatRGB diffuseLight = light.getIntensity() * normal.dotProduct(lightDirection) * kD * hit;
-	FloatRGB specularLight = light.getIntensity() * std::pow(vR, 9) * hit;
+	FloatRGB specularLight = light.getIntensity() * std::pow(vR, 10) * kS * hit;
 	FloatRGB temp = ambientLight + diffuseLight + specularLight;
 
-	temp.r = temp.r > 1 ? 1 : temp.r;
-	temp.g = temp.g > 1 ? 1 : temp.g;
-	temp.b = temp.b > 1 ? 1 : temp.b;
+	//temp.r = temp.r > 1 ? 1 : temp.r;
+	//temp.g = temp.g > 1 ? 1 : temp.g;
+	//temp.b = temp.b > 1 ? 1 : temp.b;
 
-	FloatRGB colour(temp.r * 255,
-		temp.g * 255, temp.b * 255);
+	FloatRGB colour(temp.r * 255.0f,
+		temp.g * 255.0f, temp.b * 255.0f);
 
 	return colour;
 }
