@@ -1,10 +1,6 @@
 #include "pch.h"
 #include "Object3D.h"
 
-#include <iostream>
-
-using std::cout;
-
 Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS)
 {
 	this->kA = kA;
@@ -50,7 +46,6 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	for (Object3D* obj : objects) {
 		if (obj->intersect(point, light.getPosition() - point)) {
 			miss = 0;
-			cout << "hit!";
 		}
 	}
 
