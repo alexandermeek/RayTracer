@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "Object3D.h"
 
+#include <iostream>
+
+using std::cout;
+
 Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS)
 {
 	this->kA = kA;
@@ -42,10 +46,11 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	Vector3D lightDirection = (point - light.getPosition()).unitVector();
 	Vector3D viewDirection = (rayOrigin - point).unitVector();
 
-	float hit = 1;
+	float miss = 1;
 	for (Object3D* obj : objects) {
 		if (obj->intersect(point, light.getPosition() - point)) {
-			hit = 0;
+			miss = 0;
+			cout << "hit!";
 		}
 	}
 
@@ -57,13 +62,9 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	vR = vR < 0 ? 0.0f : vR;
 
 	FloatRGB ambientLight = light.getIntensity() * kA;
-	FloatRGB diffuseLight = light.getIntensity() * normal.dotProduct(lightDirection) * kD * hit;
-	FloatRGB specularLight = light.getIntensity() * std::pow(vR, 10) * kS * hit;
+	FloatRGB diffuseLight = light.getIntensity() * normal.dotProduct(lightDirection) * kD * miss;
+	FloatRGB specularLight = light.getIntensity() * std::pow(vR, 10) * kS * miss;
 	FloatRGB temp = ambientLight + diffuseLight + specularLight;
-
-	//temp.r = temp.r > 1 ? 1 : temp.r;
-	//temp.g = temp.g > 1 ? 1 : temp.g;
-	//temp.b = temp.b > 1 ? 1 : temp.b;
 
 	FloatRGB colour(temp.r * 255.0f,
 		temp.g * 255.0f, temp.b * 255.0f);

@@ -3,10 +3,7 @@
 
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
-#include <iostream>
-#include <vector>
 
-using std::cout;
 using std::endl;
 
 Sphere::Sphere(Vector3D centre, float radius)
