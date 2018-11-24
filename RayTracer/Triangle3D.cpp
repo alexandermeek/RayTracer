@@ -8,7 +8,7 @@
 using std::cout;
 using std::endl;
 
-constexpr float kEpsilon = 1e-8;
+const float EPSILON = 0.0000001;
 
 Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC)
 	: Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1,1,1)) {
@@ -31,60 +31,67 @@ Triangle3D::~Triangle3D()
 Vector3D Triangle3D::getNormal(Vector3D point) {
 	Vector3D aB = pointB - pointA;
 	Vector3D aC = pointC - pointA;
-	Vector3D normal = aB.crossProduct(aC).unitVector();
+	Vector3D normal = aB.crossProduct(aC);
 
-	return normal;
+	return normal * -1;
 }
 
 bool Triangle3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
-	return false;
-}
-
-bool Triangle3D::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance,
-	PointLight& light, FloatRGB& colour) {
+	
 	float t, u, v;
 
 	Vector3D normal = getNormal(Vector3D());
 	Vector3D aB = pointB - pointA;
 	Vector3D aC = pointC - pointA;
-	Vector3D planeVector = directionVector.crossProduct(aC).unitVector();
+	Vector3D planeVector = directionVector.crossProduct(aC);
 	float det = aB.dotProduct(planeVector);
-	if (det < kEpsilon) return false;
+	if (det > -EPSILON && det < EPSILON) return false;
 
-	if (fabs(det) < kEpsilon) return false;
+	if (fabs(det) < EPSILON) return false;
 
 	float invDet = 1 / det;
-	Vector3D tVec = (rayOrigin - pointA).unitVector();
+	Vector3D tVec = rayOrigin - pointA;
 	u = tVec.dotProduct(planeVector) * invDet;
 	if (u < 0 || u > 1) return false;
 
-	Vector3D qVec = (tVec.crossProduct(aB) * invDet).unitVector();
-	v = tVec.dotProduct(qVec) * invDet;
+	Vector3D qVec = tVec.crossProduct(aB);
+	v = directionVector.dotProduct(qVec) * invDet;
 	if (v < 0 || u + v > 1) return false;
 
 	t = aC.dotProduct(qVec) * invDet;
-	if (t < 0) return false;
+	if (t < EPSILON) return false;
+
+	return true;
+}
+
+bool Triangle3D::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance,
+	PointLight& light, FloatRGB& colour) {
+	
+	float t, u, v;
+
+	Vector3D normal = getNormal(Vector3D());
+	Vector3D aB = pointB - pointA;
+	Vector3D aC = pointC - pointA;
+	Vector3D planeVector = directionVector.crossProduct(aC);
+	float det = aB.dotProduct(planeVector);
+	if (det > -EPSILON && det < EPSILON) return false;
+
+	if (fabs(det) < EPSILON) return false;
+
+	float invDet = 1 / det;
+	Vector3D tVec = rayOrigin - pointA;
+	u = tVec.dotProduct(planeVector) * invDet;
+	if (u < 0 || u > 1) return false;
+
+	Vector3D qVec = tVec.crossProduct(aB);
+	v = directionVector.dotProduct(qVec) * invDet;
+	if (v < 0 || u + v > 1) return false;
+
+	t = aC.dotProduct(qVec) * invDet;
+	if (t < EPSILON) return false;
 
 	distance = t;
 	point = rayOrigin + directionVector * t;
-
-	Vector3D C;
-
-	Vector3D edge0 = pointB - pointA;
-	Vector3D vp0 = point - pointB;
-	C = edge0.crossProduct(vp0);
-	//if (normal.dotProduct(C) < 0) return false;
-
-	Vector3D edge1 = pointC - pointA;
-	Vector3D vp1 = point - pointB;
-	C = edge1.crossProduct(vp1);
-	if ((u = normal.dotProduct(C)) < 0) return false;
-
-	Vector3D edge2 = pointA - pointB;
-	Vector3D vp2 = point - pointC;
-	C = edge2.crossProduct(vp2);
-	if ((v = normal.dotProduct(C)) < 0) return false;
-
 
 	colour = getColourValue(objects, point, light, rayOrigin);
 
