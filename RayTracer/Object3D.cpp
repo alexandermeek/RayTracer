@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Object3D.h"
 
+const float EPSILON = 0.0000001;
+
 Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS)
 {
 	this->kA = kA;
@@ -51,7 +53,7 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 
 	float nl = normal.dotProduct(lightDirection);
 	nl = abs(nl);
-	//nl = nl < 0 ? 0.0f : nl;
+	nl = nl < EPSILON ? 0.0f : nl;
 	Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
 
 	float vR = viewDirection.dotProduct(reflVector) * -1;

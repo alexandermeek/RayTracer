@@ -33,7 +33,7 @@ Vector3D Triangle3D::getNormal(Vector3D point) {
 	Vector3D aC = pointC - pointA;
 	Vector3D normal = aB.crossProduct(aC);
 
-	return normal * -1;
+	return normal;
 }
 
 bool Triangle3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
