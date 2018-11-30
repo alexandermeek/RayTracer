@@ -3,11 +3,12 @@
 
 const float EPSILON = 0.0000001;
 
-Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS)
+Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, bool useBidirectionalLight)
 {
 	this->kA = kA;
 	this->kD = kD;
 	this->kS = kS;
+	this->useBidirectionalLight = useBidirectionalLight;
 }
 
 Object3D::~Object3D()
@@ -54,7 +55,7 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	}
 
 	float nl = normal.dotProduct(lightDirection);
-	//nl = abs(nl);
+	if (useBidirectionalLight) { nl = abs(nl); }
 	nl = nl < EPSILON ? 0.0f : nl;
 	Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
 

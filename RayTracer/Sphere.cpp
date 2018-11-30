@@ -7,13 +7,13 @@
 using std::endl;
 
 Sphere::Sphere(Vector3D centre, float radius)
-	: Object3D(FloatRGB(1,1,1), FloatRGB(1,1,1), FloatRGB(1,1,1)) {
+	: Object3D(FloatRGB(1,1,1), FloatRGB(1,1,1), FloatRGB(1,1,1), false) {
 	this->centre = centre;
 	this->radius = radius;
 }
 
 Sphere::Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB kS)
-	: Object3D(kA, kD, kS) {
+	: Object3D(kA, kD, kS, false) {
 	this->centre = centre;
 	this->radius = radius;
 }

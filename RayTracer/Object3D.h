@@ -6,7 +6,7 @@
 class Object3D
 {
 	public:
-		Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS);
+		Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, bool useBidirectionalLight);
 		~Object3D();
 
 		FloatRGB getKA();
@@ -22,6 +22,7 @@ class Object3D
 		FloatRGB kA;
 		FloatRGB kD;
 		FloatRGB kS;
+		bool useBidirectionalLight;
 	protected:
 		FloatRGB getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight& light, Vector3D rayOrigin);
 		virtual FloatRGB getColourValue(std::vector<Object3D*>& objects, Vector3D point, PointLight& light, Vector3D rayOrigin);
