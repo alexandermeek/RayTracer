@@ -46,13 +46,15 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 
 	float miss = 1;
 	for (Object3D* obj : objects) {
-		if (obj->intersect(point, light.getPosition() - point)) {
-			miss = 0;
+		if (!(this == obj)) {
+			if (obj->intersect(point, light.getPosition() - point)) {
+				miss = 0;
+			}
 		}
 	}
 
 	float nl = normal.dotProduct(lightDirection);
-	nl = abs(nl);
+	//nl = abs(nl);
 	nl = nl < EPSILON ? 0.0f : nl;
 	Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
 
