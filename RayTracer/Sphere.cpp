@@ -37,8 +37,8 @@ bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 	}
 
 	float t;
-	float t1 = (-b + std::sqrt(b24ac)) / 2 * a;
-	float t2 = (-b - std::sqrt(b24ac)) / 2 * a;
+	float t1 = (-b + std::sqrt(b24ac)) / 2.0f * a;
+	float t2 = (-b - std::sqrt(b24ac)) / 2.0f * a;
 
 	if (t1 < 0 || t2 < 0) {
 		return false;
@@ -60,18 +60,14 @@ bool Sphere::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vect
 	}
 
 	float t;
-	float t1 = (-b + std::sqrt(b24ac)) / 2 * a;
-	float t2 = (-b - std::sqrt(b24ac)) / 2 * a;
+	float t1 = (-b + std::sqrt(b24ac)) / 2.0f * a;
+	float t2 = (-b - std::sqrt(b24ac)) / 2.0f * a;
 
 	if (t1 < 0 || t2 < 0) {
 		return false;
 	}
 
-	if (t1 < t2) {
-		t = t1;
-	} else {
-		t = t2;
-	}
+	t = t1 < t2 ? t1 : t2;
 
 	distance = t;
 	point = rayOrigin + directionVector * t;

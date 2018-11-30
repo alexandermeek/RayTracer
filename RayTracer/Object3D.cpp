@@ -59,7 +59,7 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
 
 	float vR = viewDirection.dotProduct(reflVector) * -1;
-	vR = vR < 0 ? 0.0f : vR;
+	vR = vR < EPSILON ? 0.0f : vR;
 
 	FloatRGB ambientLight = light.getIntensity() * kA;
 	FloatRGB diffuseLight = light.getIntensity() * nl * kD * miss;
