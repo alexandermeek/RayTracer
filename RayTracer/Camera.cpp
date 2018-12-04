@@ -192,6 +192,7 @@ void Camera::computePixels() {
 	pixels[0] = getPointDown(tempPoint, y);
 	
 	//For each pixel in the camera view.
+	#pragma omp parallel for
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < width; i++) {
 			pixels[i + j * width] = computePixel(i, j, pixels[0]);
