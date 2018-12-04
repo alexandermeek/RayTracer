@@ -49,7 +49,7 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	for (Object3D* obj : objects) {
 		if (!(this == obj)) {
 			if (obj->intersect(point, light.getPosition() - point)) {
-				miss = 0;
+				miss = 0.1;
 			}
 		}
 	}
