@@ -3,7 +3,8 @@
 class Logger {
 	public:
 		Logger(std::string filename);
-		void createEntry(int height, int width, float duration, int triangles, int spheres);
+		void createEntry(int height, int width, float runtime, 
+			int triangles, int spheres, int num_rays_missed);
 	private:
 		std::string filename;
 };

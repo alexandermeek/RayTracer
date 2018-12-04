@@ -45,9 +45,10 @@ Debug
 RayTracer/Debug
 .vs
 
-# Output images
+# Output files
 *.png
 *.ppm
+log.txt
 
 # Windows thumbnails
 Thumbs.db
