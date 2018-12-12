@@ -162,6 +162,7 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Object3D.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PLYReader.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Triangle3D.h" />
@@ -179,6 +180,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PLYReader.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="RayTracer.cpp" />
     <ClCompile Include="Sphere.cpp" />
