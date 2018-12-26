@@ -64,12 +64,12 @@ bool Triangle3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 	return true;
 }
 
-bool Triangle3D::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, float& distance,
-	PointLight& light, FloatRGB& colour) {
+bool Triangle3D::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal, 
+	float& distance, PointLight& light) {
 	
 	float t, u, v;
 
-	Vector3D normal = getNormal(Vector3D());
+	normal = getNormal(Vector3D());
 	Vector3D aB = pointB - pointA;
 	Vector3D aC = pointC - pointA;
 	Vector3D planeVector = directionVector.crossProduct(aC);
@@ -93,14 +93,7 @@ bool Triangle3D::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, 
 	distance = t;
 	point = rayOrigin + directionVector * t;
 
-	colour = getColourValue(objects, point, light, rayOrigin);
-
 	return true;
-}
-
-FloatRGB Triangle3D::getColourValue(std::vector<Object3D*>& objects, Vector3D point, PointLight& light, Vector3D rayOrigin) {
-	Vector3D normal = getNormal(point);
-	return Object3D::getColourValue(objects, point, normal, light, rayOrigin);
 }
 
 std::string Triangle3D::toString() {

@@ -3,16 +3,21 @@
 
 const float EPSILON = 0.0000001;
 
-Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, bool useBidirectionalLight)
-{
+Object3D::Object3D() {
+	this->kA = FloatRGB(1, 1, 1);
+	this->kD = FloatRGB(1, 1, 1);
+	this->kS = FloatRGB(1, 1, 1);
+	this->useBidirectionalLight = false;
+}
+
+Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, bool useBidirectionalLight) {
 	this->kA = kA;
 	this->kD = kD;
 	this->kS = kS;
 	this->useBidirectionalLight = useBidirectionalLight;
 }
 
-Object3D::~Object3D()
-{
+Object3D::~Object3D() {
 }
 
 FloatRGB Object3D::getKA() {
@@ -30,13 +35,11 @@ bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 }
 
 bool Object3D::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, 
-	Vector3D& point, float& distance, PointLight& light, FloatRGB& colour)
-{
+	Vector3D& point, Vector3D& normal, float& distance, PointLight& light) {
 	return false;
 }
 
-Vector3D Object3D::getNormal(Vector3D point)
-{
+Vector3D Object3D::getNormal(Vector3D point) {
 	return Vector3D();
 }
 
@@ -71,10 +74,6 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 		temp.g * 255.0f, temp.b * 255.0f);
 
 	return colour;
-}
-
-FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D point, PointLight& light, Vector3D rayOrigin) {
-	return FloatRGB();
 }
 
 std::string Object3D::toString()
