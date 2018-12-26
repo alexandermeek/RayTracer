@@ -37,7 +37,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 			switch (fileStage) {
 			case 0 :
 				if (line.substr(0, DESC_PLY.length()) == DESC_PLY) {
-					std::cout << std::endl << "Reading a ply file";
+					std::cout << std::endl << "Reading a ply file with: ";
 					fileStage = 1;
 				} 
 				else {
@@ -47,10 +47,12 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 			case 1 :
 				if (line.substr(0, DESC_VERTICES.length()) == DESC_VERTICES) {
 					numVertices = std::stoi(line.substr(DESC_VERTICES.length(), line.length()));
+					std::cout << numVertices << " vertices, and ";
 				} 
 				else {
 					if (line.substr(0, DESC_FACES.length()) == DESC_FACES) {
 						numFaces = std::stoi(line.substr(DESC_FACES.length(), line.length()));
+						std::cout << numFaces << " faces.";
 					}
 					else {
 						if (line.substr(0, DESC_END_HEADER.length()) == DESC_END_HEADER) {
@@ -60,7 +62,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 				}
 				break;
 			case 2 :
-				if (line.substr(0, 1) == "3") {
+				if (line.substr(0, 2) == "3 ") {
 					fileStage = 3;
 					objects.push_back(new Triangle3D(readTriangle(line, vertices)));
 				}
@@ -75,7 +77,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 		}
 		plyFile.close();
 	}
-	
+	std::cout << std::endl << "File read.";
 	return true;
 }
 
