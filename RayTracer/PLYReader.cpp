@@ -66,12 +66,21 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 					fileStage = 3;
 					objects.push_back(new Triangle3D(readTriangle(line, vertices)));
 				}
+				else if (line.substr(0, 2) == "1 ") {
+					fileStage = 3;
+					objects.push_back(new Sphere(readSphere(line, vertices)));
+				}
 				else {
 					vertices.push_back(readPoint(line));
 				}
 				break;
 			case 3 :
-				objects.push_back(new Triangle3D(readTriangle(line, vertices)));
+				if (line.substr(0, 2) == "3 ") {
+					objects.push_back(new Triangle3D(readTriangle(line, vertices)));
+				}
+				else {
+					objects.push_back(new Sphere(readSphere(line, vertices)));
+				}
 				break;
 			}
 		}
@@ -113,4 +122,25 @@ Triangle3D PLYReader::readTriangle(std::string line, std::vector<Vector3D>& vert
 
 	Triangle3D tri(vertices[v[0]], vertices[v[1]], vertices[v[2]]);
 	return tri;
+}
+
+Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D>& vertices) {
+	int centerV;
+	float radius;
+	int pos = 0;
+	std::string token;
+
+	line.erase(0, 2);
+
+	pos = line.find(DELIMITER);
+	token = line.substr(0, pos);
+	centerV = std::stoi(token);
+	line.erase(0, pos + DELIMITER.length());
+
+	pos = line.find(DELIMITER);
+	token = line.substr(0, pos);
+	radius = std::stof(token);
+
+	Sphere sph(vertices[centerV], radius);
+	return sph;
 }
