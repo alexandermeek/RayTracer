@@ -77,7 +77,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 		}
 		plyFile.close();
 	}
-	std::cout << std::endl << "File read.";
+	std::cout << std::endl << "File read." << std::endl;
 	return true;
 }
 
@@ -93,7 +93,7 @@ Vector3D PLYReader::readPoint(std::string line) {
 		line.erase(0, pos + DELIMITER.length());
 	}
 
-	Vector3D vertex(v[0], v[1], v[2]);
+	Vector3D vertex(v[0] * 100.0f, v[1] * 100.0f, v[2] * 100.0f);
 	return vertex;
 }
 

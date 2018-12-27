@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Object3D.h"
 
-const float EPSILON = 0.0000001;
-
 Object3D::Object3D() {
 	this->kA = FloatRGB(1, 1, 1);
 	this->kD = FloatRGB(1, 1, 1);

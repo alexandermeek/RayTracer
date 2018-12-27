@@ -21,6 +21,8 @@ class Object3D
 		FloatRGB getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight& light, Vector3D rayOrigin);
 
 		virtual std::string toString(); 
+	protected:
+		const float EPSILON = 0.00001;
 	private:
 		FloatRGB kA;
 		FloatRGB kD;

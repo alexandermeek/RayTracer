@@ -8,8 +8,6 @@
 using std::cout;
 using std::endl;
 
-const float EPSILON = 0.0000001;
-
 Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC)
 	: Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1,1,1), true) {
 	this->pointA = pointA;
