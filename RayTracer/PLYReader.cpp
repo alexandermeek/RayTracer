@@ -37,7 +37,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 			switch (fileStage) {
 			case 0 :
 				if (line.substr(0, DESC_PLY.length()) == DESC_PLY) {
-					std::cout << std::endl << "Reading a ply file with: ";
+					std::cout << std::endl << "Reading a ply file: ";
 					fileStage = 1;
 				} 
 				else {
@@ -47,12 +47,12 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 			case 1 :
 				if (line.substr(0, DESC_VERTICES.length()) == DESC_VERTICES) {
 					numVertices = std::stoi(line.substr(DESC_VERTICES.length(), line.length()));
-					std::cout << numVertices << " vertices, and ";
+					std::cout << numVertices << " vertices | ";
 				} 
 				else {
 					if (line.substr(0, DESC_FACES.length()) == DESC_FACES) {
 						numFaces = std::stoi(line.substr(DESC_FACES.length(), line.length()));
-						std::cout << numFaces << " faces.";
+						std::cout << numFaces << " faces";
 					}
 					else {
 						if (line.substr(0, DESC_END_HEADER.length()) == DESC_END_HEADER) {
@@ -86,7 +86,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 		}
 		plyFile.close();
 	}
-	std::cout << std::endl << "File read." << std::endl;
+	std::cout << std::endl << "File read!" << std::endl;
 	return true;
 }
 
