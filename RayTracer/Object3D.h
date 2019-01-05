@@ -13,6 +13,9 @@ class Object3D
 		FloatRGB getKA();
 		FloatRGB getKD();
 		FloatRGB getKS();
+		void setKA(FloatRGB kA);
+		void setKD(FloatRGB kD);
+		void setKS(FloatRGB kS);
 
 		virtual bool intersect(Vector3D rayOrigin, Vector3D directionVector);
 		virtual bool intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal, float& distance, PointLight& light);

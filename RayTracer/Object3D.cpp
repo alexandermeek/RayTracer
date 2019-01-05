@@ -28,6 +28,18 @@ FloatRGB Object3D::getKS() {
 	return kS;
 }
 
+void Object3D::setKA(FloatRGB kA) {
+	this->kA = kA;
+}
+
+void Object3D::setKD(FloatRGB kD) {
+	this->kD = kD;
+}
+
+void Object3D::setKS(FloatRGB kS) {
+	this->kS = kS;
+}
+
 bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 	return false;
 }
