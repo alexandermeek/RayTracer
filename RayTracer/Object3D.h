@@ -6,6 +6,9 @@
 class Object3D
 {
 	public:
+		static const bool BIDIRECTIONAL = true;
+		static const bool UNIDIRECTIONAL = false;
+
 		Object3D();
 		Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, bool useBidirectionalLight);
 		~Object3D();

@@ -9,14 +9,14 @@ using std::cout;
 using std::endl;
 
 Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC)
-	: Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1,1,1), true) {
+	: Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1,1,1), BIDIRECTIONAL) {
 	this->pointA = pointA;
 	this->pointB = pointB;
 	this->pointC = pointC;
 }
 
 Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC, FloatRGB kA, FloatRGB kD, FloatRGB kS)
-	: Object3D(kA, kD, kS, true) {
+	: Object3D(kA, kD, kS, BIDIRECTIONAL) {
 	this->pointA = pointA;
 	this->pointB = pointB;
 	this->pointC = pointC;
