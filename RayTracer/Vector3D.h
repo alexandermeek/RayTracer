@@ -27,6 +27,7 @@ class Vector3D {
         Vector3D operator- (const Vector3D& v);
         Vector3D operator* (const float k);
         Vector3D operator/ (const float k);
+		Vector3D operator/ (const Vector3D& v);
 
         std::string toString();
     protected:

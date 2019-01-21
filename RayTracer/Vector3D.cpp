@@ -161,6 +161,14 @@ Vector3D Vector3D::operator/(const float k) {
     return vect;
 }
 
+Vector3D Vector3D::operator/(const Vector3D& v) {
+	Vector3D vect;
+	vect.setX(x / v.getX());
+	vect.setY(y / v.getY());
+	vect.setZ(z / v.getZ());
+	return vect;
+}
+
 /*
 Return the Vector object in string form. For debug purposes.
 */
