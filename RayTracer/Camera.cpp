@@ -29,13 +29,11 @@ Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale) 
 	this->height = height;
 	this->scale = scale;
 
-	pixels = new Vector3D[width*height];
-	computePixels();
+	rays = new Ray[width*height];
+	computeRays();
 }
 
-Camera::~Camera() {
-    //dtor
-}
+Camera::~Camera() {}
 
 /*
 Gets the width of the camera view.
@@ -85,7 +83,7 @@ Also re-calculates the pixel plane.
 */
 void Camera::setWidth(int x) {
 	width = x;
-	computePixels();
+	computeRays();
 }
 
 /*
@@ -94,7 +92,7 @@ Also re-calculates the pixel plane.
 */
 void Camera::setHeight(int y) {
 	height = y;
-	computePixels();
+	computeRays();
 }
 
 /*
@@ -103,7 +101,7 @@ Also re-calculates the pixel plane.
 */
 void Camera::setVRP(Vector3D p) {
 	viewReferencePoint = p;
-	computePixels();
+	computeRays();
 }
 
 /*
@@ -112,7 +110,7 @@ Also re-calculates the pixel plane.
 */
 void Camera::setVPN(Vector3D v) {
 	viewPlaneNormalVector = v.unitVector();
-	computePixels();
+	computeRays();
 }
 
 /*
@@ -121,7 +119,7 @@ Also re-calculates the pixel plane.
 */
 void Camera::setVUV(Vector3D v) {
 	viewUpVector = v.unitVector();
-	computePixels();
+	computeRays();
 }
 
 /*
@@ -130,7 +128,7 @@ Also re-calculates the pixel plane.
 */
 void Camera::setVRV(Vector3D v) {
 	viewRightVector = v.unitVector();
-	computePixels();
+	computeRays();
 }
 
 /*
@@ -140,9 +138,9 @@ Gets a point downwards of given p at a distance k.
 Vector3D Camera::getPointDown(Vector3D p, float k) {
 	Vector3D manipulationVector = viewUpVector * k * scale;
 	Vector3D tempPoint;
-	tempPoint.setX(p.getX() - manipulationVector.getX());
-	tempPoint.setY(p.getY() - manipulationVector.getY());
-	tempPoint.setZ(p.getZ() - manipulationVector.getZ());
+	tempPoint.x = p.x - manipulationVector.x;
+	tempPoint.y = p.y - manipulationVector.y;
+	tempPoint.z = p.z - manipulationVector.z;
 	return tempPoint;
 }
 
@@ -153,23 +151,23 @@ Gets a point to the right of given p at a distance k.
 Vector3D Camera::getPointRight(Vector3D p, float k) {
 	Vector3D manipulationVector = viewRightVector * k * scale;
 	Vector3D tempPoint;
-	tempPoint.setX(p.getX() + manipulationVector.getX());
-	tempPoint.setY(p.getY() + manipulationVector.getY());
-	tempPoint.setZ(p.getZ() + manipulationVector.getZ());
+	tempPoint.x = p.x + manipulationVector.x;
+	tempPoint.y = p.y + manipulationVector.y;
+	tempPoint.z = p.z + manipulationVector.z;
 	return tempPoint;
 }
 
 /*
 Gets the pixel position for pixel (x,y) in the camera view.
 */
-Vector3D Camera::getPixelPosition(int x, int y) {
-	return pixels[x + y * width];
+Ray Camera::getRayAtPosition(int x, int y) {
+	return rays[x + y * width];
 }
 
 /*
 Calculates the position of each of the pixels in the camera.
 */
-void Camera::computePixels() {
+void Camera::computeRays() {
 	//Finds the top left corner making sure the VRP is in the centre of the camera view.
 	float x, y;
 	if (width % 2 == 0) {
@@ -189,21 +187,22 @@ void Camera::computePixels() {
 	y *= -1;
 	
 	Vector3D tempPoint = getPointRight(viewReferencePoint, x);
-	pixels[0] = getPointDown(tempPoint, y);
+	tempPoint = getPointDown(tempPoint, y);
+	rays[0] = Ray(tempPoint, viewPlaneNormalVector);
 	
 	//For each pixel in the camera view.
 	#pragma omp parallel for
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < width; i++) {
-			pixels[i + j * width] = computePixel(i, j, pixels[0]);
+			rays[i + j * width] = computeRay(i, j, rays[0]);
 		}
 	}
 }
 
-Vector3D Camera::computePixel(int x, int y, Vector3D topLeftPixel) {
-	Vector3D tempPoint = getPointRight(topLeftPixel, x);
+Ray Camera::computeRay(int x, int y, Ray topLeftRay) {
+	Vector3D tempPoint = getPointRight(topLeftRay.origin, x);
 	tempPoint = getPointDown(tempPoint, y);
-	return tempPoint;
+	return Ray (tempPoint, viewPlaneNormalVector);
 }
 
 /*

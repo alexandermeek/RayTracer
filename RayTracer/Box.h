@@ -6,9 +6,8 @@ class Box : public Object3D {
 		Box(Vector3D vmin, Vector3D vmax, FloatRGB kA, FloatRGB kD, FloatRGB kS);
 		~Box();
 
-		bool intersect(Vector3D rayOrigin, Vector3D directionVector);
-		bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal,
-			float& distance);
+		bool intersect(Ray ray);
+		bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
 		Vector3D getNormal(Vector3D point);
 
 		std::string toString();

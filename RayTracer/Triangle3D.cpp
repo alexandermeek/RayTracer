@@ -33,26 +33,26 @@ Vector3D Triangle3D::getNormal(Vector3D point) {
 	return normal;
 }
 
-bool Triangle3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
+bool Triangle3D::intersect(Ray ray) {
 	
 	float t, u, v;
 
 	Vector3D normal = getNormal(Vector3D());
 	Vector3D aB = pointB - pointA;
 	Vector3D aC = pointC - pointA;
-	Vector3D planeVector = directionVector.crossProduct(aC);
+	Vector3D planeVector = ray.direction.crossProduct(aC);
 	float det = aB.dotProduct(planeVector);
 	if (det > -EPSILON && det < EPSILON) return false;
 
 	if (fabs(det) < EPSILON) return false;
 
 	float invDet = 1 / det;
-	Vector3D tVec = rayOrigin - pointA;
+	Vector3D tVec = ray.origin - pointA;
 	u = tVec.dotProduct(planeVector) * invDet;
 	if (u < 0 || u > 1) return false;
 
 	Vector3D qVec = tVec.crossProduct(aB);
-	v = directionVector.dotProduct(qVec) * invDet;
+	v = ray.direction.dotProduct(qVec) * invDet;
 	if (v < 0 || u + v > 1) return false;
 
 	t = aC.dotProduct(qVec) * invDet;
@@ -61,34 +61,33 @@ bool Triangle3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 	return true;
 }
 
-bool Triangle3D::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal, 
-	float& distance) {
+bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
 	
 	float t, u, v;
 
 	normal = getNormal(Vector3D());
 	Vector3D aB = pointB - pointA;
 	Vector3D aC = pointC - pointA;
-	Vector3D planeVector = directionVector.crossProduct(aC);
+	Vector3D planeVector = ray.direction.crossProduct(aC);
 	float det = aB.dotProduct(planeVector);
 	if (det > -EPSILON && det < EPSILON) return false;
 
 	if (fabs(det) < EPSILON) return false;
 
 	float invDet = 1 / det;
-	Vector3D tVec = rayOrigin - pointA;
+	Vector3D tVec = ray.origin - pointA;
 	u = tVec.dotProduct(planeVector) * invDet;
 	if (u < 0 || u > 1) return false;
 
 	Vector3D qVec = tVec.crossProduct(aB);
-	v = directionVector.dotProduct(qVec) * invDet;
+	v = ray.direction.dotProduct(qVec) * invDet;
 	if (v < 0 || u + v > 1) return false;
 
 	t = aC.dotProduct(qVec) * invDet;
 	if (t < EPSILON) return false;
 
 	distance = t;
-	point = rayOrigin + directionVector * t;
+	point = ray.origin + ray.direction * t;
 
 	return true;
 }

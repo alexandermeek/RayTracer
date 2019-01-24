@@ -7,9 +7,8 @@ class Sphere : public Object3D {
 		Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB kS);
 		~Sphere();
 
-		bool intersect(Vector3D rayOrigin, Vector3D directionVector);
-		bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal,
-			float& distance);
+		bool intersect(Ray ray);
+		bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
 		Vector3D getNormal(Vector3D point);
 
 		std::string toString();

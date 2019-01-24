@@ -22,38 +22,38 @@ Box::Box(Vector3D vmin, Vector3D vmax, FloatRGB kA, FloatRGB kD, FloatRGB kS)
 
 Box::~Box() {}
 
-bool Box::intersect(Vector3D rayOrigin, Vector3D directionVector) {
+bool Box::intersect(Ray ray) {
 
-	Vector3D t0 = (vmin - rayOrigin) / directionVector;
-	Vector3D t1 = (vmax - rayOrigin) / directionVector;
+	Vector3D t0 = (vmin - ray.origin) / ray.direction;
+	Vector3D t1 = (vmax - ray.origin) / ray.direction;
 
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 
-	if (t0.getX() > t1.getX()) {
-		tmin = t1.getX();
-		tmax = t0.getX();
+	if (t0.x > t1.x) {
+		tmin = t1.x;
+		tmax = t0.x;
 	}
 	else {
-		tmin = t0.getX();
-		tmax = t1.getX();
+		tmin = t0.x;
+		tmax = t1.x;
 	}
 
-	if (t0.getY() > t1.getY()) {
-		tymin = t1.getY();
-		tymax = t0.getY();
+	if (t0.y > t1.y) {
+		tymin = t1.y;
+		tymax = t0.y;
 	}
 	else {
-		tymin = t0.getY();
-		tymax = t1.getY();
+		tymin = t0.y;
+		tymax = t1.y;
 	}
 
-	if (t0.getZ() > t1.getZ()) {
-		tzmin = t1.getZ();
-		tzmax = t0.getZ();
+	if (t0.z > t1.z) {
+		tzmin = t1.z;
+		tzmax = t0.z;
 	}
 	else {
-		tzmin = t0.getZ();
-		tzmax = t1.getZ();
+		tzmin = t0.z;
+		tzmax = t1.z;
 	}
 
 	if (tmin > tymax || tymin > tmax) return false;
@@ -74,39 +74,38 @@ bool Box::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 	return true;
 }
 
-bool Box::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal,
-	float& distance) {
+bool Box::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
 
-	Vector3D t0 = (vmin - rayOrigin) / directionVector;
-	Vector3D t1 = (vmax - rayOrigin) / directionVector;
+	Vector3D t0 = (vmin - ray.origin) / ray.direction;
+	Vector3D t1 = (vmax - ray.origin) / ray.direction;
 
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 
-	if (t0.getX() > t1.getX()) {
-		tmin = t1.getX();
-		tmax = t0.getX();
+	if (t0.x > t1.x) {
+		tmin = t1.x;
+		tmax = t0.x;
 	}
 	else {
-		tmin = t0.getX();
-		tmax = t1.getX();
+		tmin = t0.x;
+		tmax = t1.x;
 	}
 
-	if (t0.getY() > t1.getY()) {
-		tymin = t1.getY();
-		tymax = t0.getY();
+	if (t0.y > t1.y) {
+		tymin = t1.y;
+		tymax = t0.y;
 	}
 	else {
-		tymin = t0.getY();
-		tymax = t1.getY();
+		tymin = t0.y;
+		tymax = t1.y;
 	}
 
-	if (t0.getZ() > t1.getZ()) {
-		tzmin = t1.getZ();
-		tzmax = t0.getZ();
+	if (t0.z > t1.z) {
+		tzmin = t1.z;
+		tzmax = t0.z;
 	}
 	else {
-		tzmin = t0.getZ();
-		tzmax = t1.getZ();
+		tzmin = t0.z;
+		tzmax = t1.z;
 	}
 
 	if (tmin > tymax || tymin > tmax) return false;
@@ -125,7 +124,7 @@ bool Box::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& poin
 	}
 
 	distance = t;
-	point = rayOrigin + directionVector * t;
+	point = ray.origin + ray.direction * t;
 	normal = getNormal(point);
 
 	return true;
@@ -135,22 +134,22 @@ Vector3D Box::getNormal(Vector3D point) {
 	Vector3D centre = getCentre();
 	Vector3D normal = (centre - point).unitVector();
 	float x, y, z;
-	x = abs(normal.getX());
-	y = abs(normal.getY());
-	z = abs(normal.getZ());
+	x = abs(normal.x);
+	y = abs(normal.y);
+	z = abs(normal.z);
 
 	if (x >= y && x >= z) {
-		normal.setY(0);
-		normal.setZ(0);
+		normal.y = 0;
+		normal.z = 0;
 	} 
 	else {
 		if (y >= x && y >= z) {
-			normal.setX(0);
-			normal.setZ(0);
+			normal.x = 0;
+			normal.z = 0;
 		}
 		else {
-			normal.setX(0);
-			normal.setY(0);
+			normal.x = 0;
+			normal.y = 0;
 		}
 	}
 	return normal;
@@ -158,9 +157,9 @@ Vector3D Box::getNormal(Vector3D point) {
 
 Vector3D Box::getCentre() {
 	float x, y, z;
-	x = vmin.getX() + ((vmax.getX() - vmin.getX()) / 2.0f);
-	y = vmin.getY() + ((vmax.getY() - vmin.getY()) / 2.0f);
-	z = vmin.getZ() + ((vmax.getZ() - vmin.getZ()) / 2.0f);
+	x = vmin.x + ((vmax.x - vmin.x) / 2.0f);
+	y = vmin.y + ((vmax.y - vmin.y) / 2.0f);
+	z = vmin.z + ((vmax.z - vmin.z) / 2.0f);
 	return Vector3D(x, y, z);
 }
 

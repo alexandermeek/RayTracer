@@ -9,13 +9,6 @@ class Vector3D {
         Vector3D(float x, float y, float z);
         virtual ~Vector3D();
 
-		float getX() const;
-		float getY() const;
-		float getZ() const;
-        void setX(float x);
-        void setY(float y);
-        void setZ(float z);
-
 		float magnitude() const;
 		float cosTheta(const Vector3D& v);
 
@@ -30,9 +23,7 @@ class Vector3D {
 		Vector3D operator/ (const Vector3D& v);
 
         std::string toString();
-    protected:
 
-    private:
 		float x;
 		float y;
 		float z;

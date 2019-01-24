@@ -9,11 +9,3 @@ PointLight::PointLight(Vector3D position, FloatRGB intensity) {
 PointLight::~PointLight() {
 
 }
-
-Vector3D PointLight::getPosition() {
-	return position;
-}
-
-FloatRGB PointLight::getIntensity() {
-	return intensity;
-}

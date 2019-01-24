@@ -19,7 +19,7 @@ class Camera {
 		void setVPN(Vector3D v);
 		void setVUV(Vector3D v);
 		void setVRV(Vector3D v);
-		Vector3D getPixelPosition(int x, int y);
+		Ray getRayAtPosition(int x, int y);
 
 		std::string toString();
     protected:
@@ -32,10 +32,10 @@ class Camera {
 		int width;
 		int height;
 		float scale;
-		Vector3D *pixels;
+		Ray *rays;
 
-		void computePixels();
-		Vector3D computePixel(int x, int y, Vector3D topLeftPixel);
+		void computeRays();
+		Ray computeRay(int x, int y, Ray topLeftRay);
 		Vector3D getPointDown(Vector3D p, float k);
 		Vector3D getPointRight(Vector3D p, float k);
 };

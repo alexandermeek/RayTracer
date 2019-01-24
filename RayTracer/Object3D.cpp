@@ -40,12 +40,11 @@ void Object3D::setKS(FloatRGB kS) {
 	this->kS = kS;
 }
 
-bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
+bool Object3D::intersect(Ray ray) {
 	return false;
 }
 
-bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector, 
-	Vector3D& point, Vector3D& normal, float& distance) {
+bool Object3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
 	return false;
 }
 
@@ -53,15 +52,16 @@ Vector3D Object3D::getNormal(Vector3D point) {
 	return Vector3D();
 }
 
-FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight& light, Vector3D rayOrigin) {
+FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight& light, Ray ray) {
 	normal = normal.unitVector();
-	Vector3D lightDirection = (point - light.getPosition()).unitVector();
-	Vector3D viewDirection = (rayOrigin - point).unitVector();
+	Vector3D lightDirection = (point - light.position).unitVector();
 
 	float miss = 1;
+	Ray shadowRay;
 	for (Object3D* obj : objects) {
 		if (!(this == obj)) {
-			if (obj->intersect(point, light.getPosition() - point)) {
+			shadowRay = Ray (point, light.position - point);
+			if (obj->intersect(shadowRay)) {
 				miss = 0.1;
 			}
 		}
@@ -72,12 +72,12 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	nl = nl < EPSILON ? 0.0f : nl;
 	Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
 
-	float vR = viewDirection.dotProduct(reflVector) * -1;
+	float vR = ray.direction.unitVector().dotProduct(reflVector) * -1;
 	vR = vR < EPSILON ? 0.0f : vR;
 
-	FloatRGB ambientLight = light.getIntensity() * kA;
-	FloatRGB diffuseLight = light.getIntensity() * nl * kD * miss;
-	FloatRGB specularLight = light.getIntensity() * std::pow(vR, 10) * kS * miss;
+	FloatRGB ambientLight = light.intensity * kA;
+	FloatRGB diffuseLight = light.intensity * nl * kD * miss;
+	FloatRGB specularLight = light.intensity * std::pow(vR, 10) * kS * miss;
 	FloatRGB temp = ambientLight + diffuseLight + specularLight;
 
 	FloatRGB colour(temp.r * 255.0f,
