@@ -47,8 +47,8 @@ bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 	return true;
 }
 
-bool Sphere::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal,
-	float& distance, PointLight& light) {
+bool Sphere::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal,
+	float& distance) {
 	Vector3D oC = rayOrigin - centre;
 	float b = 2 * directionVector.dotProduct(oC);
 	float a = directionVector.dotProduct(directionVector);

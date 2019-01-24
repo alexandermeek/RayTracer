@@ -21,7 +21,7 @@ class Object3D
 		void setKS(FloatRGB kS);
 
 		virtual bool intersect(Vector3D rayOrigin, Vector3D directionVector);
-		virtual bool intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal, float& distance, PointLight& light);
+		virtual bool intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal, float& distance);
 		virtual Vector3D getNormal(Vector3D point);
 
 		FloatRGB getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight& light, Vector3D rayOrigin);

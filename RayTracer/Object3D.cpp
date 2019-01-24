@@ -44,8 +44,8 @@ bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 	return false;
 }
 
-bool Object3D::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, 
-	Vector3D& point, Vector3D& normal, float& distance, PointLight& light) {
+bool Object3D::intersect(Vector3D rayOrigin, Vector3D directionVector, 
+	Vector3D& point, Vector3D& normal, float& distance) {
 	return false;
 }
 

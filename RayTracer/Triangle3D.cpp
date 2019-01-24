@@ -5,7 +5,6 @@
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
 
-using std::cout;
 using std::endl;
 
 Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC)
@@ -62,8 +61,8 @@ bool Triangle3D::intersect(Vector3D rayOrigin, Vector3D directionVector) {
 	return true;
 }
 
-bool Triangle3D::intersect(std::vector<Object3D*>& objects, Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal, 
-	float& distance, PointLight& light) {
+bool Triangle3D::intersect(Vector3D rayOrigin, Vector3D directionVector, Vector3D& point, Vector3D& normal, 
+	float& distance) {
 	
 	float t, u, v;
 
