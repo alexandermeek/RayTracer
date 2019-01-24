@@ -10,7 +10,7 @@ Logger::Logger(std::string filename) {
 }
 
 void Logger::createEntry(int height, int width, float runtime, 
-	int triangles, int spheres, int num_rays_missed) {
+	int triangles, int spheres, int boxes, int num_rays_missed) {
 
 	std::time_t now = time(0);
 	char dateTime[26];
@@ -26,6 +26,7 @@ void Logger::createEntry(int height, int width, float runtime,
 		<< ", Runtime: " << runtime << " secs"
 		<< ", Triangles: " << triangles
 		<< ", Spheres: " << spheres
+		<< ", Boxes: " << boxes
 		<< ", % miss: " << percMiss
 		<< std::endl;
 	logfile.close();
