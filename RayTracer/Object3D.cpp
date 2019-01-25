@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "Object3D.h"
 
+#include <iostream>
+using std::cout;
+
 Object3D::Object3D() {
 	this->kA = FloatRGB(1, 1, 1);
 	this->kD = FloatRGB(1, 1, 1);
@@ -52,15 +55,15 @@ Vector3D Object3D::getNormal(Vector3D point) {
 	return Vector3D();
 }
 
-FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight& light, Ray ray) {
+FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight light, Ray ray) {
 	normal = normal.unitVector();
-	Vector3D lightDirection = (point - light.position).unitVector();
+	Vector3D lightDirection = (light.position - point).unitVector();
 
 	float miss = 1;
 	Ray shadowRay;
 	for (Object3D* obj : objects) {
 		if (!(this == obj)) {
-			shadowRay = Ray (point, light.position - point);
+			shadowRay = Ray (point, lightDirection);
 			if (obj->intersect(shadowRay)) {
 				miss = 0.1;
 			}
@@ -77,7 +80,7 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 
 	FloatRGB ambientLight = light.intensity * kA;
 	FloatRGB diffuseLight = light.intensity * nl * kD * miss;
-	FloatRGB specularLight = light.intensity * std::pow(vR, 10) * kS * miss;
+	FloatRGB specularLight = light.intensity * pow(vR, 10) * kS * miss;
 	FloatRGB temp = ambientLight + diffuseLight + specularLight;
 
 	FloatRGB colour(temp.r * 255.0f,

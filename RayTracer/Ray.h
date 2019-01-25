@@ -8,5 +8,7 @@ class Ray {
 
 		Vector3D origin;
 		Vector3D direction;
+
+		std::string toString();
 };
 #endif // RAY_H

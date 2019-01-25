@@ -3,8 +3,11 @@
 
 class Camera {
     public:
+		static const int ORTHOGRAPHIC = 0;
+		static const int PERSPECTIVE = 1;
+
         Camera();
-        Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale);
+        Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, int type);
         virtual ~Camera();
 		
 		int getWidth() const;
@@ -25,13 +28,16 @@ class Camera {
         Vector3D viewRightVector;
 		int width;
 		int height;
+		int meanSize;
 		float scale;
+		int type;
 		Ray *rays;
 
 		void computeRays();
-		Ray computeRay(int x, int y, Ray topLeftRay);
+		Ray computeRay(int x, int y, Vector3D topLeftPixel);
 		Vector3D getPointDown(Vector3D p, float k);
 		Vector3D getPointRight(Vector3D p, float k);
+		Vector3D getPointForward(Vector3D p, float k);
 };
 
 #endif // CAMERA_H

@@ -24,7 +24,7 @@ class Object3D
 		virtual bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
 		virtual Vector3D getNormal(Vector3D point);
 
-		FloatRGB getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight& light, Ray ray);
+		FloatRGB getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight light, Ray ray);
 
 		virtual std::string toString(); 
 	protected:

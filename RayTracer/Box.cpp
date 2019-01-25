@@ -8,7 +8,8 @@
 using std::cout;
 using std::endl;
 
-Box::Box(Vector3D vmin, Vector3D vmax) {
+Box::Box(Vector3D vmin, Vector3D vmax) 
+	: Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), UNIDIRECTIONAL) {
 	this->vmin = vmin;
 	this->vmax = vmax;
 }
@@ -132,7 +133,7 @@ bool Box::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance)
 
 Vector3D Box::getNormal(Vector3D point) {
 	Vector3D centre = getCentre();
-	Vector3D normal = (centre - point).unitVector();
+	Vector3D normal = (point - centre).unitVector();
 	float x, y, z;
 	x = abs(normal.x);
 	y = abs(normal.y);
