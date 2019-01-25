@@ -78,60 +78,6 @@ Vector3D Camera::getVRV() const {
 }
 
 /*
-Sets the width of the camera view.
-Also re-calculates the pixel plane.
-*/
-void Camera::setWidth(int x) {
-	width = x;
-	computeRays();
-}
-
-/*
-Sets the height of the camera view.
-Also re-calculates the pixel plane.
-*/
-void Camera::setHeight(int y) {
-	height = y;
-	computeRays();
-}
-
-/*
-Sets the view reference position.
-Also re-calculates the pixel plane.
-*/
-void Camera::setVRP(Vector3D p) {
-	viewReferencePoint = p;
-	computeRays();
-}
-
-/*
-Sets the view plane normal vector.
-Also re-calculates the pixel plane.
-*/
-void Camera::setVPN(Vector3D v) {
-	viewPlaneNormalVector = v.unitVector();
-	computeRays();
-}
-
-/*
-Sets the view up vector.
-Also re-calculates the pixel plane.
-*/
-void Camera::setVUV(Vector3D v) {
-	viewUpVector = v.unitVector();
-	computeRays();
-}
-
-/*
-Sets the view right vector.
-Also re-calculates the pixel plane.
-*/
-void Camera::setVRV(Vector3D v) {
-	viewRightVector = v.unitVector();
-	computeRays();
-}
-
-/*
 Gets a point downwards of given p at a distance k.
 (In the perspective of the camera.)
 */
