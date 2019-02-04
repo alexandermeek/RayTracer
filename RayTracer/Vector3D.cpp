@@ -76,6 +76,17 @@ Vector3D Vector3D::unitVector() {
 }
 
 /*
+Calculates the inverse of this vector.
+*/
+Vector3D Vector3D::inverse() {
+	Vector3D vect;
+	vect.x = 1.0f / x;
+	vect.y = 1.0f / y;
+	vect.z = 1.0f / z;
+	return vect;
+}
+
+/*
 Adds two vectors together.
 */
 Vector3D Vector3D::operator+(const Vector3D& v) {

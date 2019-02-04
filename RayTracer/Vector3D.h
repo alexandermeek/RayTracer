@@ -15,6 +15,7 @@ class Vector3D {
 		float dotProduct(const Vector3D& v);
 		Vector3D crossProduct(const Vector3D& v);
 		Vector3D unitVector();
+		Vector3D inverse();
 
 		Vector3D operator+ (const Vector3D& v);
         Vector3D operator- (const Vector3D& v);
