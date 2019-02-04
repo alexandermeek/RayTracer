@@ -1,11 +1,9 @@
 #include "pch.h"
 #include "Camera.h"
 
-#include <iostream>
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
 
-using std::cout;
 using std::endl;
 
 Camera::Camera() {
@@ -163,8 +161,6 @@ void Camera::computeRays() {
 			rays[i + j * width] = computeRay(i, j, tempPoint);
 		}
 	}
-
-	cout << rays[0].toString();
 }
 
 Ray Camera::computeRay(int x, int y, Vector3D topLeftPixel) {
