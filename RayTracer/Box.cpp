@@ -30,32 +30,17 @@ bool Box::intersect(Ray ray) {
 
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 
-	if (t0.x > t1.x) {
-		tmin = t1.x;
-		tmax = t0.x;
-	}
-	else {
-		tmin = t0.x;
-		tmax = t1.x;
-	}
+	bool invDirNegative = ray.direction.inverse().x < 0;
+	tmin = invDirNegative ? t1.x : t0.x;
+	tmax = invDirNegative ? t0.x : t1.x;
 
-	if (t0.y > t1.y) {
-		tymin = t1.y;
-		tymax = t0.y;
-	}
-	else {
-		tymin = t0.y;
-		tymax = t1.y;
-	}
+	invDirNegative = ray.direction.inverse().y < 0;
+	tymin = invDirNegative ? t1.y : t0.y;
+	tymax = invDirNegative ? t0.y : t1.y;
 
-	if (t0.z > t1.z) {
-		tzmin = t1.z;
-		tzmax = t0.z;
-	}
-	else {
-		tzmin = t0.z;
-		tzmax = t1.z;
-	}
+	invDirNegative = ray.direction.inverse().z < 0;
+	tzmin = invDirNegative ? t1.z : t0.z;
+	tzmax = invDirNegative ? t0.z : t1.z;
 
 	if (tmin > tymax || tymin > tmax) return false;
 	if (tymin > tmin) tmin = tymin;
@@ -82,32 +67,17 @@ bool Box::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance)
 
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 
-	if (t0.x > t1.x) {
-		tmin = t1.x;
-		tmax = t0.x;
-	}
-	else {
-		tmin = t0.x;
-		tmax = t1.x;
-	}
+	bool invDirNegative = ray.direction.inverse().x < 0;
+	tmin = invDirNegative ? t1.x : t0.x;
+	tmax = invDirNegative ? t0.x : t1.x;
 
-	if (t0.y > t1.y) {
-		tymin = t1.y;
-		tymax = t0.y;
-	}
-	else {
-		tymin = t0.y;
-		tymax = t1.y;
-	}
+	invDirNegative = ray.direction.inverse().y < 0;
+	tymin = invDirNegative ? t1.y : t0.y;
+	tymax = invDirNegative ? t0.y : t1.y;
 
-	if (t0.z > t1.z) {
-		tzmin = t1.z;
-		tzmax = t0.z;
-	}
-	else {
-		tzmin = t0.z;
-		tzmax = t1.z;
-	}
+	invDirNegative = ray.direction.inverse().z < 0;
+	tzmin = invDirNegative ? t1.z : t0.z;
+	tzmax = invDirNegative ? t0.z : t1.z;
 
 	if (tmin > tymax || tymin > tmax) return false;
 	if (tymin > tmin) tmin = tymin;
