@@ -51,6 +51,10 @@ bool Object3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& dist
 	return false;
 }
 
+bool Object3D::intersect(Ray ray, float& distance) {
+	return false;
+}
+
 Vector3D Object3D::getNormal(Vector3D point) {
 	return Vector3D();
 }

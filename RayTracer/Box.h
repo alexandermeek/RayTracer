@@ -15,6 +15,8 @@ class Box : public Object3D {
 		Vector3D vmin;
 		Vector3D vmax;
 		Vector3D getCentre();
+
+		bool intersect(Ray ray, float& distance);
 };
 #endif // BOX_H
 

@@ -17,5 +17,7 @@ class Sphere : public Object3D {
 	private:
 		Vector3D centre;
 		float radius;
+
+		bool intersect(Ray ray, float& distance);
 };
 #endif // SPHERE_H

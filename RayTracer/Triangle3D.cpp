@@ -34,38 +34,24 @@ Vector3D Triangle3D::getNormal(Vector3D point) {
 }
 
 bool Triangle3D::intersect(Ray ray) {
-	
-	float t, u, v;
+	float t;
+	return intersect(ray, t);
+}
 
-	Vector3D normal = getNormal(Vector3D());
-	Vector3D aB = pointB - pointA;
-	Vector3D aC = pointC - pointA;
-	Vector3D planeVector = ray.direction.crossProduct(aC);
-	float det = aB.dotProduct(planeVector);
-	if (det > -EPSILON && det < EPSILON) return false;
+bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
+	float t;
+	if (!intersect(ray, t)) return false;
 
-	if (fabs(det) < EPSILON) return false;
-
-	float invDet = 1 / det;
-	Vector3D tVec = ray.origin - pointA;
-	u = tVec.dotProduct(planeVector) * invDet;
-	if (u < 0 || u > 1) return false;
-
-	Vector3D qVec = tVec.crossProduct(aB);
-	v = ray.direction.dotProduct(qVec) * invDet;
-	if (v < 0 || u + v > 1) return false;
-
-	t = aC.dotProduct(qVec) * invDet;
-	if (t < EPSILON) return false;
+	distance = t;
+	point = ray.origin + ray.direction * t;
+	normal = getNormal(Vector3D());
 
 	return true;
 }
 
-bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
-	
+bool Triangle3D::intersect(Ray ray, float& distance) {
 	float t, u, v;
 
-	normal = getNormal(Vector3D());
 	Vector3D aB = pointB - pointA;
 	Vector3D aC = pointC - pointA;
 	Vector3D planeVector = ray.direction.crossProduct(aC);
@@ -87,7 +73,6 @@ bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& di
 	if (t < EPSILON) return false;
 
 	distance = t;
-	point = ray.origin + ray.direction * t;
 
 	return true;
 }

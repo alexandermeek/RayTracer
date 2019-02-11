@@ -34,5 +34,7 @@ class Object3D
 		FloatRGB kD;
 		FloatRGB kS;
 		bool useBidirectionalLight;
+
+		virtual bool intersect(Ray ray, float& distance);
 };
 #endif // OBJECT3D_H
