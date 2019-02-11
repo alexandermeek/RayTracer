@@ -16,7 +16,6 @@ Box::Box(Vector3D vmin, Vector3D vmax)
 
 Box::Box(Vector3D vmin, Vector3D vmax, FloatRGB kA, FloatRGB kD, FloatRGB kS)
 	: Object3D(kA, kD, kS, UNIDIRECTIONAL) {
-
 	this->vmin = vmin;
 	this->vmax = vmax;
 }
@@ -79,27 +78,20 @@ bool Box::intersect(Ray ray, float& distance) {
 
 Vector3D Box::getNormal(Vector3D point) {
 	Vector3D centre = getCentre();
-	Vector3D normal = (point - centre).unitVector();
-	float x, y, z;
-	x = abs(normal.x);
-	y = abs(normal.y);
-	z = abs(normal.z);
+	Vector3D normal = (point - centre);
+	Vector3D divisor = (vmin - vmax) / 2.0f;
+	divisor.x = abs(divisor.x);
+	divisor.y = abs(divisor.y);
+	divisor.z = abs(divisor.z);
 
-	if (x >= y && x >= z) {
-		normal.y = 0;
-		normal.z = 0;
-	} 
-	else {
-		if (y >= x && y >= z) {
-			normal.x = 0;
-			normal.z = 0;
-		}
-		else {
-			normal.x = 0;
-			normal.y = 0;
-		}
-	}
-	return normal;
+	const float bias = 1.000010f;
+
+	normal = normal / divisor * bias;
+	normal.x = (int) normal.x;
+	normal.y = (int) normal.y;
+	normal.z = (int) normal.z;
+
+	return normal.unitVector();
 }
 
 Vector3D Box::getCentre() {
