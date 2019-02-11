@@ -82,6 +82,10 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 					fileStage = 3;
 					objects.push_back(new Triangle3D(readTriangle(line, vertices)));
 				}
+				else if (line.substr(0, 2) == "2 ") {
+					fileStage = 3;
+					objects.push_back(new Box(readBox(line, vertices)));
+				}
 				else if (line.substr(0, 2) == "1 ") {
 					fileStage = 3;
 					objects.push_back(new Sphere(readSphere(line, vertices)));
@@ -93,6 +97,9 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 			case 3 :
 				if (line.substr(0, 2) == "3 ") {
 					objects.push_back(new Triangle3D(readTriangle(line, vertices)));
+				}
+				else if (line.substr(0, 2) == "2 ") {
+					objects.push_back(new Box(readBox(line, vertices)));
 				}
 				else {
 					objects.push_back(new Sphere(readSphere(line, vertices)));
@@ -167,4 +174,24 @@ Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D>& vertices) 
 
 	Sphere sph(vertices[centerV], radius);
 	return sph;
+}
+
+Box PLYReader::readBox(std::string line, std::vector<Vector3D>& vertices) {
+	int vmax, vmin;
+	int pos = 0;
+	std::string token;
+
+	line.erase(0, 2);
+
+	pos = line.find(DELIMITER);
+	token = line.substr(0, pos);
+	vmin = std::stoi(token);
+	line.erase(0, pos + DELIMITER.length());
+
+	pos = line.find(DELIMITER);
+	token = line.substr(0, pos);
+	vmax = std::stof(token);
+
+	Box box(vertices[vmin], vertices[vmax]);
+	return box;
 }

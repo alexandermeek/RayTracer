@@ -28,5 +28,6 @@ class PLYReader {
 		Vector3D readPoint(std::string line);
 		Triangle3D readTriangle(std::string line, std::vector<Vector3D>& vertices);
 		Sphere readSphere(std::string line, std::vector<Vector3D>& vertices);
+		Box readBox(std::string line, std::vector<Vector3D>& vertices);
 };
 
