@@ -10,6 +10,8 @@ class Box : public Object3D {
 		bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
 		Vector3D getNormal(Vector3D point);
 
+		bool contains(Vector3D point);
+
 		std::string toString();
 	private:
 		Vector3D vmin;

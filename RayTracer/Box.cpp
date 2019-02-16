@@ -102,6 +102,13 @@ Vector3D Box::getCentre() {
 	return Vector3D(x, y, z);
 }
 
+bool Box::contains(Vector3D point) {
+	if (point.x < vmin.x && point.x > vmax.x) return false;
+	if (point.y < vmin.y && point.y > vmax.y) return false;
+	if (point.z < vmin.z && point.z > vmax.z) return false;
+	return true;
+}
+
 std::string Box::toString() {
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2);
