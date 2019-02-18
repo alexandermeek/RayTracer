@@ -13,9 +13,9 @@ class Object3D
 		Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, bool useBidirectionalLight);
 		~Object3D();
 
-		FloatRGB getKA();
-		FloatRGB getKD();
-		FloatRGB getKS();
+		FloatRGB getKA() const;
+		FloatRGB getKD() const;
+		FloatRGB getKS() const;
 		void setKA(FloatRGB kA);
 		void setKD(FloatRGB kD);
 		void setKS(FloatRGB kS);

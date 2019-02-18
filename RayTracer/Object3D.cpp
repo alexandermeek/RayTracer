@@ -21,13 +21,13 @@ Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, bool useBidirectionalL
 Object3D::~Object3D() {
 }
 
-FloatRGB Object3D::getKA() {
+FloatRGB Object3D::getKA() const {
 	return kA;
 }
-FloatRGB Object3D::getKD() {
+FloatRGB Object3D::getKD() const {
 	return kD;
 }
-FloatRGB Object3D::getKS() {
+FloatRGB Object3D::getKS() const {
 	return kS;
 }
 

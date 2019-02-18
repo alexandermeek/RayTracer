@@ -21,8 +21,24 @@ Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC, FloatR
 	this->pointC = pointC;
 }
 
-Triangle3D::~Triangle3D()
-{
+Triangle3D::~Triangle3D() {
+}
+
+Vector3D Triangle3D::getPointA() {
+	return pointA;
+}
+
+Vector3D Triangle3D::getPointB() {
+	return pointB;
+}
+
+Vector3D Triangle3D::getPointC() {
+	return pointC;
+}
+
+Vector3D Triangle3D::getCentre() {
+	Vector3D centre = pointA + pointB + pointC / 3;
+	return centre;
 }
 
 Vector3D Triangle3D::getNormal(Vector3D point) {
