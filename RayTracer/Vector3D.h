@@ -10,20 +10,20 @@ class Vector3D {
         virtual ~Vector3D();
 
 		float magnitude() const;
-		float cosTheta(const Vector3D& v);
+		float cosTheta(const Vector3D& v) const;
 
-		float dotProduct(const Vector3D& v);
-		Vector3D crossProduct(const Vector3D& v);
-		Vector3D unitVector();
-		Vector3D inverse();
+		float dotProduct(const Vector3D& v) const;
+		Vector3D crossProduct(const Vector3D& v) const;
+		Vector3D unitVector() const;
+		Vector3D inverse() const;
 
-		Vector3D operator+ (const Vector3D& v);
-        Vector3D operator- (const Vector3D& v);
-        Vector3D operator* (const float k);
-        Vector3D operator/ (const float k);
-		Vector3D operator/ (const Vector3D& v);
+		Vector3D operator+ (const Vector3D& v) const;
+        Vector3D operator- (const Vector3D& v) const;
+        Vector3D operator* (const float k) const;
+        Vector3D operator/ (const float k) const;
+		Vector3D operator/ (const Vector3D& v) const;
 
-        std::string toString();
+        std::string toString() const;
 
 		float x;
 		float y;

@@ -6,6 +6,8 @@
 #include <sstream> // stringstream
 
 using std::endl;
+using std::fmax;
+using std::fmin;
 
 Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC)
 	: Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1,1,1), BIDIRECTIONAL) {
@@ -24,45 +26,16 @@ Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC, FloatR
 Triangle3D::~Triangle3D() {
 }
 
-Vector3D Triangle3D::getPointA() {
+Vector3D Triangle3D::getPointA() const {
 	return pointA;
 }
 
-Vector3D Triangle3D::getPointB() {
+Vector3D Triangle3D::getPointB() const {
 	return pointB;
 }
 
-Vector3D Triangle3D::getPointC() {
+Vector3D Triangle3D::getPointC() const {
 	return pointC;
-}
-
-Vector3D Triangle3D::getCentre() {
-	Vector3D centre = pointA + pointB + pointC / 3;
-	return centre;
-}
-
-Vector3D Triangle3D::getNormal(Vector3D point) {
-	Vector3D aB = pointB - pointA;
-	Vector3D aC = pointC - pointA;
-	Vector3D normal = aB.crossProduct(aC);
-
-	return normal;
-}
-
-bool Triangle3D::intersect(Ray ray) {
-	float t;
-	return intersect(ray, t);
-}
-
-bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
-	float t;
-	if (!intersect(ray, t)) return false;
-
-	distance = t;
-	point = ray.origin + ray.direction * t;
-	normal = getNormal(Vector3D());
-
-	return true;
 }
 
 bool Triangle3D::intersect(Ray ray, float& distance) {
@@ -91,6 +64,36 @@ bool Triangle3D::intersect(Ray ray, float& distance) {
 	distance = t;
 
 	return true;
+}
+
+bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
+	float t;
+	if (!intersect(ray, t)) return false;
+
+	distance = t;
+	point = ray.origin + ray.direction * t;
+	normal = getNormal(Vector3D());
+
+	return true;
+}
+
+Vector3D Triangle3D::getNormal(Vector3D point) {
+	Vector3D aB = pointB - pointA;
+	Vector3D aC = pointC - pointA;
+	Vector3D normal = aB.crossProduct(aC);
+
+	return normal;
+}
+
+BoundingBox Triangle3D::getBoundingBox() const {
+	Vector3D vmax, vmin;
+	vmax.x = fmax(pointA.x, fmax(pointB.x, pointC.x));
+	vmax.y = fmax(pointA.y, fmax(pointB.y, pointC.y));
+	vmax.z = fmax(pointA.z, fmax(pointB.z, pointC.z));
+	vmin.x = fmin(pointA.x, fmin(pointB.x, pointC.x));
+	vmin.y = fmin(pointA.y, fmin(pointB.y, pointC.y));
+	vmin.z = fmin(pointA.z, fmin(pointB.z, pointC.z));
+	return BoundingBox(vmin, vmax);
 }
 
 std::string Triangle3D::toString() {

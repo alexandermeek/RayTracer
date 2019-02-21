@@ -27,22 +27,6 @@ Vector3D Sphere::getNormal(Vector3D point) {
 	return (point - centre);
 }
 
-bool Sphere::intersect(Ray ray) {
-	float t;
-	return intersect(ray, t);
-}
-
-bool Sphere::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
-	float t;
-	if (!intersect(ray, t)) return false;
-
-	distance = t;
-	point = ray.origin + ray.direction * t;
-	normal = getNormal(point);
-
-	return true;
-}
-
 bool Sphere::intersect(Ray ray, float& distance) {
 	Vector3D oC = ray.origin - centre;
 	float b = 2 * ray.direction.dotProduct(oC);
@@ -63,6 +47,17 @@ bool Sphere::intersect(Ray ray, float& distance) {
 	}
 
 	distance = t1 < t2 ? t1 : t2;
+
+	return true;
+}
+
+bool Sphere::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
+	float t;
+	if (!intersect(ray, t)) return false;
+
+	distance = t;
+	point = ray.origin + ray.direction * t;
+	normal = getNormal(point);
 
 	return true;
 }

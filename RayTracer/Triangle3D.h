@@ -6,15 +6,14 @@ class Triangle3D : public Object3D {
 		Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC, FloatRGB kA, FloatRGB kD, FloatRGB kS);
 		~Triangle3D();
 
-		Vector3D getPointA();
-		Vector3D getPointB();
-		Vector3D getPointC();
+		Vector3D getPointA() const;
+		Vector3D getPointB() const;
+		Vector3D getPointC() const;
 
-		Vector3D getCentre();
-
-		bool intersect(Ray ray);
+		bool intersect(Ray ray, float& distance);
 		bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
 		Vector3D getNormal(Vector3D point);
+		BoundingBox getBoundingBox() const;
 
 		std::string toString();
 	protected:
@@ -23,7 +22,5 @@ class Triangle3D : public Object3D {
 		Vector3D pointA;
 		Vector3D pointB;
 		Vector3D pointC;
-
-		bool intersect(Ray ray, float& distance);
 };
 #endif // TRIANGLE_H

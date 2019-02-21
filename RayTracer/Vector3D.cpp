@@ -41,7 +41,7 @@ float Vector3D::magnitude() const {
 Calculates the dot product of this vector and the given vector v.
 Returns a scalar value.
 */
-float Vector3D::dotProduct(const Vector3D& v) {
+float Vector3D::dotProduct(const Vector3D& v) const {
     return x * v.x + y * v.y + z * v.z;
 }
 
@@ -49,7 +49,7 @@ float Vector3D::dotProduct(const Vector3D& v) {
 Calculates the cross product of this vector and the given vector v.
 Returns a vector.
 */
-Vector3D Vector3D::crossProduct(const Vector3D& v) {
+Vector3D Vector3D::crossProduct(const Vector3D& v) const {
 	Vector3D tempVector;
 	tempVector.x = y * v.z - z * v.y;
 	tempVector.y = z * v.x - x * v.z;
@@ -61,7 +61,7 @@ Vector3D Vector3D::crossProduct(const Vector3D& v) {
 Calculates the cos theta between this vector and the given vector v.
 Can be used to get the angle between vectors.
 */
-float Vector3D::cosTheta(const Vector3D& v) {
+float Vector3D::cosTheta(const Vector3D& v) const {
 	float dotProd = dotProduct(v);
 	float magA = magnitude();
 	float magB = v.magnitude();
@@ -71,14 +71,14 @@ float Vector3D::cosTheta(const Vector3D& v) {
 /*
 Calculates the unit vector of this vector.
 */
-Vector3D Vector3D::unitVector() {
+Vector3D Vector3D::unitVector() const {
 	return *this / this->magnitude();
 }
 
 /*
 Calculates the inverse of this vector.
 */
-Vector3D Vector3D::inverse() {
+Vector3D Vector3D::inverse() const {
 	Vector3D vect;
 	vect.x = 1.0f / x;
 	vect.y = 1.0f / y;
@@ -89,7 +89,7 @@ Vector3D Vector3D::inverse() {
 /*
 Adds two vectors together.
 */
-Vector3D Vector3D::operator+(const Vector3D& v) {
+Vector3D Vector3D::operator+(const Vector3D& v) const {
     Vector3D vect;
     vect.x = x + v.x;
     vect.y = y + v.y;
@@ -100,7 +100,7 @@ Vector3D Vector3D::operator+(const Vector3D& v) {
 /*
 Subtracts two vectors.
 */
-Vector3D Vector3D::operator-(const Vector3D& v) {
+Vector3D Vector3D::operator-(const Vector3D& v) const {
     Vector3D vect;
     vect.x = x - v.x;
     vect.y = y - v.y;
@@ -111,7 +111,7 @@ Vector3D Vector3D::operator-(const Vector3D& v) {
 /*
 Multiplies this vector by a scalar value.
 */
-Vector3D Vector3D::operator*(const float k) {
+Vector3D Vector3D::operator*(const float k) const {
     Vector3D vect;
     vect.x = x*k;
     vect.y = y*k;
@@ -122,7 +122,7 @@ Vector3D Vector3D::operator*(const float k) {
 /*
 Divides this vector by a scalar value.
 */
-Vector3D Vector3D::operator/(const float k) {
+Vector3D Vector3D::operator/(const float k) const {
     Vector3D vect;
     vect.x = x/k;
     vect.y = y/k;
@@ -130,7 +130,7 @@ Vector3D Vector3D::operator/(const float k) {
     return vect;
 }
 
-Vector3D Vector3D::operator/(const Vector3D& v) {
+Vector3D Vector3D::operator/(const Vector3D& v) const {
 	Vector3D vect;
 	vect.x = x / v.x;
 	vect.y = y / v.y;
@@ -141,7 +141,7 @@ Vector3D Vector3D::operator/(const Vector3D& v) {
 /*
 Return the Vector object in string form. For debug purposes.
 */
-std::string Vector3D::toString() {
+std::string Vector3D::toString() const {
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2);
 	stream << "Vector: (" << x << "," << y << "," << z << ")";

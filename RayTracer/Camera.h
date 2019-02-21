@@ -3,8 +3,7 @@
 
 class Camera {
     public:
-		static const int ORTHOGRAPHIC = 0;
-		static const int PERSPECTIVE = 1;
+		const enum PROJECTION_TYPE {ORTHOGRAPHIC, PERSPECTIVE};
 
         Camera();
         Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, int type);
@@ -31,7 +30,7 @@ class Camera {
 		int meanSize;
 		float scale;
 		int type;
-		Ray *rays;
+		Ray* rays;
 
 		void computeRays();
 		Ray computeRay(int x, int y, Vector3D topLeftPixel);

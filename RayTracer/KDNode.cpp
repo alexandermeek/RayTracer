@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "KDNode.h"
 
+#include <limits>
+#include <iostream>
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
 
@@ -9,10 +11,8 @@
 using std::vector;
 using std::endl;
 
-KDNode::KDNode() {}
-
-KDNode::KDNode(vector<Triangle3D*> &triangles) {
-	this->triangles = triangles;
+KDNode::KDNode(int maxDepth) {
+	this->maxDepth = maxDepth;
 }
 
 KDNode::~KDNode() {
@@ -32,87 +32,137 @@ KDNode* KDNode::getRight() const {
 	return right;
 }
 
-KDNode* KDNode::build(vector<Triangle3D*>& triangles, int depth) {
-	KDNode* node = new KDNode();
-	node->triangles = triangles;
+BoundingBox KDNode::getBoundingBox() const {
+	return bBox;
+}
+
+KDNode* KDNode::build(vector<Object3D*>& objects, BoundingBox bBox, int depth) {
+	KDNode* node = new KDNode(maxDepth);
+	node->objects = objects;
 	node->left = nullptr;
 	node->right = nullptr;
+	node->bBox = bBox;
 	
-	if (triangles.size() == 0) return node;
+	if (depth >= maxDepth) return node;
 
-	if (triangles.size() == 1) {
-		this->bBox = Box::getBoundingBox(triangles);
-		node->left = new KDNode();
-		node->right = new KDNode();
-		node->left->triangles = vector<Triangle3D*>();
-		node->right->triangles = vector<Triangle3D*>();
-		return node;
-	}
+	if (objects.size() <= 3) return node;
 
-	this->bBox = Box::getBoundingBox(triangles);
-
-	vector<Triangle3D*> leftTriangles;
-	vector<Triangle3D*> rightTriangles;
+	vector<Object3D*> leftObjects, rightObjects;
+	BoundingBox leftBBox, rightBBox;
 
 	int axis = bBox.getLongestAxis();
 	Vector3D bCentre = bBox.getCentre();
-	for (Triangle3D* tri : triangles) {
-		Vector3D tCentre = tri->getCentre();
-		switch (axis) {
-			case Box::AXISX:
-				bCentre.x >= tCentre.x ? rightTriangles.push_back(tri) : leftTriangles.push_back(tri);
-				break;
-			case Box::AXISY:
-				bCentre.y >= tCentre.y ? rightTriangles.push_back(tri) : leftTriangles.push_back(tri);
-				break;
-			case Box::AXISZ:
-				bCentre.z >= tCentre.z ? rightTriangles.push_back(tri) : leftTriangles.push_back(tri);
-				break;
-		}
+
+	switch (axis) {
+	case Box::AXIS_X:
+		leftBBox.vmin = bBox.vmin;
+		leftBBox.vmax = Vector3D(bCentre.x, bBox.vmax.y, bBox.vmax.z);
+		rightBBox.vmin = Vector3D(bCentre.x, bBox.vmin.y, bBox.vmin.z);
+		rightBBox.vmax = bBox.vmax;
+		break;
+	case Box::AXIS_Y:
+		leftBBox.vmin = bBox.vmin;
+		leftBBox.vmax = Vector3D(bBox.vmax.x, bCentre.y, bBox.vmax.z);
+		rightBBox.vmin = Vector3D(bBox.vmin.x, bCentre.y, bBox.vmin.z);
+		rightBBox.vmax = bBox.vmax;
+		break;
+	case Box::AXIS_Z:
+		leftBBox.vmin = bBox.vmin;
+		leftBBox.vmax = Vector3D(bBox.vmax.x, bBox.vmax.y, bCentre.z);
+		rightBBox.vmin = Vector3D(bBox.vmin.x, bBox.vmin.y, bCentre.z);
+		rightBBox.vmax = bBox.vmax;
+		break;
 	}
 
-	if (leftTriangles.size() == 0 && rightTriangles.size() > 0) leftTriangles = rightTriangles;
-	if (rightTriangles.size() == 0 && leftTriangles.size() > 0) rightTriangles = leftTriangles;
-
-	int matches = 0;
-	for (Triangle3D* triL : leftTriangles) {
-		for (Triangle3D* triR : rightTriangles) {
-			if (triL == triR) matches++;
-		}
+	for (Object3D* obj : objects) {
+		BoundingBox oBox = obj->getBoundingBox();
+		if (oBox.overlaps(leftBBox)) leftObjects.push_back(obj);
+		if (oBox.overlaps(rightBBox)) rightObjects.push_back(obj);
 	}
 
-	if ((float)matches / leftTriangles.size() < 0.5 && (float)matches / rightTriangles.size() < 0.5) {
-		node->left = build(leftTriangles, depth + 1);
-		node->right = build(rightTriangles, depth + 1);
+	if (leftObjects.size() > 0) {
+		node->left = build(leftObjects, leftBBox, depth + 1);
 	}
-	else {
-		node->left = new KDNode();
-		node->right = new KDNode();
-		node->left->triangles = vector<Triangle3D*>();
-		node->right->triangles = vector<Triangle3D*>();
+	if (rightObjects.size() > 0) {
+		node->right = build(rightObjects, rightBBox, depth + 1);
 	}
 
 	return node;
 }
 
-bool KDNode::intersect(KDNode* node, const Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
-	if (!node->bBox.intersect(ray)) return false;
+bool KDNode::intersect(KDNode* node, const Ray ray, Object3D* hitObject, Vector3D& point, 
+	Vector3D& normal, float& distance) {
+	float t;
+	if (!node->bBox.intersect(ray, t)) return false;
 
-	Vector3D normal;
-	Vector3D point;
-	float distance;
-	bool hitTriangle = false;
+	bool leftNull = node->left == nullptr;
+	bool rightNull = node->right == nullptr;
 
-	if (node->left->triangles.size() > 0 || node->right->triangles.size() > 0) {
-		bool hitLeft = node->left->bBox.intersect(ray, point, normal, distance);
-		//todo; finish
+	if (leftNull && rightNull) {
+		float hitDistance;
+		Vector3D hitPoint, hitNormal;
+		bool hit = false;
+		for (Object3D* obj : node->objects) {
+			if (obj->intersect(ray, hitPoint, hitNormal, hitDistance)) {
+				if (bBox.contains(hitPoint)) {
+					if (hitDistance < distance) {
+						hitObject = obj;
+						point = hitPoint;
+						normal = hitNormal;
+						distance = hitDistance;
+						hit = true;
+					}
+				}
+			}
+		}
+		return hit;
 	}
+
+	bool leftHit = false, rightHit = false;
+	float leftDistance = INT32_MAX, rightDistance = INT32_MAX;
+
+	if (!leftNull) leftHit = node->left->bBox.intersect(ray, leftDistance);
+	if (!rightNull) rightHit = node->right->bBox.intersect(ray, rightDistance);
+	if (!leftHit && !rightHit) return false;
+
+	if (leftDistance <= rightDistance) {
+		if (!leftNull) leftHit = intersect(node->left, ray, hitObject, point, normal, distance);
+		if (!leftHit) {
+			if (!rightNull) rightHit = intersect(node->right, ray, hitObject, point, normal, distance);
+			if (!rightHit) return false;
+		}
+	}
+	else {
+		if (!rightNull) rightHit = intersect(node->right, ray, hitObject, point, normal, distance);
+		if (!rightHit) {
+			if (!leftNull) leftHit = intersect(node->left, ray, hitObject, point, normal, distance);
+			if (!leftHit) return false;
+		}
+	}
+
+	return true;
 }
 
-std::string KDNode::toString() {
+std::string KDNode::toString(int depth) {
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2);
-	stream << "KDNode: {" << endl
-		<< "   NumOfTriangles " << triangles.size() << endl << "}";
+	stream << "KDNode " << depth << ": {" << endl;
+	for (int i = 0; i < depth; i++) stream << "   ";
+	stream << "   NumOfTriangles " << objects.size() << endl;
+	for (int i = 0; i < depth; i++) stream << "   ";
+	stream << "   " << bBox.toString() << endl;
+	depth++;
+	if (left != nullptr) {
+		stream << endl;
+		for (int i = 0; i < depth; i++) stream << "   ";
+		stream << "Left " << left->toString(depth);
+	}
+	if (right != nullptr) {
+		stream << endl;
+		for (int i = 0; i < depth; i++) stream << "   ";
+		stream << "Right " << right->toString(depth);
+	}
+	for (int i = 0; i < depth - 1; i++) stream << "   ";
+	stream	<< "}" << endl;
 	return stream.str();
 }

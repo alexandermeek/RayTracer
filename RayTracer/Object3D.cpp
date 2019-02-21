@@ -8,14 +8,14 @@ Object3D::Object3D() {
 	this->kA = FloatRGB(1, 1, 1);
 	this->kD = FloatRGB(1, 1, 1);
 	this->kS = FloatRGB(1, 1, 1);
-	this->useBidirectionalLight = false;
+	this->lightType = UNIDIRECTIONAL;
 }
 
-Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, bool useBidirectionalLight) {
+Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, int lightType) {
 	this->kA = kA;
 	this->kD = kD;
 	this->kS = kS;
-	this->useBidirectionalLight = useBidirectionalLight;
+	this->lightType = lightType;
 }
 
 Object3D::~Object3D() {
@@ -43,7 +43,7 @@ void Object3D::setKS(FloatRGB kS) {
 	this->kS = kS;
 }
 
-bool Object3D::intersect(Ray ray) {
+bool Object3D::intersect(Ray ray, float& distance) {
 	return false;
 }
 
@@ -51,12 +51,12 @@ bool Object3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& dist
 	return false;
 }
 
-bool Object3D::intersect(Ray ray, float& distance) {
-	return false;
-}
-
 Vector3D Object3D::getNormal(Vector3D point) {
 	return Vector3D();
+}
+
+BoundingBox Object3D::getBoundingBox() const {
+	return BoundingBox();
 }
 
 FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight light, Ray ray) {
@@ -64,18 +64,17 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	Vector3D lightDirection = (light.position - point).unitVector();
 
 	float miss = 1;
-	Ray shadowRay;
 	for (Object3D* obj : objects) {
-		if (!(this == obj)) {
-			shadowRay = Ray (point, lightDirection);
-			if (obj->intersect(shadowRay)) {
+			Ray shadowRay (point, lightDirection);
+			shadowRay.origin = point + normal * 1e-4;
+			float t;
+			if (obj->intersect(shadowRay, t)) {
 				miss = 0.1;
 			}
-		}
 	}
 
 	float nl = normal.dotProduct(lightDirection);
-	if (useBidirectionalLight) { nl = abs(nl); }
+	if (lightType == BIDIRECTIONAL) { nl = abs(nl); }
 	nl = nl < EPSILON ? 0.0f : nl;
 	Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
 
@@ -93,7 +92,6 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	return colour;
 }
 
-std::string Object3D::toString()
-{
+std::string Object3D::toString() const {
 	return std::string();
 }

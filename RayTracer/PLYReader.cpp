@@ -41,7 +41,7 @@ Vector3D PLYReader::getCentre() {
 	return Vector3D(x, y, z);
 }
 
-bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& vertices) {
+bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>& vertices) {
 	std::string line;
 	std::ifstream plyFile(filename);
 	int fileStage = 0;
@@ -113,7 +113,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D>& 
 	return true;
 }
 
-Vector3D PLYReader::readPoint(std::string line) {
+Vector3D* PLYReader::readPoint(std::string line) {
 	float v[3];
 	int pos = 0;
 	std::string token;
@@ -125,19 +125,19 @@ Vector3D PLYReader::readPoint(std::string line) {
 		line.erase(0, pos + DELIMITER.length());
 	}
 
-	Vector3D vertex(v[0], v[1], v[2]);
+	Vector3D* vertex = new Vector3D(v[0], v[1], v[2]);
 
-	if (vertex.x > vmax.x) vmax.x = vertex.x;
-	if (vertex.y > vmax.y) vmax.y = vertex.y;
-	if (vertex.z > vmax.z) vmax.z = vertex.z;
-	if (vertex.x < vmin.x) vmin.x = vertex.x;
-	if (vertex.y < vmin.y) vmin.y = vertex.y;
-	if (vertex.z < vmin.z) vmin.z = vertex.z;
+	if (vertex->x > vmax.x) vmax.x = vertex->x;
+	if (vertex->y > vmax.y) vmax.y = vertex->y;
+	if (vertex->z > vmax.z) vmax.z = vertex->z;
+	if (vertex->x < vmin.x) vmin.x = vertex->x;
+	if (vertex->y < vmin.y) vmin.y = vertex->y;
+	if (vertex->z < vmin.z) vmin.z = vertex->z;
 
 	return vertex;
 }
 
-Triangle3D PLYReader::readTriangle(std::string line, std::vector<Vector3D>& vertices) {
+Triangle3D PLYReader::readTriangle(std::string line, std::vector<Vector3D*>& vertices) {
 	int v[3];
 	int pos = 0;
 	std::string token;
@@ -151,11 +151,11 @@ Triangle3D PLYReader::readTriangle(std::string line, std::vector<Vector3D>& vert
 		line.erase(0, pos + DELIMITER.length());
 	}
 
-	Triangle3D tri(vertices[v[0]], vertices[v[1]], vertices[v[2]]);
+	Triangle3D tri(*vertices[v[0]], *vertices[v[1]], *vertices[v[2]]);
 	return tri;
 }
 
-Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D>& vertices) {
+Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D*>& vertices) {
 	int centerV;
 	float radius;
 	int pos = 0;
@@ -172,11 +172,11 @@ Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D>& vertices) 
 	token = line.substr(0, pos);
 	radius = std::stof(token);
 
-	Sphere sph(vertices[centerV], radius);
+	Sphere sph(*vertices[centerV], radius);
 	return sph;
 }
 
-Box PLYReader::readBox(std::string line, std::vector<Vector3D>& vertices) {
+Box PLYReader::readBox(std::string line, std::vector<Vector3D*>& vertices) {
 	int vmax, vmin;
 	int pos = 0;
 	std::string token;
@@ -192,6 +192,6 @@ Box PLYReader::readBox(std::string line, std::vector<Vector3D>& vertices) {
 	token = line.substr(0, pos);
 	vmax = std::stof(token);
 
-	Box box(vertices[vmin], vertices[vmax]);
+	Box box(*vertices[vmin], *vertices[vmax]);
 	return box;
 }

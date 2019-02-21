@@ -36,7 +36,9 @@ Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, 
 	computeRays();
 }
 
-Camera::~Camera() {}
+Camera::~Camera() {
+	delete[] rays;
+}
 
 /*
 Gets the width of the camera view.
@@ -85,7 +87,7 @@ Gets a point downwards of given p at a distance k.
 (In the perspective of the camera.)
 */
 Vector3D Camera::getPointDown(Vector3D p, float k) {
-	float tempScale = type == 0 ? 100 / scale / meanSize : 1;
+	float tempScale = type == ORTHOGRAPHIC ? 100 / scale / meanSize : 1;
 	Vector3D manipulationVector = viewUpVector * k * tempScale;
 	Vector3D tempPoint;
 	tempPoint.x = p.x - manipulationVector.x;
@@ -99,7 +101,7 @@ Gets a point to the right of given p at a distance k.
 (In the perspective of the camera.)
 */
 Vector3D Camera::getPointRight(Vector3D p, float k) {
-	float tempScale = type == 0 ? 100 / scale / meanSize : 1;
+	float tempScale = type == ORTHOGRAPHIC ? 100 / scale / meanSize : 1;
 	Vector3D manipulationVector = viewRightVector * k * tempScale;
 	Vector3D tempPoint;
 	tempPoint.x = p.x + manipulationVector.x;
@@ -152,7 +154,7 @@ void Camera::computeRays() {
 	
 	Vector3D tempPoint = getPointRight(viewReferencePoint, x);
 	tempPoint = getPointDown(tempPoint, y);
-	tempPoint = type == 0 ? tempPoint : getPointForward(tempPoint, scale);
+	tempPoint = type == ORTHOGRAPHIC ? tempPoint : getPointForward(tempPoint, scale);
 	
 	//For each pixel in the camera view.
 	#pragma omp parallel for
@@ -167,8 +169,8 @@ Ray Camera::computeRay(int x, int y, Vector3D topLeftPixel) {
 	Vector3D tempPoint = getPointRight(topLeftPixel, x);
 	tempPoint = getPointDown(tempPoint, y);
 
-	Vector3D rayOrigin = type == 0 ? tempPoint : viewReferencePoint;
-	Vector3D rayDirection = type == 0 ? viewPlaneNormalVector : tempPoint - viewReferencePoint;
+	Vector3D rayOrigin = type == ORTHOGRAPHIC ? tempPoint : viewReferencePoint;
+	Vector3D rayDirection = type == ORTHOGRAPHIC ? viewPlaneNormalVector : tempPoint - viewReferencePoint;
 	return Ray (rayOrigin, rayDirection.unitVector());
 }
 
@@ -176,7 +178,7 @@ Ray Camera::computeRay(int x, int y, Vector3D topLeftPixel) {
 Return the Camera object in string form. For debug purposes.
 */
 std::string Camera::toString() {
-	std::string type = this->type == 0 ? "Orthographic" : "Perspective";
+	std::string type = this->type == ORTHOGRAPHIC ? "Orthographic" : "Perspective";
 
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2);
