@@ -105,3 +105,12 @@ std::string Triangle3D::toString() {
 		<< "   PointC " << pointC.toString() << endl << "}";
 	return stream.str();
 }
+
+std::ostream& operator<<(std::ostream& os, const Triangle3D& rhs) {
+	os << std::fixed << std::setprecision(2);
+	os << "Triangle: {" << endl
+		<< "   PointA " << rhs.getPointA() << endl
+		<< "   PointB " << rhs.getPointB() << endl
+		<< "   PointC " << rhs.getPointC() << endl << "}";
+	return os;
+}

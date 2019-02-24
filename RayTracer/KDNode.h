@@ -13,7 +13,7 @@ class KDNode {
 		bool intersect(KDNode* node, const Ray ray, Object3D* hitObject, Vector3D& point, 
 			Vector3D& normal, float& distance);
 
-		std::string toString(int depth);
+		std::string toString(int depth); 
 	private:
 		int maxDepth;
 
@@ -22,8 +22,6 @@ class KDNode {
 		KDNode* right;
 
 		std::vector<Object3D*> objects;
-
-		
 };
 #endif //KDNODE_H
 

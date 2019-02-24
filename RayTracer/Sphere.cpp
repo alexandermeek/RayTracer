@@ -70,3 +70,11 @@ std::string Sphere::toString() {
 		<< "          Radius: " << radius << endl << "}";
 	return stream.str();
 }
+
+std::ostream& operator<<(std::ostream& os, const Sphere& rhs) {
+	os << std::fixed << std::setprecision(2)
+		<< "Sphere: {" << endl
+		<< "    Point " << rhs.centre << endl
+		<< "          Radius: " << rhs.radius << endl << "}";
+	return os;
+}

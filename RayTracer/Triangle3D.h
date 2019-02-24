@@ -16,6 +16,7 @@ class Triangle3D : public Object3D {
 		BoundingBox getBoundingBox() const;
 
 		std::string toString();
+		friend std::ostream& operator<<(std::ostream& os, const Triangle3D& rhs);
 	protected:
 		
 	private:

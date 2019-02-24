@@ -67,3 +67,7 @@ Box Box::operator=(const Box &box) {
 std::string Box::toString() const {
 	return BoundingBox::toString();
 }
+
+std::ostream& operator<<(std::ostream& os, const Box& rhs) {
+	return os << (BoundingBox)rhs;
+}

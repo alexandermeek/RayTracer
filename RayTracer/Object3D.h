@@ -2,6 +2,7 @@
 #define OBJECT3D_H
 
 #include <vector>
+#include <ostream>
 
 class Object3D
 {
@@ -26,9 +27,11 @@ class Object3D
 
 		FloatRGB getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight light, Ray ray);
 
-		virtual std::string toString() const; 
+		virtual std::string toString() const;
+		friend std::ostream& operator<<(std::ostream& os, const Object3D& rhs);
 	protected:
 		const float EPSILON = 0.00001f;
+		const float SHADOW_BIAS = 1e-4;
 	private:
 		FloatRGB kA;
 		FloatRGB kD;

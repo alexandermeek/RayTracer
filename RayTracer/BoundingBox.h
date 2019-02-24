@@ -18,5 +18,6 @@ class BoundingBox {
 		int getLongestAxis();
 
 		std::string toString() const;
+		friend std::ostream& operator<<(std::ostream& os, const BoundingBox& rhs);
 };
 

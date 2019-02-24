@@ -5,9 +5,9 @@
 using std::cout;
 
 Object3D::Object3D() {
-	this->kA = FloatRGB(1, 1, 1);
-	this->kD = FloatRGB(1, 1, 1);
-	this->kS = FloatRGB(1, 1, 1);
+	this->kA = FloatRGB(0.3, 0.3, 0.3);
+	this->kD = FloatRGB(0.3, 0.3, 0.3);
+	this->kS = FloatRGB(0.3, 0.3, 0.3);
 	this->lightType = UNIDIRECTIONAL;
 }
 
@@ -66,7 +66,7 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	float miss = 1;
 	for (Object3D* obj : objects) {
 			Ray shadowRay (point, lightDirection);
-			shadowRay.origin = point + normal * 1e-4;
+			shadowRay.origin = point + normal * SHADOW_BIAS;
 			float t;
 			if (obj->intersect(shadowRay, t)) {
 				miss = 0.1;
@@ -94,4 +94,8 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 
 std::string Object3D::toString() const {
 	return std::string();
+}
+
+std::ostream& operator<<(std::ostream& os, const Object3D & rhs) {
+	return os;
 }

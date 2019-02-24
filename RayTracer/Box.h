@@ -17,6 +17,7 @@ class Box : public BoundingBox, public Object3D {
 		Box operator=(const Box &box);
 
 		std::string toString() const;
+		friend std::ostream& operator<<(std::ostream& os, const Box& rhs);
 };
 #endif // BOX_H
 

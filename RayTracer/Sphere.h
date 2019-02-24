@@ -12,6 +12,7 @@ class Sphere : public Object3D {
 		Vector3D getNormal(Vector3D point);
 
 		std::string toString();
+		friend std::ostream& operator<<(std::ostream& os, const Sphere& rhs);
 	protected:
 		
 	private:

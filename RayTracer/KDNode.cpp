@@ -149,8 +149,6 @@ std::string KDNode::toString(int depth) {
 	stream << "KDNode " << depth << ": {" << endl;
 	for (int i = 0; i < depth; i++) stream << "   ";
 	stream << "   NumOfTriangles " << objects.size() << endl;
-	for (int i = 0; i < depth; i++) stream << "   ";
-	stream << "   " << bBox.toString() << endl;
 	depth++;
 	if (left != nullptr) {
 		stream << endl;

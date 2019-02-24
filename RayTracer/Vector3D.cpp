@@ -147,3 +147,9 @@ std::string Vector3D::toString() const {
 	stream << "Vector: (" << x << "," << y << "," << z << ")";
 	return stream.str();
 }
+
+std::ostream& operator<<(std::ostream& os, const Vector3D &rhs) {
+	os << std::fixed << std::setprecision(2);
+	os << "Vector: (" << x << "," << y << "," << z << ")";
+	return os;
+}

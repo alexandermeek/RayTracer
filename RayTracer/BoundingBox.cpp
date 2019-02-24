@@ -95,3 +95,11 @@ std::string BoundingBox::toString() const {
 		<< "   vmax " << vmax.toString() << endl << "}";
 	return stream.str();
 }
+
+std::ostream& operator<<(std::ostream& os, const BoundingBox& rhs) {
+	os << std::fixed << std::setprecision(2)
+		<< "Box: {" << endl
+		<< "   vmin " << rhs.vmin << endl
+		<< "   vmax " << rhs.vmax << endl << "}";
+	return os;
+}
