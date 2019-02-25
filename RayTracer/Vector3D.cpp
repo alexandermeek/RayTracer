@@ -150,6 +150,6 @@ std::string Vector3D::toString() const {
 
 std::ostream& operator<<(std::ostream& os, const Vector3D &rhs) {
 	os << std::fixed << std::setprecision(2);
-	os << "Vector: (" << x << "," << y << "," << z << ")";
+	os << "Vector: (" << rhs.x << "," << rhs.y << "," << rhs.z << ")";
 	return os;
 }

@@ -9,7 +9,7 @@ Logger::Logger(std::string filename) {
 	this->filename = filename;
 }
 
-void Logger::createEntry(int height, int width, float runtime, 
+void Logger::createEntry(int height, int width, float buildTime, float runtime, 
 	int triangles, int spheres, int boxes, int num_rays_missed) {
 
 	std::time_t now = time(0);
@@ -23,6 +23,7 @@ void Logger::createEntry(int height, int width, float runtime,
 	logfile << std::fixed << std::setprecision(2)
 		<< std::string(dateTime).substr(0, 24)
 		<< ", Image size: " << height << "x" << width
+		<< ", Build time: " << buildTime << " secs"
 		<< ", Runtime: " << runtime << " secs"
 		<< ", Triangles: " << triangles
 		<< ", Spheres: " << spheres

@@ -6,8 +6,6 @@
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
 
-//https://blog.frogslayer.com/kd-trees-for-faster-ray-tracing-with-triangles/
-
 using std::vector;
 using std::endl;
 
@@ -38,14 +36,19 @@ BoundingBox KDNode::getBoundingBox() const {
 
 KDNode* KDNode::build(vector<Object3D*>& objects, BoundingBox bBox, int depth) {
 	KDNode* node = new KDNode(maxDepth);
-	node->objects = objects;
 	node->left = nullptr;
 	node->right = nullptr;
 	node->bBox = bBox;
 	
-	if (depth >= maxDepth) return node;
+	if (depth >= maxDepth) {
+		node->objects = objects;
+		return node;
+	}
 
-	if (objects.size() <= 3) return node;
+	if (objects.size() <= 5) {
+		node->objects = objects;
+		return node;
+	}
 
 	vector<Object3D*> leftObjects, rightObjects;
 	BoundingBox leftBBox, rightBBox;
