@@ -62,15 +62,6 @@ bool Sphere::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distan
 	return true;
 }
 
-std::string Sphere::toString() {
-	std::stringstream stream;
-	stream << std::fixed << std::setprecision(2);
-	stream << "Sphere: {" << endl
-		<< "    Point " << centre.toString() << endl
-		<< "          Radius: " << radius << endl << "}";
-	return stream.str();
-}
-
 std::ostream& operator<<(std::ostream& os, const Sphere& rhs) {
 	os << std::fixed << std::setprecision(2)
 		<< "Sphere: {" << endl

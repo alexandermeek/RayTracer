@@ -9,6 +9,6 @@ class Ray {
 		Vector3D origin;
 		Vector3D direction;
 
-		std::string toString();
+		friend std::ostream& operator<<(std::ostream& os, const Ray& rhs);
 };
 #endif // RAY_H

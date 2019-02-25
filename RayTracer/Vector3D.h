@@ -23,7 +23,6 @@ class Vector3D {
         Vector3D operator/ (const float k) const;
 		Vector3D operator/ (const Vector3D& v) const;
 
-        std::string toString() const;
 		friend std::ostream& operator<<(std::ostream& os, const Vector3D& rhs);
 
 		float x;

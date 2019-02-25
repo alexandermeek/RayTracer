@@ -17,7 +17,6 @@ class BoundingBox {
 		Vector3D getCentre();
 		int getLongestAxis();
 
-		std::string toString() const;
 		friend std::ostream& operator<<(std::ostream& os, const BoundingBox& rhs);
 };
 

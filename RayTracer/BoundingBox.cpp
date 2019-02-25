@@ -87,15 +87,6 @@ int BoundingBox::getLongestAxis() {
 	return AXIS_X;
 }
 
-std::string BoundingBox::toString() const {
-	std::stringstream stream;
-	stream << std::fixed << std::setprecision(2);
-	stream << "Box: {" << endl
-		<< "   vmin " << vmin.toString() << endl
-		<< "   vmax " << vmax.toString() << endl << "}";
-	return stream.str();
-}
-
 std::ostream& operator<<(std::ostream& os, const BoundingBox& rhs) {
 	os << std::fixed << std::setprecision(2)
 		<< "Box: {" << endl

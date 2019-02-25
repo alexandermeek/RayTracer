@@ -174,21 +174,16 @@ Ray Camera::computeRay(int x, int y, Vector3D topLeftPixel) {
 	return Ray (rayOrigin, rayDirection.unitVector());
 }
 
-/*
-Return the Camera object in string form. For debug purposes.
-*/
-std::string Camera::toString() {
-	std::string type = this->type == ORTHOGRAPHIC ? "Orthographic" : "Perspective";
+std::ostream& operator<<(std::ostream& os, const Camera& rhs) {
+	std::string type = rhs.type == Camera::ORTHOGRAPHIC ? "Orthographic" : "Perspective";
 
-	std::stringstream stream;
-	stream << std::fixed << std::setprecision(2);
-	stream << "Camera: {" << endl
-		<< "    Point " << viewReferencePoint.toString() << endl
-		<< "   Normal " << viewPlaneNormalVector.toString() << endl
-		<< "       Up " << viewUpVector.toString() << endl
-		<< "    Right " << viewRightVector.toString() << endl
-		<< "       View Size: " << width << "x" << height << endl
-		<< " Projection Type: " << type
-		<< endl << "}";
-	return stream.str();
+	os << std::fixed << std::setprecision(2)
+		<< "    Point " << rhs.viewReferencePoint << endl
+		<< "   Normal " << rhs.viewPlaneNormalVector << endl
+		<< "       Up " << rhs.viewUpVector << endl
+		<< "    Right " << rhs.viewRightVector << endl
+		<< "       View Size: " << rhs.width << "x" << rhs.height << endl
+		<< " Projection Type: " << type << endl 
+		<< "}";
+	return os;
 }

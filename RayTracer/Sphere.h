@@ -11,7 +11,6 @@ class Sphere : public Object3D {
 		bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
 		Vector3D getNormal(Vector3D point);
 
-		std::string toString();
 		friend std::ostream& operator<<(std::ostream& os, const Sphere& rhs);
 	protected:
 		

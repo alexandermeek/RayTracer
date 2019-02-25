@@ -96,16 +96,6 @@ BoundingBox Triangle3D::getBoundingBox() const {
 	return BoundingBox(vmin, vmax);
 }
 
-std::string Triangle3D::toString() {
-	std::stringstream stream;
-	stream << std::fixed << std::setprecision(2);
-	stream << "Triangle: {" << endl
-		<< "   PointA " << pointA.toString() << endl
-		<< "   PointB " << pointB.toString() << endl
-		<< "   PointC " << pointC.toString() << endl << "}";
-	return stream.str();
-}
-
 std::ostream& operator<<(std::ostream& os, const Triangle3D& rhs) {
 	os << std::fixed << std::setprecision(2);
 	os << "Triangle: {" << endl

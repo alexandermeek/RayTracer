@@ -92,10 +92,6 @@ FloatRGB Object3D::getColourValue(std::vector<Object3D*>& objects, Vector3D poin
 	return colour;
 }
 
-std::string Object3D::toString() const {
-	return std::string();
-}
-
 std::ostream& operator<<(std::ostream& os, const Object3D & rhs) {
 	return os;
 }

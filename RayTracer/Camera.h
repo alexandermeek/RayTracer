@@ -17,7 +17,7 @@ class Camera {
 		Vector3D getVRV() const;
 		Ray getRayAtPosition(int x, int y);
 
-		std::string toString();
+		friend std::ostream& operator<<(std::ostream& os, const Camera& rhs);
     protected:
 
     private:

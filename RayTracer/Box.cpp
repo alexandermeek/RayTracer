@@ -64,10 +64,6 @@ Box Box::operator=(const Box &box) {
 	return Box(box.vmin, box.vmax, box.getKA(), box.getKD(), box.getKS());
 }
 
-std::string Box::toString() const {
-	return BoundingBox::toString();
-}
-
 std::ostream& operator<<(std::ostream& os, const Box& rhs) {
 	return os << (BoundingBox)rhs;
 }

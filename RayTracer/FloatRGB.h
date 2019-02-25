@@ -14,6 +14,6 @@ class FloatRGB
 		float g;
 		float b;
 
-		std::string toString();
+		friend std::ostream& operator<<(std::ostream& os, const FloatRGB& rhs);
 };
 

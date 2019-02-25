@@ -45,8 +45,7 @@ FloatRGB FloatRGB::operator+(const FloatRGB intensity) {
 	return tempIntensity;
 }
 
-std::string FloatRGB::toString() {
-	std::stringstream stream;
-	stream << r << " " << g << " " << b;
-	return stream.str();
+std::ostream& operator<<(std::ostream& os, const FloatRGB& rhs) {
+	os << rhs.r << " " << rhs.g << " " << rhs.b;
+	return os;
 }

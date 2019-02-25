@@ -18,12 +18,11 @@ Ray::Ray(Vector3D origin, Vector3D direction) {
 
 Ray::~Ray() {}
 
-std::string Ray::toString() {
-	std::stringstream stream;
-	stream << std::fixed << std::setprecision(2);
-	stream << "Ray: {" << endl
-		<< "   Origin " << origin.toString() << endl
-		<< "Direction " << direction.toString()
-		<< endl << "}";
-	return stream.str();
+std::ostream& operator<<(std::ostream& os, const Ray& rhs) {
+	os << std::fixed << std::setprecision(2)
+		<< "Ray: {" << endl
+		<< "   Origin " << rhs.origin << endl
+		<< "Direction " << rhs.direction << endl
+		<< "}";
+	return os;
 }
