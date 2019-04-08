@@ -39,6 +39,7 @@
 # Visual Studio files
 *.user
 *.aps
+.vscode
 
 # Unneeded folders
 Debug
