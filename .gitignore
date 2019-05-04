@@ -49,7 +49,7 @@ RayTracer/Debug
 # Output files
 *.png
 *.ppm
-*.txt
+log.txt
 *.csv
 *.xlsx
 

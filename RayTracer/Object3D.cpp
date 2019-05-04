@@ -59,12 +59,12 @@ BoundingBox Object3D::getBoundingBox() const {
 	return BoundingBox();
 }
 
-FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray) {
+FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray, bool shadows) {
 	normal = normal.unitVector();
 	Vector3D lightDirection = (light.position - point).unitVector();
 
 	float miss = 1;
-	{
+	if (shadows) {
 		Vector3D temp_point;
 		Vector3D temp_normal;
 		float distance(INT32_MAX);
@@ -78,14 +78,6 @@ FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D norma
 			miss = 0.1;
 		}
 	}
-	/*for (Object3D* obj : objects) {
-			Ray shadowRay (point, lightDirection);
-			shadowRay.origin = point + normal * SHADOW_BIAS;
-			float t;
-			if (obj->intersect(shadowRay, t)) {
-				miss = 0.1;
-			}
-	}*/
 
 	float nl = normal.dotProduct(lightDirection);
 	if (lightType == BIDIRECTIONAL) { nl = abs(nl); }
