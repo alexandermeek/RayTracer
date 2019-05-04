@@ -49,7 +49,9 @@ RayTracer/Debug
 # Output files
 *.png
 *.ppm
-log.txt
+*.txt
+*.csv
+*.xlsx
 
 # Windows thumbnails
 Thumbs.db

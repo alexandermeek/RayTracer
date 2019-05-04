@@ -10,7 +10,7 @@ using std::fmax;
 using std::fmin;
 
 Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC)
-	: Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1,1,1), BIDIRECTIONAL) {
+	: Object3D(FloatRGB(0.3, 0.3, 0.3), FloatRGB(0.3, 0.3, 0.3), FloatRGB(0.3,0.3,0.3), BIDIRECTIONAL) {
 	this->pointA = pointA;
 	this->pointB = pointB;
 	this->pointC = pointC;

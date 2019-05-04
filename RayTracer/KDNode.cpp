@@ -34,6 +34,24 @@ BoundingBox KDNode::getBoundingBox() const {
 	return bBox;
 }
 
+int KDNode::count_leaves() const {
+	int total = 0;
+	if (left == nullptr) {
+		total++;
+	}
+	else {
+		total += left->count_leaves();
+	}
+	if (right == nullptr) {
+		total++;
+	}
+	else {
+		total += right->count_leaves();
+	}
+
+	return total;
+}
+
 KDNode* KDNode::build(vector<Object3D*>& objects, BoundingBox bBox, int depth) {
 	KDNode* node = new KDNode(maxDepth);
 	node->left = nullptr;
@@ -57,19 +75,19 @@ KDNode* KDNode::build(vector<Object3D*>& objects, BoundingBox bBox, int depth) {
 	Vector3D bCentre = bBox.getCentre();
 
 	switch (axis) {
-	case Box::AXIS_X:
+	case BoundingBox::AXIS_X:
 		leftBBox.vmin = bBox.vmin;
 		leftBBox.vmax = Vector3D(bCentre.x, bBox.vmax.y, bBox.vmax.z);
 		rightBBox.vmin = Vector3D(bCentre.x, bBox.vmin.y, bBox.vmin.z);
 		rightBBox.vmax = bBox.vmax;
 		break;
-	case Box::AXIS_Y:
+	case BoundingBox::AXIS_Y:
 		leftBBox.vmin = bBox.vmin;
 		leftBBox.vmax = Vector3D(bBox.vmax.x, bCentre.y, bBox.vmax.z);
 		rightBBox.vmin = Vector3D(bBox.vmin.x, bCentre.y, bBox.vmin.z);
 		rightBBox.vmax = bBox.vmax;
 		break;
-	case Box::AXIS_Z:
+	case BoundingBox::AXIS_Z:
 		leftBBox.vmin = bBox.vmin;
 		leftBBox.vmax = Vector3D(bBox.vmax.x, bBox.vmax.y, bCentre.z);
 		rightBBox.vmin = Vector3D(bBox.vmin.x, bBox.vmin.y, bCentre.z);
@@ -93,8 +111,27 @@ KDNode* KDNode::build(vector<Object3D*>& objects, BoundingBox bBox, int depth) {
 	return node;
 }
 
-bool KDNode::intersect(KDNode* node, const Ray ray, Object3D* hitObject, Vector3D& point, 
-	Vector3D& normal, float& distance) {
+bool KDNode::intersect(KDNode* node, Ray ray, Object3D** hitObject, Vector3D& point, 
+	Vector3D& normal, float& distance, float& origin_offset) {
+	//Will only be run at root node.
+	if (node->bBox.contains(ray.origin)) {
+		switch (node->bBox.getLongestAxis()) {
+		case BoundingBox::AXIS_X:
+			origin_offset = abs(node->bBox.vmax.x - node->bBox.vmin.x);
+			break;
+		case BoundingBox::AXIS_Y:
+			origin_offset = abs(node->bBox.vmax.y - node->bBox.vmin.y);
+			break;
+		case BoundingBox::AXIS_Z:
+			origin_offset = abs(node->bBox.vmax.z - node->bBox.vmin.z);
+			break;
+		}
+		ray.direction = ray.direction;
+		Vector3D temp = ray.origin;
+		ray.origin = ray.origin - (ray.direction * origin_offset * 2);
+		origin_offset = (temp - ray.origin).magnitude();
+	}
+
 	float t;
 	if (!node->bBox.intersect(ray, t)) return false;
 
@@ -108,8 +145,8 @@ bool KDNode::intersect(KDNode* node, const Ray ray, Object3D* hitObject, Vector3
 		for (Object3D* obj : node->objects) {
 			if (obj->intersect(ray, hitPoint, hitNormal, hitDistance)) {
 				if (bBox.contains(hitPoint)) {
-					if (hitDistance < distance) {
-						hitObject = obj;
+					if (hitDistance < distance && hitDistance > origin_offset) {
+						*hitObject = obj;
 						point = hitPoint;
 						normal = hitNormal;
 						distance = hitDistance;
@@ -129,16 +166,16 @@ bool KDNode::intersect(KDNode* node, const Ray ray, Object3D* hitObject, Vector3
 	if (!leftHit && !rightHit) return false;
 
 	if (leftDistance <= rightDistance) {
-		if (!leftNull) leftHit = intersect(node->left, ray, hitObject, point, normal, distance);
+		if (!leftNull) leftHit = intersect(node->left, ray, hitObject, point, normal, distance, origin_offset);
 		if (!leftHit) {
-			if (!rightNull) rightHit = intersect(node->right, ray, hitObject, point, normal, distance);
+			if (!rightNull) rightHit = intersect(node->right, ray, hitObject, point, normal, distance, origin_offset);
 			if (!rightHit) return false;
 		}
 	}
 	else {
-		if (!rightNull) rightHit = intersect(node->right, ray, hitObject, point, normal, distance);
+		if (!rightNull) rightHit = intersect(node->right, ray, hitObject, point, normal, distance, origin_offset);
 		if (!rightHit) {
-			if (!leftNull) leftHit = intersect(node->left, ray, hitObject, point, normal, distance);
+			if (!leftNull) leftHit = intersect(node->left, ray, hitObject, point, normal, distance, origin_offset);
 			if (!leftHit) return false;
 		}
 	}

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <ostream>
+class KDNode;
 
 class Object3D
 {
@@ -25,7 +26,7 @@ class Object3D
 		virtual Vector3D getNormal(Vector3D point);
 		virtual BoundingBox getBoundingBox() const;
 
-		FloatRGB getColourValue(std::vector<Object3D*>& objects, Vector3D point, Vector3D normal, PointLight light, Ray ray);
+		FloatRGB getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray);
 
 		friend std::ostream& operator<<(std::ostream& os, const Object3D& rhs);
 	protected:
