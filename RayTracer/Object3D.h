@@ -26,7 +26,7 @@ class Object3D
 		virtual Vector3D getNormal(Vector3D point);
 		virtual BoundingBox getBoundingBox() const;
 
-		FloatRGB getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray);
+		FloatRGB getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray, bool shadows);
 
 		friend std::ostream& operator<<(std::ostream& os, const Object3D& rhs);
 	protected:

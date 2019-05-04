@@ -1,0 +1,17 @@
+image filename = "render.png"
+log filename = "log.csv"
+model path = "models/"
+model filename = "bun_zipper"
+image width = 200
+image height = 200
+image scale = 6
+projection type = perspective
+shadows = true
+kdtree max depth = 20
+background colour = 20 20 20
+camera position = 50 100 200
+light position = -500 300 500
+light intensity = 0.8 0.8 0.8
+object colour ambient = 1 1 1
+object colour diffuse = 1 1 1
+object colour specular = 0.1 0.1 0.1
