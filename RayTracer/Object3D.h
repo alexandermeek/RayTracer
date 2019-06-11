@@ -31,7 +31,7 @@ class Object3D
 		friend std::ostream& operator<<(std::ostream& os, const Object3D& rhs);
 	protected:
 		const float EPSILON = 0.00001f;
-		const float SHADOW_BIAS = 1e-4;
+		const float SHADOW_BIAS = 1e-4f;
 	private:
 		FloatRGB kA;
 		FloatRGB kD;

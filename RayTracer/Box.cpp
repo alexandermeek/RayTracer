@@ -49,9 +49,9 @@ Vector3D Box::getNormal(Vector3D point) {
 	const float bias = 1.000010f;
 
 	normal = normal / divisor * bias;
-	normal.x = (int) normal.x;
-	normal.y = (int) normal.y;
-	normal.z = (int) normal.z;
+	normal.x = floor(normal.x);
+	normal.y = floor(normal.y);
+	normal.z = floor(normal.z);
 
 	return normal.unitVector();
 }

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BOUNDINGBOX_H
+#define BOUNDINGBOX_H
 class BoundingBox {
 	public:
 		BoundingBox();
@@ -19,4 +20,4 @@ class BoundingBox {
 
 		friend std::ostream& operator<<(std::ostream& os, const BoundingBox& rhs);
 };
-
+#endif //BOUNDINGBOX_H
