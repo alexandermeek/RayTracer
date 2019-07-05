@@ -52,6 +52,23 @@ int KDNode::count_leaves() const {
 	return total;
 }
 
+BoundingBox KDNode::surround_with_box(std::vector<Object3D*>& objects) {
+	Vector3D vmax(INT32_MIN, INT32_MIN, INT32_MIN);
+	Vector3D vmin(INT32_MAX, INT32_MAX, INT32_MAX);
+
+	for (Object3D* obj : objects) {
+		BoundingBox oBox = obj->getBoundingBox();
+		if (oBox.vmax.x > vmax.x) vmax.x = oBox.vmax.x;
+		if (oBox.vmax.y > vmax.y) vmax.y = oBox.vmax.y;
+		if (oBox.vmax.z > vmax.z) vmax.z = oBox.vmax.z;
+		if (oBox.vmin.x < vmin.x) vmin.x = oBox.vmin.x;
+		if (oBox.vmin.y < vmin.y) vmin.y = oBox.vmin.y;
+		if (oBox.vmin.z < vmin.z) vmin.z = oBox.vmin.z;
+	}
+	
+	return BoundingBox(vmin, vmax);
+}
+
 KDNode* KDNode::build(vector<Object3D*>& objects, BoundingBox bBox, int depth) {
 	KDNode* node = new KDNode(maxDepth);
 	node->left = nullptr;

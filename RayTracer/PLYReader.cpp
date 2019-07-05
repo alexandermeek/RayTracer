@@ -25,22 +25,6 @@ int PLYReader::getNumFaces() {
 	return numFaces;
 }
 
-Vector3D PLYReader::getMax() {
-	return vmax;
-}
-
-Vector3D PLYReader::getMin() {
-	return vmin;
-}
-
-Vector3D PLYReader::getCentre() {
-	float x, y, z;
-	x = vmin.x + ((vmax.x - vmin.x) / 2.0f);
-	y = vmin.y + ((vmax.y - vmin.y) / 2.0f);
-	z = vmin.z + ((vmax.z - vmin.z) / 2.0f);
-	return Vector3D(x, y, z);
-}
-
 bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>& vertices) {
 	std::string line;
 	std::ifstream plyFile(filename);
@@ -126,14 +110,6 @@ Vector3D* PLYReader::readPoint(std::string line) {
 	}
 
 	Vector3D* vertex = new Vector3D(v[0], v[1], v[2]);
-
-	if (vertex->x > vmax.x) vmax.x = vertex->x;
-	if (vertex->y > vmax.y) vmax.y = vertex->y;
-	if (vertex->z > vmax.z) vmax.z = vertex->z;
-	if (vertex->x < vmin.x) vmin.x = vertex->x;
-	if (vertex->y < vmin.y) vmin.y = vertex->y;
-	if (vertex->z < vmin.z) vmin.z = vertex->z;
-
 	return vertex;
 }
 

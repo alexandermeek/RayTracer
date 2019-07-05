@@ -20,11 +20,14 @@ Sphere::Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB
 	this->radius = radius;
 }
 
-Sphere::~Sphere() {
-}
-
 Vector3D Sphere::getNormal(Vector3D point) {
 	return (point - centre);
+}
+
+BoundingBox Sphere::getBoundingBox() const {
+	Vector3D vmin(centre.x - radius, centre.y - radius, centre.z - radius);
+	Vector3D vmax(centre.x + radius, centre.y + radius, centre.z + radius);
+	return BoundingBox(vmin, vmax);
 }
 
 bool Sphere::intersect(Ray ray, float& distance) {

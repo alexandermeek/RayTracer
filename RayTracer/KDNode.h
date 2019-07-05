@@ -10,7 +10,8 @@ class KDNode {
 		BoundingBox getBoundingBox() const;
 
 		int count_leaves() const;
-
+		
+		static BoundingBox surround_with_box(std::vector<Object3D*>& objects);
 		KDNode* build(std::vector<Object3D*>& objects, BoundingBox bBox, int depth);
 		bool intersect(KDNode* node, Ray ray, Object3D** hitObject, Vector3D& point, 
 			Vector3D& normal, float& distance, float& origin_offset);
