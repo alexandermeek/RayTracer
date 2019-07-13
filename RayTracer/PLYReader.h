@@ -2,7 +2,6 @@
 class PLYReader {
 	public:
 		PLYReader(std::string filename);
-		~PLYReader();
 
 		std::string getFilename();
 		int getNumVertices();

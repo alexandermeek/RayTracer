@@ -5,19 +5,11 @@
 #include <iostream>
 using std::cout;
 
-Object3D::Object3D() {
-	this->kA = FloatRGB(0.3, 0.3, 0.3);
-	this->kD = FloatRGB(0.3, 0.3, 0.3);
-	this->kS = FloatRGB(0.3, 0.3, 0.3);
-	this->lightType = UNIDIRECTIONAL;
-}
+Object3D::Object3D() : kA(FloatRGB(0.3, 0.3, 0.3)), kD(FloatRGB(0.3, 0.3, 0.3)), kS(FloatRGB(0.3, 0.3, 0.3)), 
+	lightType(UNIDIRECTIONAL) {}
 
-Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, int lightType) {
-	this->kA = kA;
-	this->kD = kD;
-	this->kS = kS;
-	this->lightType = lightType;
-}
+Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, int lightType) : kA(kA), kD(kD), kS(kS), 
+	lightType(lightType) {}
 
 Object3D::~Object3D() {}
 

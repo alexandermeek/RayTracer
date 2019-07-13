@@ -4,14 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-PLYReader::PLYReader(std::string filename) {
-	this->filename = filename;
-}
-
-
-PLYReader::~PLYReader() {
-
-}
+PLYReader::PLYReader(std::string filename) : filename(filename) {}
 
 std::string PLYReader::getFilename() {
 	return filename;

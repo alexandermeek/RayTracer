@@ -9,9 +9,7 @@
 using std::vector;
 using std::endl;
 
-KDNode::KDNode(int maxDepth) {
-	this->maxDepth = maxDepth;
-}
+KDNode::KDNode(int maxDepth) : maxDepth(maxDepth) {}
 
 KDNode::~KDNode() {
 	if (left != nullptr) {

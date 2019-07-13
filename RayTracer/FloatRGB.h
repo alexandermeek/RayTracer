@@ -4,7 +4,6 @@ class FloatRGB
 	public:
 		FloatRGB();
 		FloatRGB(float r, float g, float b);
-		~FloatRGB();
 
 		FloatRGB operator* (const float k);
 		FloatRGB operator* (const FloatRGB intensity);

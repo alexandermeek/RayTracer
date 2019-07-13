@@ -10,16 +10,11 @@ using std::cout;
 using std::endl;
 
 Sphere::Sphere(Vector3D centre, float radius)
-	: Object3D(FloatRGB(1,1,1), FloatRGB(1,1,1), FloatRGB(1,1,1), UNIDIRECTIONAL) {
-	this->centre = centre;
-	this->radius = radius;
-}
+	: Object3D(FloatRGB(1,1,1), FloatRGB(1,1,1), FloatRGB(1,1,1), UNIDIRECTIONAL),
+	  centre(centre), radius(radius) {}
 
 Sphere::Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB kS)
-	: Object3D(kA, kD, kS, UNIDIRECTIONAL) {
-	this->centre = centre;
-	this->radius = radius;
-}
+	: Object3D(kA, kD, kS, UNIDIRECTIONAL), centre(centre), radius(radius) {}
 
 Vector3D Sphere::getNormal(Vector3D point) {
 	return (point - centre);

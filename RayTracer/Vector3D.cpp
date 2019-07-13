@@ -17,15 +17,7 @@ Vector3D::Vector3D() {
 /*
 Creates a vector with given x,y,z values.
 */
-Vector3D::Vector3D(float x, float y, float z) {
-    this->x = x;
-    this->y = y;
-    this->z = z;
-}
-
-Vector3D::~Vector3D() {
-    //dtor
-}
+Vector3D::Vector3D(float x, float y, float z) : x(x), y(y), z(z) {}
 
 /*
 Calculates the magnitude of a vector.

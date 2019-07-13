@@ -6,15 +6,15 @@
 
 using std::endl;
 
-Camera::Camera() {
-    //ctor
-}
+Camera::Camera() {}
 
 /*
 Constructs a camera given it's position, what it's looking at,
 and the size of the camera view.
 */
-Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, int type) {
+Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, int type) 
+	: width(width), height(height), scale(scale), type(type) {
+
 	Vector3D normal = pRef - vRP;
 	Vector3D up(0, 1, 0);
 	Vector3D right = up.crossProduct(normal);
@@ -24,11 +24,6 @@ Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, 
 	viewPlaneNormalVector = normal.unitVector();
 	viewRightVector = right.unitVector();
 	viewUpVector = up.unitVector();
-
-	this->width = width;
-	this->height = height;
-	this->scale = scale;
-	this->type = type;
 
 	this->meanSize = (float)width + (float)height / 2.0f;
 

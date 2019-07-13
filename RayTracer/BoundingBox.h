@@ -4,7 +4,6 @@ class BoundingBox {
 	public:
 		BoundingBox();
 		BoundingBox(Vector3D vmin, Vector3D vmax);
-		~BoundingBox();
 
 		Vector3D vmin;
 		Vector3D vmax;

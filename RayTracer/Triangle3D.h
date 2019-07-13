@@ -4,7 +4,6 @@ class Triangle3D : public Object3D {
 	public:
 		Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC);
 		Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC, FloatRGB kA, FloatRGB kD, FloatRGB kS);
-		~Triangle3D();
 
 		Vector3D getPointA() const;
 		Vector3D getPointB() const;

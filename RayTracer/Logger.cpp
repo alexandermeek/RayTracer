@@ -5,9 +5,7 @@
 #include <ctime> //Timings
 #include <fstream>
 
-Logger::Logger(std::string filename) {
-	this->filename = filename;
-}
+Logger::Logger(std::string filename) : filename(filename) {}
 
 void Logger::createEntry(int height, int width, float buildTime, float runtime, 
 	int triangles, int spheres, int boxes, int num_rays_missed, int kdtree_max_depth, int kdtree_leaves) {

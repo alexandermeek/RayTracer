@@ -10,24 +10,14 @@ Box::Box()
 }
 
 Box::Box(const Box &box) 
-	: Object3D(box) {
-	this->vmin = box.vmin;
-	this->vmax = box.vmax;
-}
+	: BoundingBox(box), Object3D(box) {}
 
 Box::Box(Vector3D vmin, Vector3D vmax) 
-	: Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), UNIDIRECTIONAL) {
-	this->vmin = vmin;
-	this->vmax = vmax;
-}
+	: BoundingBox(vmin, vmax),
+	  Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), UNIDIRECTIONAL) {}
 
 Box::Box(Vector3D vmin, Vector3D vmax, FloatRGB kA, FloatRGB kD, FloatRGB kS)
-	: Object3D(kA, kD, kS, UNIDIRECTIONAL) {
-	this->vmin = vmin;
-	this->vmax = vmax;
-}
-
-Box::~Box() {}
+	: BoundingBox(vmin, vmax), Object3D(kA, kD, kS, UNIDIRECTIONAL) {}
 
 bool Box::intersect(const Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
 	float t;

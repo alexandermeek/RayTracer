@@ -7,7 +7,6 @@ class Vector3D {
     public:
         Vector3D();
         Vector3D(float x, float y, float z);
-        virtual ~Vector3D();
 
 		float magnitude() const;
 		float cosTheta(const Vector3D& v) const;

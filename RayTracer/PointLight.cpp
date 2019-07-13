@@ -6,12 +6,7 @@
 
 using std::endl;
 
-PointLight::PointLight(Vector3D position, FloatRGB intensity) {
-	this->position = position;
-	this->intensity = intensity;
-}
-
-PointLight::~PointLight() {}
+PointLight::PointLight(Vector3D position, FloatRGB intensity) : position(position), intensity(intensity) {}
 
 std::ostream& operator<<(std::ostream& os, const PointLight& rhs) {
 	os << std::fixed << std::setprecision(2)
