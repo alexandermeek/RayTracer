@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Object3D.h"
 
+#include <math.h>
 #include <iostream>
 using std::cout;
 
@@ -89,7 +90,7 @@ FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D norma
 
 	FloatRGB ambientLight = light.intensity * kA;
 	FloatRGB diffuseLight = light.intensity * nl * kD * miss;
-	FloatRGB specularLight = light.intensity * pow(vR, 10) * kS * miss;
+	FloatRGB specularLight = light.intensity * std::pow(vR, 10) * kS * miss;
 	FloatRGB temp = ambientLight + diffuseLight + specularLight;
 
 	FloatRGB colour(temp.r * 255.0f,

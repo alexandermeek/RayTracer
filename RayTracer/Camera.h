@@ -3,7 +3,7 @@
 
 class Camera {
     public:
-		const enum PROJECTION_TYPE {ORTHOGRAPHIC, PERSPECTIVE};
+		enum PROJECTION_TYPE {ORTHOGRAPHIC, PERSPECTIVE};
 
         Camera();
         Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, int type);

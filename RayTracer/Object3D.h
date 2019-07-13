@@ -8,7 +8,7 @@ class KDNode;
 class Object3D
 {
 	public:
-		const enum LIGHT_TYPE {UNIDIRECTIONAL, BIDIRECTIONAL};
+		enum LIGHT_TYPE {UNIDIRECTIONAL, BIDIRECTIONAL};
 
 		Object3D();
 		Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, int lightType);

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Sphere.h"
 
+#include <math.h>
 #include <iostream>
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
@@ -34,16 +35,16 @@ bool Sphere::intersect(Ray ray, float& distance) {
 	Vector3D oC = ray.origin - centre;
 	float b = 2 * ray.direction.dotProduct(oC);
 	float a = ray.direction.dotProduct(ray.direction);
-	float c = oC.dotProduct(oC) - pow(radius, 2);
-	float b24ac = pow(b, 2) - 4 * a * c;
+	float c = oC.dotProduct(oC) - std::pow(radius, 2);
+	float b24ac = std::pow(b, 2) - 4 * a * c;
 
 	if (b24ac < 0) {
 		return false;
 	}
 
 	float t;
-	float t1 = (-b + sqrt(b24ac)) / 2.0f * a;
-	float t2 = (-b - sqrt(b24ac)) / 2.0f * a;
+	float t1 = (-b + std::sqrt(b24ac)) / 2.0f * a;
+	float t2 = (-b - std::sqrt(b24ac)) / 2.0f * a;
 
 	if (t1 < 0 || t2 < 0) {
 		return false;

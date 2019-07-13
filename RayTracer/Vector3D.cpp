@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Vector3D.h"
 
+#include <math.h>
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
 

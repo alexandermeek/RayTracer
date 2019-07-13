@@ -9,7 +9,7 @@ class BoundingBox {
 		Vector3D vmin;
 		Vector3D vmax;
 
-		const enum AXIS { AXIS_X, AXIS_Y, AXIS_Z };
+		enum AXIS { AXIS_X, AXIS_Y, AXIS_Z };
 
 		bool intersect(const Ray ray, float& distance);
 		bool overlaps(const BoundingBox bBox);

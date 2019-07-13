@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Triangle3D.h"
 
+#include <math.h>
 #include <iostream>
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
