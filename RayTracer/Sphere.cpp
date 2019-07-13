@@ -42,7 +42,6 @@ bool Sphere::intersect(Ray ray, float& distance) {
 		return false;
 	}
 
-	float t;
 	float t1 = (-b + std::sqrt(b24ac)) / 2.0f * a;
 	float t2 = (-b - std::sqrt(b24ac)) / 2.0f * a;
 

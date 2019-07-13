@@ -12,7 +12,7 @@ class Object3D
 
 		Object3D();
 		Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, int lightType);
-		~Object3D();
+		virtual ~Object3D();
 
 		FloatRGB getKA() const;
 		FloatRGB getKD() const;

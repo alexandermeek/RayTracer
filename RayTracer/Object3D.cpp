@@ -19,8 +19,7 @@ Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, int lightType) {
 	this->lightType = lightType;
 }
 
-Object3D::~Object3D() {
-}
+Object3D::~Object3D() {}
 
 FloatRGB Object3D::getKA() const {
 	return kA;

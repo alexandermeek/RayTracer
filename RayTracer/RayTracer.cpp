@@ -13,15 +13,6 @@ using std::endl;
 
 std::string MODEL_EXTENSION = ".ply";
 
-//Original scene	Scale: 0.35		File: original_scene
-//Diamond			Scale: 1.5		File: diamond
-//Dodecahedron		Scale: 0.5		File: dodecahedron
-//Bunny				Scale: 2		File: bun_zipper add _res2, 3 or 4 to reduce polygons.
-//Dragon			Scale: 2		File: dragon_vrip add _res2, 3 or 4 to reduce polygons.
-
-//To keep the same composition in frame keep scale the same as you change the size of the image.
-// > scale = bigger object in frame.
-
 Options opt("options.txt");
 
 std::vector<unsigned short> image;
@@ -105,7 +96,7 @@ int main() {
 	FloatRGB kS(0.1, 0.1, 0.1);
 
 	#pragma omp parallel for schedule(dynamic)
-	for (int i = 0; i < objects.size(); i++) {
+	for (int i = 0; i < (int)objects.size(); i++) {
 		objects[i]->setKA(kA);
 		objects[i]->setKD(kD);
 		objects[i]->setKS(kS);

@@ -13,7 +13,9 @@ Options for configuring the scene can be found in the options.txt file.
 | dragon         | 2     | dragon_vrip    |
 ***Note:*** Various models have additional, lower resolution models available. The filename adds a suffix of _res2, 3 or 4.
 
-Any additional downloaded models can be placed in the models directory and used likewise.
+Any additional downloaded models can be placed in the models directory and used likewise. To keep the same composition in frame keep scale the same as you change the size of the image. > scale = bigger object in frame.
 
 ## Compilation:
-To compile using gcc: `g++ --std=c++11 *.cpp -o raytracer` (if within the internal RayTracer directory)
+To compile using gcc: `g++ --std=c++11 *.cpp -o raytracer -fopenmp` (if within the internal RayTracer directory)
+
+Add -Wall to see warnings.
