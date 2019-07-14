@@ -41,18 +41,9 @@ FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D norma
 
 	float miss = 1;
 	if (shadows) {
-		Vector3D temp_point;
-		Vector3D temp_normal;
-		float distance(INT32_MAX);
+		Vector3D shifted_point = point + (normal * SHADOW_BIAS);
 		float origin_offset;
-		Object3D* hitObject;
-		Ray shadowRay(point, lightDirection);
-		shadowRay.origin = point + (normal * SHADOW_BIAS);
-		bool hit = kDNode->intersect(kDNode, shadowRay, &hitObject, temp_point, temp_normal, distance, origin_offset);
-
-		if (hit) {
-			miss = 0.1;
-		}
+		miss = light.calculateShadow(kDNode, shifted_point, origin_offset);
 	}
 
 	float nl = normal.dotProduct(lightDirection);
