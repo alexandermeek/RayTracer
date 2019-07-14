@@ -6,7 +6,7 @@
 
 using std::endl;
 
-PointLight::PointLight(Vector3D position, FloatRGB intensity) : LightSource(intensity), position(position) {}
+PointLight::PointLight(Vector3D position, FloatRGB intensity) : LightSource(position, intensity) {}
 
 float PointLight::calculateShadow(KDNode* kDNode, Vector3D point, 
 	float& origin_offset) const {

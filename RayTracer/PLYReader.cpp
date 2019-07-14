@@ -45,7 +45,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>&
 				else {
 					if (line.substr(0, DESC_FACES.length()) == DESC_FACES) {
 						numFaces = std::stoi(line.substr(DESC_FACES.length(), line.length()));
-						std::cout << numFaces << " faces";
+						std::cout << numFaces << " faces" << std::endl;
 					}
 					else {
 						if (line.substr(0, DESC_END_HEADER.length()) == DESC_END_HEADER) {

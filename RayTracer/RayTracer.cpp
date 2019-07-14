@@ -35,6 +35,16 @@ void savePixel(std::vector<unsigned short>& image, int i, int j, FloatRGB colour
 	image[3 * opt.image_width * j + 3 * i + 2] = colour.b;
 }
 
+//Update min and max colour values in case they exceed range.
+void updateMaxColours(FloatRGB colour) {
+	maxValue = colour.r > maxValue ? colour.r : maxValue;
+	maxValue = colour.g > maxValue ? colour.g : maxValue;
+	maxValue = colour.b > maxValue ? colour.b : maxValue;
+	minValue = colour.r < minValue ? colour.r : minValue;
+	minValue = colour.g < minValue ? colour.g : minValue;
+	minValue = colour.b < minValue ? colour.b : minValue;
+}
+
 //Adjust colour values to fit within the range 0-255.
 void normaliseColours() {
 	#pragma omp parallel for
@@ -118,7 +128,7 @@ int main() {
 
 	//Create camera and lights.
 	Camera cam(opt.camera_position, lookPosition, opt.image_width, opt.image_height, opt.image_scale, opt.projection_type);
-	PointLight light(opt.light_position, opt.light_intensity);
+	LightSource* light = new PointLight(opt.light_position, opt.light_intensity);
 
 	image.resize(opt.image_width * opt.image_height * 3);
 
@@ -154,12 +164,7 @@ int main() {
 			delete origin_offset;
 			savePixel(image, i, j, colour);
 
-			maxValue = colour.r > maxValue ? colour.r : maxValue;
-			maxValue = colour.g > maxValue ? colour.g : maxValue;
-			maxValue = colour.b > maxValue ? colour.b : maxValue;
-			minValue = colour.r < minValue ? colour.r : minValue;
-			minValue = colour.g < minValue ? colour.g : minValue;
-			minValue = colour.b < minValue ? colour.b : minValue;
+			updateMaxColours(colour);
 		}
 		saveProgress(opt.image_height);
 	}
@@ -194,6 +199,7 @@ int main() {
 	for (Vector3D* vec : vertices) {
 		delete vec;
 	}
+	delete light;
 
 	cout << "\rDone!             " << endl;
 	cout << "Rendered: " << numTriangles << " triangles | " << numSpheres << " spheres | "

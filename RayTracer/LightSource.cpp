@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "LightSource.h"
 
-LightSource::LightSource(FloatRGB intensity) : intensity(intensity) {}
+LightSource::LightSource(Vector3D position, FloatRGB intensity) : position(position), intensity(intensity) {}
 
 LightSource::~LightSource() {}

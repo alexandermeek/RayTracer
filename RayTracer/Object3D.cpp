@@ -35,15 +35,15 @@ void Object3D::setKS(FloatRGB kS) {
 	this->kS = kS;
 }
 
-FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray, bool shadows) {
+FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, LightSource* light, Ray ray, bool shadows) {
 	normal = normal.unitVector();
-	Vector3D lightDirection = (light.position - point).unitVector();
+	Vector3D lightDirection = (light->position - point).unitVector();
 
 	float miss = 1;
 	if (shadows) {
 		Vector3D shifted_point = point + (normal * SHADOW_BIAS);
 		float origin_offset;
-		miss = light.calculateShadow(kDNode, shifted_point, origin_offset);
+		miss = light->calculateShadow(kDNode, shifted_point, origin_offset);
 	}
 
 	float nl = normal.dotProduct(lightDirection);
@@ -54,9 +54,9 @@ FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D norma
 	float vR = ray.direction.unitVector().dotProduct(reflVector) * -1;
 	vR = vR < EPSILON ? 0.0f : vR;
 
-	FloatRGB ambientLight = light.intensity * kA;
-	FloatRGB diffuseLight = light.intensity * nl * kD * miss;
-	FloatRGB specularLight = light.intensity * std::pow(vR, 10) * kS * miss;
+	FloatRGB ambientLight = light->intensity * kA;
+	FloatRGB diffuseLight = light->intensity * nl * kD * miss;
+	FloatRGB specularLight = light->intensity * std::pow(vR, 10) * kS * miss;
 	FloatRGB temp = ambientLight + diffuseLight + specularLight;
 
 	FloatRGB colour(temp.r * 255.0f,
