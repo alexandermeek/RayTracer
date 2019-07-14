@@ -5,6 +5,7 @@
 #include "Ray.h"
 #include "FloatRGB.h"
 #include "Camera.h"
+#include "LightSource.h"
 #include "PointLight.h"
 #include "BoundingBox.h"
 #include "Object3D.h"

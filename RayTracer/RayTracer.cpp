@@ -120,8 +120,6 @@ int main() {
 	Camera cam(opt.camera_position, lookPosition, opt.image_width, opt.image_height, opt.image_scale, opt.projection_type);
 	PointLight light(opt.light_position, opt.light_intensity);
 
-	cout << cam << endl;
-
 	image.resize(opt.image_width * opt.image_height * 3);
 
 	cout << std::fixed << std::setprecision(2);

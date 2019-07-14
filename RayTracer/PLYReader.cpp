@@ -86,7 +86,6 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>&
 		}
 		plyFile.close();
 	}
-	std::cout << std::endl << "File read!" << std::endl;
 	return true;
 }
 
