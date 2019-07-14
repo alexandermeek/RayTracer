@@ -10,12 +10,12 @@ class BoundingBox {
 
 		enum AXIS { AXIS_X, AXIS_Y, AXIS_Z };
 
-		bool intersect(const Ray ray, float& distance);
-		bool overlaps(const BoundingBox bBox);
-		bool contains(const Vector3D point);
+		bool intersect(const Ray ray, float& distance) const;
+		bool overlaps(const BoundingBox bBox) const;
+		bool contains(const Vector3D point) const;
 
-		Vector3D getCentre();
-		int getLongestAxis();
+		Vector3D getCentre() const;
+		int getLongestAxis() const;
 
 		friend std::ostream& operator<<(std::ostream& os, const BoundingBox& rhs);
 };

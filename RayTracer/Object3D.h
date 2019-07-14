@@ -1,7 +1,6 @@
 #ifndef OBJECT3D_H
 #define OBJECT3D_H
 
-#include <vector>
 #include <ostream>
 class KDNode;
 
@@ -21,10 +20,10 @@ class Object3D
 		void setKD(FloatRGB kD);
 		void setKS(FloatRGB kS);
 
-		virtual bool intersect(Ray ray, float& distance);
-		virtual bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
-		virtual Vector3D getNormal(Vector3D point);
-		virtual BoundingBox getBoundingBox() const;
+		virtual bool intersect(Ray ray, float& distance) const = 0;
+		virtual bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) const = 0;
+		virtual Vector3D getNormal(Vector3D point) const = 0;
+		virtual BoundingBox getBoundingBox() const = 0;
 
 		FloatRGB getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray, bool shadows);
 

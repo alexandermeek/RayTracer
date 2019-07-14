@@ -16,7 +16,7 @@ Sphere::Sphere(Vector3D centre, float radius)
 Sphere::Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB kS)
 	: Object3D(kA, kD, kS, UNIDIRECTIONAL), centre(centre), radius(radius) {}
 
-Vector3D Sphere::getNormal(Vector3D point) {
+Vector3D Sphere::getNormal(Vector3D point) const {
 	return (point - centre);
 }
 
@@ -26,7 +26,7 @@ BoundingBox Sphere::getBoundingBox() const {
 	return BoundingBox(vmin, vmax);
 }
 
-bool Sphere::intersect(Ray ray, float& distance) {
+bool Sphere::intersect(Ray ray, float& distance) const {
 	Vector3D oC = ray.origin - centre;
 	float b = 2 * ray.direction.dotProduct(oC);
 	float a = ray.direction.dotProduct(ray.direction);
@@ -49,7 +49,7 @@ bool Sphere::intersect(Ray ray, float& distance) {
 	return true;
 }
 
-bool Sphere::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
+bool Sphere::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) const {
 	float t;
 	if (!intersect(ray, t)) return false;
 

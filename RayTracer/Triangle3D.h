@@ -9,9 +9,9 @@ class Triangle3D : public Object3D {
 		Vector3D getPointB() const;
 		Vector3D getPointC() const;
 
-		bool intersect(Ray ray, float& distance);
-		bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
-		Vector3D getNormal(Vector3D point);
+		virtual bool intersect(Ray ray, float& distance) const;
+		virtual bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) const;
+		virtual Vector3D getNormal(Vector3D point) const;
 		BoundingBox getBoundingBox() const;
 
 		friend std::ostream& operator<<(std::ostream& os, const Triangle3D& rhs);

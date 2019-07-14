@@ -35,22 +35,6 @@ void Object3D::setKS(FloatRGB kS) {
 	this->kS = kS;
 }
 
-bool Object3D::intersect(Ray ray, float& distance) {
-	return false;
-}
-
-bool Object3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
-	return false;
-}
-
-Vector3D Object3D::getNormal(Vector3D point) {
-	return Vector3D();
-}
-
-BoundingBox Object3D::getBoundingBox() const {
-	return BoundingBox();
-}
-
 FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray, bool shadows) {
 	normal = normal.unitVector();
 	Vector3D lightDirection = (light.position - point).unitVector();

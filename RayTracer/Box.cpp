@@ -19,9 +19,13 @@ Box::Box(Vector3D vmin, Vector3D vmax)
 Box::Box(Vector3D vmin, Vector3D vmax, FloatRGB kA, FloatRGB kD, FloatRGB kS)
 	: BoundingBox(vmin, vmax), Object3D(kA, kD, kS, UNIDIRECTIONAL) {}
 
-bool Box::intersect(const Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
+bool Box::intersect(const Ray ray, float& distance) const {
+	return BoundingBox::intersect(ray, distance);
+}
+
+bool Box::intersect(const Ray ray, Vector3D& point, Vector3D& normal, float& distance) const {
 	float t;
-	if (!BoundingBox::intersect(ray, t)) return false;
+	if (!intersect(ray, t)) return false;
 
 	distance = t;
 	point = ray.origin + ray.direction * t;
@@ -30,7 +34,7 @@ bool Box::intersect(const Ray ray, Vector3D& point, Vector3D& normal, float& dis
 	return true;
 }
 
-Vector3D Box::getNormal(Vector3D point) {
+Vector3D Box::getNormal(Vector3D point) const {
 	Vector3D centre = getCentre();
 	Vector3D normal = (point - centre);
 	Vector3D divisor = (vmin - vmax) / 2.0f;

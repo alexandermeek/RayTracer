@@ -1,5 +1,7 @@
 #ifndef KDNODE_H
 #define KDNODE_H
+
+#include <vector>
 class KDNode {
 	public:
 		KDNode(int maxDepth);

@@ -29,7 +29,7 @@ Vector3D Triangle3D::getPointC() const {
 	return pointC;
 }
 
-bool Triangle3D::intersect(Ray ray, float& distance) {
+bool Triangle3D::intersect(Ray ray, float& distance) const {
 	float t, u, v;
 
 	Vector3D aB = pointB - pointA;
@@ -57,7 +57,7 @@ bool Triangle3D::intersect(Ray ray, float& distance) {
 	return true;
 }
 
-bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
+bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) const {
 	float t;
 	if (!intersect(ray, t)) return false;
 
@@ -68,7 +68,7 @@ bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& di
 	return true;
 }
 
-Vector3D Triangle3D::getNormal(Vector3D point) {
+Vector3D Triangle3D::getNormal(Vector3D point) const {
 	Vector3D aB = pointB - pointA;
 	Vector3D aC = pointC - pointA;
 	Vector3D normal = aB.crossProduct(aC);

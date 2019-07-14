@@ -6,10 +6,10 @@ class Sphere : public Object3D {
 		Sphere(Vector3D centre, float radius);
 		Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB kS);
 
-		bool intersect(Ray ray, float& distance);
-		bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
-		Vector3D getNormal(Vector3D point);
-		BoundingBox getBoundingBox() const;
+		virtual bool intersect(Ray ray, float& distance) const;
+		virtual bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) const;
+		virtual Vector3D getNormal(Vector3D point) const;
+		virtual BoundingBox getBoundingBox() const;
 
 		friend std::ostream& operator<<(std::ostream& os, const Sphere& rhs);
 	protected:

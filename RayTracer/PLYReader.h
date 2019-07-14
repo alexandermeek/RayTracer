@@ -1,4 +1,7 @@
-#pragma once
+#ifndef PLYREADER_H
+#define PLYREADER_H
+
+#include <vector>
 class PLYReader {
 	public:
 		PLYReader(std::string filename);
@@ -24,4 +27,4 @@ class PLYReader {
 		Sphere readSphere(std::string line, std::vector<Vector3D*>& vertices);
 		Box readBox(std::string line, std::vector<Vector3D*>& vertices);
 };
-
+#endif // PLYREADER_H
