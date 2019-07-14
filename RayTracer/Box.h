@@ -5,8 +5,9 @@ class Box : public BoundingBox, public Object3D {
 
 		Box();
 		Box(const Box &box);
-		Box(Vector3D vmin, Vector3D vmax);
-		Box(Vector3D vmin, Vector3D vmax, FloatRGB kA, FloatRGB kD, FloatRGB kS);
+		Box(const Vector3D vmin, const Vector3D vmax);
+		Box(const Vector3D vmin, const Vector3D vmax, 
+			const FloatRGB kA, const FloatRGB kD, const FloatRGB kS);
 
 		virtual bool intersect(const Ray ray, float& distance) const;
 		virtual bool intersect(const Ray ray, Vector3D& point, Vector3D& normal, float& distance) const;

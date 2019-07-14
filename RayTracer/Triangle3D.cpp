@@ -10,11 +10,12 @@ using std::endl;
 using std::fmax;
 using std::fmin;
 
-Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC)
+Triangle3D::Triangle3D(const Vector3D pointA, const Vector3D pointB, const Vector3D pointC)
 	: Object3D(FloatRGB(0.3, 0.3, 0.3), FloatRGB(0.3, 0.3, 0.3), FloatRGB(0.3,0.3,0.3), BIDIRECTIONAL),
 	  pointA(pointA), pointB(pointB), pointC(pointC) {}
 
-Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC, FloatRGB kA, FloatRGB kD, FloatRGB kS)
+Triangle3D::Triangle3D(const Vector3D pointA, const Vector3D pointB, const Vector3D pointC, 
+	const FloatRGB kA, const FloatRGB kD, const FloatRGB kS)
 	: Object3D(kA, kD, kS, BIDIRECTIONAL), pointA(pointA), pointB(pointB), pointC(pointC) {}
 
 Vector3D Triangle3D::getPointA() const {

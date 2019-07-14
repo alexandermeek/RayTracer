@@ -3,8 +3,9 @@
 
 class Sphere : public Object3D {
 	public:
-		Sphere(Vector3D centre, float radius);
-		Sphere(Vector3D centre, float radius, FloatRGB kA, FloatRGB kD, FloatRGB kS);
+		Sphere(const Vector3D centre, const float radius);
+		Sphere(const Vector3D centre, const float radius, 
+			const FloatRGB kA, const FloatRGB kD, const FloatRGB kS);
 
 		virtual bool intersect(Ray ray, float& distance) const;
 		virtual bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) const;

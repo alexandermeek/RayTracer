@@ -3,7 +3,7 @@ class FloatRGB
 {
 	public:
 		FloatRGB();
-		FloatRGB(float r, float g, float b);
+		FloatRGB(const float r, const float g, const float b);
 
 		FloatRGB operator* (const float k);
 		FloatRGB operator* (const FloatRGB intensity);

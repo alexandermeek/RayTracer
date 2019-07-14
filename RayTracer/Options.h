@@ -2,7 +2,7 @@
 class Options
 {
 public:
-	Options(std::string path);
+	Options(const std::string path);
 
 	std::string image_filename;
 	std::string log_filename;
@@ -25,11 +25,11 @@ public:
 private:
 	const char DELIMITER = '=';
 
-	std::string read_string(std::string line);
-	int read_int(std::string line);
-	int read_projection_type(std::string line);
-	bool read_bool(std::string line);
-	FloatRGB read_colour(std::string line);
-	Vector3D read_point(std::string line);
+	std::string read_string(std::string line) const;
+	int read_int(std::string line) const;
+	int read_projection_type(std::string line) const;
+	bool read_bool(std::string line) const;
+	FloatRGB read_colour(std::string line) const;
+	Vector3D read_point(std::string line) const;
 };
 

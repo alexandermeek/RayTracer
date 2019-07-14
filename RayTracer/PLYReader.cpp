@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-PLYReader::PLYReader(std::string filename) : filename(filename) {}
+PLYReader::PLYReader(const std::string filename) : filename(filename) {}
 
 std::string PLYReader::getFilename() {
 	return filename;
@@ -89,7 +89,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>&
 	return true;
 }
 
-Vector3D* PLYReader::readPoint(std::string line) {
+Vector3D* PLYReader::readPoint(std::string line) const {
 	float v[3];
 	int pos = 0;
 	std::string token;
@@ -105,7 +105,7 @@ Vector3D* PLYReader::readPoint(std::string line) {
 	return vertex;
 }
 
-Triangle3D PLYReader::readTriangle(std::string line, std::vector<Vector3D*>& vertices) {
+Triangle3D PLYReader::readTriangle(std::string line, const std::vector<Vector3D*>& vertices) const {
 	int v[3];
 	int pos = 0;
 	std::string token;
@@ -123,7 +123,7 @@ Triangle3D PLYReader::readTriangle(std::string line, std::vector<Vector3D*>& ver
 	return tri;
 }
 
-Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D*>& vertices) {
+Sphere PLYReader::readSphere(std::string line, const std::vector<Vector3D*>& vertices) const {
 	int centerV;
 	float radius;
 	int pos = 0;
@@ -144,7 +144,7 @@ Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D*>& vertices)
 	return sph;
 }
 
-Box PLYReader::readBox(std::string line, std::vector<Vector3D*>& vertices) {
+Box PLYReader::readBox(std::string line, const std::vector<Vector3D*>& vertices) const {
 	int vmax, vmin;
 	int pos = 0;
 	std::string token;

@@ -8,7 +8,7 @@ using std::endl;
 
 BoundingBox::BoundingBox() : vmin(Vector3D(0,0,0)), vmax(Vector3D(0,0,0)) {}
 
-BoundingBox::BoundingBox(Vector3D vmin, Vector3D vmax) : vmin(vmin), vmax(vmax) {}
+BoundingBox::BoundingBox(const Vector3D vmin, const Vector3D vmax) : vmin(vmin), vmax(vmax) {}
 
 bool BoundingBox::intersect(const Ray ray, float& distance) const {
 	Vector3D t0 = (vmin - ray.origin) / ray.direction;

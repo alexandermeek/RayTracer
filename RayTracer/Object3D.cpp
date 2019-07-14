@@ -8,8 +8,8 @@ using std::cout;
 Object3D::Object3D() : kA(FloatRGB(0.3, 0.3, 0.3)), kD(FloatRGB(0.3, 0.3, 0.3)), kS(FloatRGB(0.3, 0.3, 0.3)), 
 	lightType(UNIDIRECTIONAL) {}
 
-Object3D::Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, int lightType) : kA(kA), kD(kD), kS(kS), 
-	lightType(lightType) {}
+Object3D::Object3D(const FloatRGB kA, const FloatRGB kD, const FloatRGB kS, const int lightType) 
+	: kA(kA), kD(kD), kS(kS), lightType(lightType) {}
 
 Object3D::~Object3D() {}
 
@@ -23,19 +23,19 @@ FloatRGB Object3D::getKS() const {
 	return kS;
 }
 
-void Object3D::setKA(FloatRGB kA) {
+void Object3D::setKA(const FloatRGB kA) {
 	this->kA = kA;
 }
 
-void Object3D::setKD(FloatRGB kD) {
+void Object3D::setKD(const FloatRGB kD) {
 	this->kD = kD;
 }
 
-void Object3D::setKS(FloatRGB kS) {
+void Object3D::setKS(const FloatRGB kS) {
 	this->kS = kS;
 }
 
-FloatRGB Object3D::getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, LightSource* light, Ray ray, bool shadows) {
+FloatRGB Object3D::getColourValue(const KDNode* kDNode, Vector3D point, Vector3D normal, LightSource* light, Ray ray, bool shadows) {
 	normal = normal.unitVector();
 	Vector3D lightDirection = (light->position - point).unitVector();
 

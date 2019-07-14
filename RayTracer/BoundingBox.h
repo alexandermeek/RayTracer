@@ -3,7 +3,7 @@
 class BoundingBox {
 	public:
 		BoundingBox();
-		BoundingBox(Vector3D vmin, Vector3D vmax);
+		BoundingBox(const Vector3D vmin, const Vector3D vmax);
 
 		Vector3D vmin;
 		Vector3D vmax;

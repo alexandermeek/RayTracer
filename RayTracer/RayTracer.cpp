@@ -115,8 +115,6 @@ int main() {
 		objects[i]->setKS(opt.kS);
 	}
 
-	//objects.erase(objects.begin(), objects.begin() + 20000);
-
 	//Build kd-tree
 	KDNode* kDNode = new KDNode(opt.kdtree_max_depth);
 	start = std::clock();

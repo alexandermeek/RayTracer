@@ -6,7 +6,8 @@ class Camera {
 		enum PROJECTION_TYPE {ORTHOGRAPHIC, PERSPECTIVE};
 
         Camera();
-        Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, int type);
+        Camera(const Vector3D vRP, const Vector3D pRef, const int width, const int height, 
+			const float scale, const int type);
         virtual ~Camera();
 		
 		int getWidth() const;
@@ -15,7 +16,7 @@ class Camera {
 		Vector3D getVPN() const;
 		Vector3D getVUV() const;
 		Vector3D getVRV() const;
-		Ray getRayAtPosition(int x, int y);
+		Ray getRayAtPosition(const int x, const int y) const;
 
 		friend std::ostream& operator<<(std::ostream& os, const Camera& rhs);
     protected:
@@ -33,10 +34,10 @@ class Camera {
 		Ray* rays;
 
 		void computeRays();
-		Ray computeRay(int x, int y, Vector3D topLeftPixel);
-		Vector3D getPointDown(Vector3D p, float k);
-		Vector3D getPointRight(Vector3D p, float k);
-		Vector3D getPointForward(Vector3D p, float k);
+		Ray computeRay(const int x, const int y, const Vector3D topLeftPixel) const;
+		Vector3D getPointDown(const Vector3D p, const float k) const;
+		Vector3D getPointRight(const Vector3D p, const float k) const;
+		Vector3D getPointForward(const Vector3D p, const float k) const;
 };
 
 #endif // CAMERA_H

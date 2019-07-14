@@ -4,7 +4,7 @@
 #include <vector>
 class PLYReader {
 	public:
-		PLYReader(std::string filename);
+		PLYReader(const std::string filename);
 
 		std::string getFilename();
 		int getNumVertices();
@@ -22,9 +22,9 @@ class PLYReader {
 		const std::string DESC_FACES = "element face";
 		const std::string DESC_END_HEADER = "end_header";
 
-		Vector3D* readPoint(std::string line);
-		Triangle3D readTriangle(std::string line, std::vector<Vector3D*>& vertices);
-		Sphere readSphere(std::string line, std::vector<Vector3D*>& vertices);
-		Box readBox(std::string line, std::vector<Vector3D*>& vertices);
+		Vector3D* readPoint(std::string line) const;
+		Triangle3D readTriangle(std::string line, const std::vector<Vector3D*>& vertices) const;
+		Sphere readSphere(std::string line, const std::vector<Vector3D*>& vertices) const;
+		Box readBox(std::string line, const std::vector<Vector3D*>& vertices) const;
 };
 #endif // PLYREADER_H

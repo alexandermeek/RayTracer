@@ -5,7 +5,8 @@
 
 FloatRGB::FloatRGB() : r(0), g(0), b(0) {}
 
-FloatRGB::FloatRGB(float r, float g, float b) : r(r), g(g), b(b) {}
+FloatRGB::FloatRGB(const float r, const float g, const float b) 
+	: r(r), g(g), b(b) {}
 
 FloatRGB FloatRGB::operator*(const float k) {
 	FloatRGB temp;

@@ -4,10 +4,10 @@
 class KDNode;
 class LightSource{
     public:
-        LightSource(Vector3D position, FloatRGB intensity);
+        LightSource(const Vector3D position, const FloatRGB intensity);
         virtual ~LightSource();
 
-        virtual float calculateShadow(KDNode* kDNode, Vector3D point, 
+        virtual float calculateShadow(const KDNode* kDNode, Vector3D point, 
             float& origin_offset) const = 0;
 
         Vector3D position;

@@ -3,9 +3,9 @@
 
 class PointLight : public LightSource {
 	public:
-		PointLight(Vector3D position, FloatRGB intensity);
+		PointLight(const Vector3D position, const FloatRGB intensity);
 
-		float calculateShadow(KDNode* kDNode, Vector3D point, 
+		float calculateShadow(const KDNode* kDNode, Vector3D point, 
 			float& origin_offset) const;
 
 		friend std::ostream& operator<<(std::ostream& os, const PointLight& rhs);

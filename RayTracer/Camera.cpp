@@ -12,8 +12,8 @@ Camera::Camera() {}
 Constructs a camera given it's position, what it's looking at,
 and the size of the camera view.
 */
-Camera::Camera(Vector3D vRP, Vector3D pRef, int width, int height, float scale, int type) 
-	: width(width), height(height), scale(scale), type(type) {
+Camera::Camera(const Vector3D vRP, const Vector3D pRef, const int width, const int height, 
+	const float scale, const int type) : width(width), height(height), scale(scale), type(type) {
 
 	Vector3D normal = pRef - vRP;
 	Vector3D up(0, 1, 0);
@@ -81,7 +81,7 @@ Vector3D Camera::getVRV() const {
 Gets a point downwards of given p at a distance k.
 (In the perspective of the camera.)
 */
-Vector3D Camera::getPointDown(Vector3D p, float k) {
+Vector3D Camera::getPointDown(const Vector3D p, const float k) const {
 	float tempScale = type == ORTHOGRAPHIC ? 100 / scale / meanSize : 1;
 	Vector3D manipulationVector = viewUpVector * k * tempScale;
 	Vector3D tempPoint;
@@ -95,7 +95,7 @@ Vector3D Camera::getPointDown(Vector3D p, float k) {
 Gets a point to the right of given p at a distance k.
 (In the perspective of the camera.)
 */
-Vector3D Camera::getPointRight(Vector3D p, float k) {
+Vector3D Camera::getPointRight(const Vector3D p, const float k) const {
 	float tempScale = type == ORTHOGRAPHIC ? 100 / scale / meanSize : 1;
 	Vector3D manipulationVector = viewRightVector * k * tempScale;
 	Vector3D tempPoint;
@@ -109,7 +109,7 @@ Vector3D Camera::getPointRight(Vector3D p, float k) {
 Gets a point to the forwards of given p at a distance k.
 (In the perspective of the camera.)
 */
-Vector3D Camera::getPointForward(Vector3D p, float k) {
+Vector3D Camera::getPointForward(const Vector3D p, const float k) const {
 	Vector3D manipulationVector = viewPlaneNormalVector * k * meanSize;
 	Vector3D tempPoint;
 	tempPoint.x = p.x + manipulationVector.x;
@@ -121,7 +121,7 @@ Vector3D Camera::getPointForward(Vector3D p, float k) {
 /*
 Gets the pixel position for pixel (x,y) in the camera view.
 */
-Ray Camera::getRayAtPosition(int x, int y) {
+Ray Camera::getRayAtPosition(const int x, const int y) const {
 	return rays[x + y * width];
 }
 
@@ -160,7 +160,7 @@ void Camera::computeRays() {
 	}
 }
 
-Ray Camera::computeRay(int x, int y, Vector3D topLeftPixel) {
+Ray Camera::computeRay(const int x, const int y, const Vector3D topLeftPixel) const {
 	Vector3D tempPoint = getPointRight(topLeftPixel, x);
 	tempPoint = getPointDown(tempPoint, y);
 

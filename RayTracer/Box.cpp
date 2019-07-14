@@ -12,11 +12,11 @@ Box::Box()
 Box::Box(const Box &box) 
 	: BoundingBox(box), Object3D(box) {}
 
-Box::Box(Vector3D vmin, Vector3D vmax) 
+Box::Box(const Vector3D vmin, const Vector3D vmax) 
 	: BoundingBox(vmin, vmax),
 	  Object3D(FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), FloatRGB(1, 1, 1), UNIDIRECTIONAL) {}
 
-Box::Box(Vector3D vmin, Vector3D vmax, FloatRGB kA, FloatRGB kD, FloatRGB kS)
+Box::Box(const Vector3D vmin, const Vector3D vmax, const FloatRGB kA, const FloatRGB kD, const FloatRGB kS)
 	: BoundingBox(vmin, vmax), Object3D(kA, kD, kS, UNIDIRECTIONAL) {}
 
 bool Box::intersect(const Ray ray, float& distance) const {
