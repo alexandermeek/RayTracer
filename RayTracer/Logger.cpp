@@ -12,7 +12,11 @@ void Logger::createEntry(const int height, const int width, const float buildTim
 
 	std::time_t now = time(0);
 	char dateTime[26];
-	ctime_s(dateTime, sizeof dateTime, &now);
+	#if WINDOWS
+		ctime_s(dateTime, sizeof dateTime, &now);
+	#else
+		ctime_r(&now, dateTime);
+	#endif
 
 	float percMiss = (float)num_rays_missed / float(height * width) * 100.0f;
 
