@@ -35,29 +35,33 @@ void Object3D::setKS(const FloatRGB kS) {
 	this->kS = kS;
 }
 
-FloatRGB Object3D::getColourValue(const KDNode* kDNode, Vector3D point, Vector3D normal, LightSource* light, Ray ray, bool shadows) {
+FloatRGB Object3D::getColourValue(const KDNode* kDNode, Vector3D point, Vector3D normal, std::vector<LightSource*>& lights, Ray ray, bool shadows) {
 	normal = normal.unitVector();
-	Vector3D lightDirection = (light->position - point).unitVector();
 
-	float miss = 1;
-	if (shadows) {
-		Vector3D shifted_point = point + (normal * SHADOW_BIAS);
-		float origin_offset;
-		miss = light->calculateShadow(kDNode, shifted_point, origin_offset);
+	FloatRGB temp(0, 0, 0);
+	for (LightSource* light : lights) {
+		Vector3D lightDirection = (light->position - point).unitVector();
+
+		float miss = 1;
+		if (shadows) {
+			Vector3D shifted_point = point + (normal * SHADOW_BIAS);
+			float origin_offset;
+			miss = light->calculateShadow(kDNode, shifted_point, origin_offset);
+		}
+
+		float nl = normal.dotProduct(lightDirection);
+		if (lightType == BIDIRECTIONAL) { nl = abs(nl); }
+		nl = nl < EPSILON ? 0.0f : nl;
+		Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
+
+		float vR = ray.direction.unitVector().dotProduct(reflVector) * -1;
+		vR = vR < EPSILON ? 0.0f : vR;
+
+		FloatRGB ambientLight = light->intensity * kA;
+		FloatRGB diffuseLight = light->intensity * nl * kD * miss;
+		FloatRGB specularLight = light->intensity * std::pow(vR, 10) * kS * miss;
+		temp = temp + ambientLight + diffuseLight + specularLight;
 	}
-
-	float nl = normal.dotProduct(lightDirection);
-	if (lightType == BIDIRECTIONAL) { nl = abs(nl); }
-	nl = nl < EPSILON ? 0.0f : nl;
-	Vector3D reflVector = ((normal * 2 * nl) - lightDirection).unitVector();
-
-	float vR = ray.direction.unitVector().dotProduct(reflVector) * -1;
-	vR = vR < EPSILON ? 0.0f : vR;
-
-	FloatRGB ambientLight = light->intensity * kA;
-	FloatRGB diffuseLight = light->intensity * nl * kD * miss;
-	FloatRGB specularLight = light->intensity * std::pow(vR, 10) * kS * miss;
-	FloatRGB temp = ambientLight + diffuseLight + specularLight;
 
 	FloatRGB colour(temp.r * 255.0f,
 		temp.g * 255.0f, temp.b * 255.0f);

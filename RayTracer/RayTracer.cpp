@@ -11,13 +11,14 @@
 using std::cout;
 using std::endl;
 
-std::string MODEL_EXTENSION = ".ply";
+const std::string MODEL_EXTENSION = ".ply";
 
 Options opt("options.txt");
 
 std::vector<unsigned short> image;
 std::vector<Object3D*> objects;
 std::vector<Vector3D*> vertices;
+std::vector<LightSource*> lights;
 
 float maxValue;
 float minValue = INT32_MAX;
@@ -126,7 +127,9 @@ int main() {
 
 	//Create camera and lights.
 	Camera cam(opt.camera_position, lookPosition, opt.image_width, opt.image_height, opt.image_scale, opt.projection_type);
-	LightSource* light = new PointLight(opt.light_position, opt.light_intensity);
+
+	lights.push_back(new PointLight(opt.light_position, opt.light_intensity));
+	lights.push_back(new PointLight(Vector3D(500, 300, 500), opt.light_intensity));
 
 	image.resize(opt.image_width * opt.image_height * 3);
 
@@ -150,7 +153,7 @@ int main() {
 			bool hit = kDNode->intersect(kDNode, ray, &hitObject, *point, *normal, *distance, *origin_offset);
 			
 			if (hit) {
-				colour = hitObject->getColourValue(kDNode, *point, *normal, light, ray, opt.shadows);
+				colour = hitObject->getColourValue(kDNode, *point, *normal, lights, ray, opt.shadows);
 			}
 			else {
 				colour = opt.background_colour;
@@ -197,7 +200,9 @@ int main() {
 	for (Vector3D* vec : vertices) {
 		delete vec;
 	}
-	delete light;
+	for (LightSource* light : lights) {
+		delete light;
+	}
 
 	cout << "\rDone!             " << endl;
 	cout << "Rendered: " << numTriangles << " triangles | " << numSpheres << " spheres | "
