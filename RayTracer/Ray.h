@@ -3,8 +3,7 @@
 class Ray {
 	public:
 		Ray();
-		Ray(Vector3D origin, Vector3D direction);
-		~Ray();
+		Ray(const Vector3D origin, const Vector3D direction);
 
 		Vector3D origin;
 		Vector3D direction;

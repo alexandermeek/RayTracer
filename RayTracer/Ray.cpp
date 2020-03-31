@@ -6,17 +6,10 @@
 
 using std::endl;
 
-Ray::Ray() {
-	this->origin = Vector3D(0, 0, 0);
-	this->direction = Vector3D(0, 0, 0);
-}
+Ray::Ray() : origin(Vector3D(0,0,0)), direction(Vector3D(0,0,0)) {}
 
-Ray::Ray(Vector3D origin, Vector3D direction) {
-	this->origin = origin;
-	this->direction = direction;
-}
-
-Ray::~Ray() {}
+Ray::Ray(const Vector3D origin, const Vector3D direction) 
+	: origin(origin), direction(direction) {}
 
 std::ostream& operator<<(std::ostream& os, const Ray& rhs) {
 	os << std::fixed << std::setprecision(2)

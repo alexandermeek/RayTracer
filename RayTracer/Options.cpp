@@ -3,7 +3,7 @@
 
 #include <fstream>
 
-Options::Options(std::string path) {
+Options::Options(const std::string path) {
 	std::string line;
 	std::ifstream options_file(path);
 
@@ -61,7 +61,7 @@ Options::Options(std::string path) {
 	}
 }
 
-std::string Options::read_string(std::string line) {
+std::string Options::read_string(std::string line) const {
 	int start, end;
 	std::string token;
 
@@ -73,7 +73,7 @@ std::string Options::read_string(std::string line) {
 	return token;
 }
 
-int Options::read_int(std::string line) {
+int Options::read_int(std::string line) const {
 	int start;
 	std::string token;
 
@@ -83,7 +83,7 @@ int Options::read_int(std::string line) {
 	return std::atoi(token.c_str());
 }
 
-int Options::read_projection_type(std::string line) {
+int Options::read_projection_type(std::string line) const {
 	int start;
 	std::string token;
 	
@@ -98,7 +98,7 @@ int Options::read_projection_type(std::string line) {
 	}
 }
 
-bool Options::read_bool(std::string line) {
+bool Options::read_bool(std::string line) const {
 	int start;
 	std::string token;
 
@@ -113,7 +113,7 @@ bool Options::read_bool(std::string line) {
 	}
 }
 
-FloatRGB Options::read_colour(std::string line) {
+FloatRGB Options::read_colour(std::string line) const {
 	int start;
 	std::string token;
 	float v[3];
@@ -136,7 +136,7 @@ FloatRGB Options::read_colour(std::string line) {
 	return FloatRGB(v[0], v[1], v[2]);
 }
 
-Vector3D Options::read_point(std::string line) {
+Vector3D Options::read_point(std::string line) const {
 	int start;
 	std::string token;
 	float v[3];

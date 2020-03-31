@@ -6,16 +6,11 @@
 
 using std::endl;
 
-BoundingBox::BoundingBox() {}
+BoundingBox::BoundingBox() : vmin(Vector3D(0,0,0)), vmax(Vector3D(0,0,0)) {}
 
-BoundingBox::BoundingBox(Vector3D vmin, Vector3D vmax) {
-	this->vmin = vmin;
-	this->vmax = vmax;
-}
+BoundingBox::BoundingBox(const Vector3D vmin, const Vector3D vmax) : vmin(vmin), vmax(vmax) {}
 
-BoundingBox::~BoundingBox() {}
-
-bool BoundingBox::intersect(const Ray ray, float& distance) {
+bool BoundingBox::intersect(const Ray ray, float& distance) const {
 	Vector3D t0 = (vmin - ray.origin) / ray.direction;
 	Vector3D t1 = (vmax - ray.origin) / ray.direction;
 
@@ -53,21 +48,21 @@ bool BoundingBox::intersect(const Ray ray, float& distance) {
 	return true;
 }
 
-bool BoundingBox::overlaps(const BoundingBox box) {
+bool BoundingBox::overlaps(const BoundingBox box) const {
 	if (box.vmax.x < vmin.x || vmax.x < box.vmin.x) return false;
 	if (box.vmax.y < vmin.y || vmax.y < box.vmin.y) return false;
 	if (box.vmax.z < vmin.z || vmax.z < box.vmin.z) return false;
 	return true;
 }
 
-bool BoundingBox::contains(const Vector3D point) {
+bool BoundingBox::contains(const Vector3D point) const {
 	if (point.x > vmax.x || point.x < vmin.x) return false;
 	if (point.y > vmax.y || point.y < vmin.y) return false;
 	if (point.z > vmax.z || point.z < vmin.z) return false;
 	return true;
 }
 
-Vector3D BoundingBox::getCentre() {
+Vector3D BoundingBox::getCentre() const {
 	float x, y, z;
 	x = vmin.x + ((vmax.x - vmin.x) / 2.0f);
 	y = vmin.y + ((vmax.y - vmin.y) / 2.0f);
@@ -75,7 +70,7 @@ Vector3D BoundingBox::getCentre() {
 	return Vector3D(x, y, z);
 }
 
-int BoundingBox::getLongestAxis() {
+int BoundingBox::getLongestAxis() const {
 	float dx, dy, dz;
 	dx = vmax.x - vmin.x;
 	dy = vmax.y - vmin.y;

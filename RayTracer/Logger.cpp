@@ -5,16 +5,18 @@
 #include <ctime> //Timings
 #include <fstream>
 
-Logger::Logger(std::string filename) {
-	this->filename = filename;
-}
+Logger::Logger(const std::string filename) : filename(filename) {}
 
-void Logger::createEntry(int height, int width, float buildTime, float runtime, 
-	int triangles, int spheres, int boxes, int num_rays_missed, int kdtree_max_depth, int kdtree_leaves) {
+void Logger::createEntry(const int height, const int width, const float buildTime, const float runtime, 
+	const int triangles, const int spheres, const int boxes, const int num_rays_missed, const int kdtree_max_depth, const int kdtree_leaves) {
 
 	std::time_t now = time(0);
 	char dateTime[26];
-	ctime_s(dateTime, sizeof dateTime, &now);
+	#if WINDOWS
+		ctime_s(dateTime, sizeof dateTime, &now);
+	#else
+		ctime_r(&now, dateTime);
+	#endif
 
 	float percMiss = (float)num_rays_missed / float(height * width) * 100.0f;
 

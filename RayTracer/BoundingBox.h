@@ -3,20 +3,19 @@
 class BoundingBox {
 	public:
 		BoundingBox();
-		BoundingBox(Vector3D vmin, Vector3D vmax);
-		~BoundingBox();
+		BoundingBox(const Vector3D vmin, const Vector3D vmax);
 
 		Vector3D vmin;
 		Vector3D vmax;
 
-		const enum AXIS { AXIS_X, AXIS_Y, AXIS_Z };
+		enum AXIS { AXIS_X, AXIS_Y, AXIS_Z };
 
-		bool intersect(const Ray ray, float& distance);
-		bool overlaps(const BoundingBox bBox);
-		bool contains(const Vector3D point);
+		bool intersect(const Ray ray, float& distance) const;
+		bool overlaps(const BoundingBox bBox) const;
+		bool contains(const Vector3D point) const;
 
-		Vector3D getCentre();
-		int getLongestAxis();
+		Vector3D getCentre() const;
+		int getLongestAxis() const;
 
 		friend std::ostream& operator<<(std::ostream& os, const BoundingBox& rhs);
 };

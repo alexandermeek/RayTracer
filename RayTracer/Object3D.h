@@ -1,32 +1,32 @@
 #ifndef OBJECT3D_H
 #define OBJECT3D_H
 
-#include <vector>
 #include <ostream>
+#include <vector>
 class KDNode;
 
 class Object3D
 {
 	public:
-		const enum LIGHT_TYPE {UNIDIRECTIONAL, BIDIRECTIONAL};
+		enum LIGHT_TYPE {UNIDIRECTIONAL, BIDIRECTIONAL};
 
 		Object3D();
-		Object3D(FloatRGB kA, FloatRGB kD, FloatRGB kS, int lightType);
-		~Object3D();
+		Object3D(const FloatRGB kA, const FloatRGB kD, const FloatRGB kS, const int lightType);
+		virtual ~Object3D();
 
 		FloatRGB getKA() const;
 		FloatRGB getKD() const;
 		FloatRGB getKS() const;
-		void setKA(FloatRGB kA);
-		void setKD(FloatRGB kD);
-		void setKS(FloatRGB kS);
+		void setKA(const FloatRGB kA);
+		void setKD(const FloatRGB kD);
+		void setKS(const FloatRGB kS);
 
-		virtual bool intersect(Ray ray, float& distance);
-		virtual bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance);
-		virtual Vector3D getNormal(Vector3D point);
-		virtual BoundingBox getBoundingBox() const;
+		virtual bool intersect(Ray ray, float& distance) const = 0;
+		virtual bool intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) const = 0;
+		virtual Vector3D getNormal(Vector3D point) const = 0;
+		virtual BoundingBox getBoundingBox() const = 0;
 
-		FloatRGB getColourValue(KDNode* kDNode, Vector3D point, Vector3D normal, PointLight light, Ray ray, bool shadows);
+		FloatRGB getColourValue(const KDNode* kDNode, Vector3D point, Vector3D normal, std::vector<LightSource*>& lights, Ray ray, bool shadows);
 
 		friend std::ostream& operator<<(std::ostream& os, const Object3D& rhs);
 	protected:

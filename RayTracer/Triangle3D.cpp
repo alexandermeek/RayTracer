@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Triangle3D.h"
 
+#include <math.h>
 #include <iostream>
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
@@ -9,22 +10,13 @@ using std::endl;
 using std::fmax;
 using std::fmin;
 
-Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC)
-	: Object3D(FloatRGB(0.3, 0.3, 0.3), FloatRGB(0.3, 0.3, 0.3), FloatRGB(0.3,0.3,0.3), BIDIRECTIONAL) {
-	this->pointA = pointA;
-	this->pointB = pointB;
-	this->pointC = pointC;
-}
+Triangle3D::Triangle3D(const Vector3D pointA, const Vector3D pointB, const Vector3D pointC)
+	: Object3D(FloatRGB(0.3, 0.3, 0.3), FloatRGB(0.3, 0.3, 0.3), FloatRGB(0.3,0.3,0.3), BIDIRECTIONAL),
+	  pointA(pointA), pointB(pointB), pointC(pointC) {}
 
-Triangle3D::Triangle3D(Vector3D pointA, Vector3D pointB, Vector3D pointC, FloatRGB kA, FloatRGB kD, FloatRGB kS)
-	: Object3D(kA, kD, kS, BIDIRECTIONAL) {
-	this->pointA = pointA;
-	this->pointB = pointB;
-	this->pointC = pointC;
-}
-
-Triangle3D::~Triangle3D() {
-}
+Triangle3D::Triangle3D(const Vector3D pointA, const Vector3D pointB, const Vector3D pointC, 
+	const FloatRGB kA, const FloatRGB kD, const FloatRGB kS)
+	: Object3D(kA, kD, kS, BIDIRECTIONAL), pointA(pointA), pointB(pointB), pointC(pointC) {}
 
 Vector3D Triangle3D::getPointA() const {
 	return pointA;
@@ -38,7 +30,7 @@ Vector3D Triangle3D::getPointC() const {
 	return pointC;
 }
 
-bool Triangle3D::intersect(Ray ray, float& distance) {
+bool Triangle3D::intersect(Ray ray, float& distance) const {
 	float t, u, v;
 
 	Vector3D aB = pointB - pointA;
@@ -66,7 +58,7 @@ bool Triangle3D::intersect(Ray ray, float& distance) {
 	return true;
 }
 
-bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) {
+bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& distance) const {
 	float t;
 	if (!intersect(ray, t)) return false;
 
@@ -77,7 +69,7 @@ bool Triangle3D::intersect(Ray ray, Vector3D& point, Vector3D& normal, float& di
 	return true;
 }
 
-Vector3D Triangle3D::getNormal(Vector3D point) {
+Vector3D Triangle3D::getNormal(Vector3D point) const {
 	Vector3D aB = pointB - pointA;
 	Vector3D aC = pointC - pointA;
 	Vector3D normal = aB.crossProduct(aC);

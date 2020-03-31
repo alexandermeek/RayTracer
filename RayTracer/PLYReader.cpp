@@ -4,14 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-PLYReader::PLYReader(std::string filename) {
-	this->filename = filename;
-}
-
-
-PLYReader::~PLYReader() {
-
-}
+PLYReader::PLYReader(const std::string filename) : filename(filename) {}
 
 std::string PLYReader::getFilename() {
 	return filename;
@@ -23,22 +16,6 @@ int PLYReader::getNumVertices() {
 
 int PLYReader::getNumFaces() {
 	return numFaces;
-}
-
-Vector3D PLYReader::getMax() {
-	return vmax;
-}
-
-Vector3D PLYReader::getMin() {
-	return vmin;
-}
-
-Vector3D PLYReader::getCentre() {
-	float x, y, z;
-	x = vmin.x + ((vmax.x - vmin.x) / 2.0f);
-	y = vmin.y + ((vmax.y - vmin.y) / 2.0f);
-	z = vmin.z + ((vmax.z - vmin.z) / 2.0f);
-	return Vector3D(x, y, z);
 }
 
 bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>& vertices) {
@@ -68,7 +45,7 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>&
 				else {
 					if (line.substr(0, DESC_FACES.length()) == DESC_FACES) {
 						numFaces = std::stoi(line.substr(DESC_FACES.length(), line.length()));
-						std::cout << numFaces << " faces";
+						std::cout << numFaces << " faces" << std::endl;
 					}
 					else {
 						if (line.substr(0, DESC_END_HEADER.length()) == DESC_END_HEADER) {
@@ -109,11 +86,10 @@ bool PLYReader::readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>&
 		}
 		plyFile.close();
 	}
-	std::cout << std::endl << "File read!" << std::endl;
 	return true;
 }
 
-Vector3D* PLYReader::readPoint(std::string line) {
+Vector3D* PLYReader::readPoint(std::string line) const {
 	float v[3];
 	int pos = 0;
 	std::string token;
@@ -126,18 +102,10 @@ Vector3D* PLYReader::readPoint(std::string line) {
 	}
 
 	Vector3D* vertex = new Vector3D(v[0], v[1], v[2]);
-
-	if (vertex->x > vmax.x) vmax.x = vertex->x;
-	if (vertex->y > vmax.y) vmax.y = vertex->y;
-	if (vertex->z > vmax.z) vmax.z = vertex->z;
-	if (vertex->x < vmin.x) vmin.x = vertex->x;
-	if (vertex->y < vmin.y) vmin.y = vertex->y;
-	if (vertex->z < vmin.z) vmin.z = vertex->z;
-
 	return vertex;
 }
 
-Triangle3D PLYReader::readTriangle(std::string line, std::vector<Vector3D*>& vertices) {
+Triangle3D PLYReader::readTriangle(std::string line, const std::vector<Vector3D*>& vertices) const {
 	int v[3];
 	int pos = 0;
 	std::string token;
@@ -155,7 +123,7 @@ Triangle3D PLYReader::readTriangle(std::string line, std::vector<Vector3D*>& ver
 	return tri;
 }
 
-Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D*>& vertices) {
+Sphere PLYReader::readSphere(std::string line, const std::vector<Vector3D*>& vertices) const {
 	int centerV;
 	float radius;
 	int pos = 0;
@@ -176,7 +144,7 @@ Sphere PLYReader::readSphere(std::string line, std::vector<Vector3D*>& vertices)
 	return sph;
 }
 
-Box PLYReader::readBox(std::string line, std::vector<Vector3D*>& vertices) {
+Box PLYReader::readBox(std::string line, const std::vector<Vector3D*>& vertices) const {
 	int vmax, vmin;
 	int pos = 0;
 	std::string token;

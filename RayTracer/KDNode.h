@@ -1,8 +1,10 @@
 #ifndef KDNODE_H
 #define KDNODE_H
+
+#include <vector>
 class KDNode {
 	public:
-		KDNode(int maxDepth);
+		KDNode(const int maxDepth);
 		~KDNode();
 
 		KDNode* getLeft() const;
@@ -10,12 +12,13 @@ class KDNode {
 		BoundingBox getBoundingBox() const;
 
 		int count_leaves() const;
+		
+		static BoundingBox surround_with_box(const std::vector<Object3D*>& objects);
+		KDNode* build(const std::vector<Object3D*>& objects, const BoundingBox bBox, const int depth);
+		bool intersect(const KDNode* node, Ray ray, Object3D** hitObject, Vector3D& point, 
+			Vector3D& normal, float& distance, float& origin_offset) const;
 
-		KDNode* build(std::vector<Object3D*>& objects, BoundingBox bBox, int depth);
-		bool intersect(KDNode* node, Ray ray, Object3D** hitObject, Vector3D& point, 
-			Vector3D& normal, float& distance, float& origin_offset);
-
-		std::string toString(int depth); 
+		std::string toString(int depth) const; 
 	private:
 		int maxDepth;
 

@@ -9,9 +9,7 @@
 using std::vector;
 using std::endl;
 
-KDNode::KDNode(int maxDepth) {
-	this->maxDepth = maxDepth;
-}
+KDNode::KDNode(const int maxDepth) : maxDepth(maxDepth) {}
 
 KDNode::~KDNode() {
 	if (left != nullptr) {
@@ -52,7 +50,24 @@ int KDNode::count_leaves() const {
 	return total;
 }
 
-KDNode* KDNode::build(vector<Object3D*>& objects, BoundingBox bBox, int depth) {
+BoundingBox KDNode::surround_with_box(const std::vector<Object3D*>& objects) {
+	Vector3D vmax(INT32_MIN, INT32_MIN, INT32_MIN);
+	Vector3D vmin(INT32_MAX, INT32_MAX, INT32_MAX);
+
+	for (Object3D* obj : objects) {
+		BoundingBox oBox = obj->getBoundingBox();
+		if (oBox.vmax.x > vmax.x) vmax.x = oBox.vmax.x;
+		if (oBox.vmax.y > vmax.y) vmax.y = oBox.vmax.y;
+		if (oBox.vmax.z > vmax.z) vmax.z = oBox.vmax.z;
+		if (oBox.vmin.x < vmin.x) vmin.x = oBox.vmin.x;
+		if (oBox.vmin.y < vmin.y) vmin.y = oBox.vmin.y;
+		if (oBox.vmin.z < vmin.z) vmin.z = oBox.vmin.z;
+	}
+	
+	return BoundingBox(vmin, vmax);
+}
+
+KDNode* KDNode::build(const vector<Object3D*>& objects, const BoundingBox bBox, const int depth) {
 	KDNode* node = new KDNode(maxDepth);
 	node->left = nullptr;
 	node->right = nullptr;
@@ -111,8 +126,8 @@ KDNode* KDNode::build(vector<Object3D*>& objects, BoundingBox bBox, int depth) {
 	return node;
 }
 
-bool KDNode::intersect(KDNode* node, Ray ray, Object3D** hitObject, Vector3D& point, 
-	Vector3D& normal, float& distance, float& origin_offset) {
+bool KDNode::intersect(const KDNode* node, Ray ray, Object3D** hitObject, Vector3D& point, 
+	Vector3D& normal, float& distance, float& origin_offset) const {
 	//Will only be run at root node.
 	if (node->bBox.contains(ray.origin)) {
 		switch (node->bBox.getLongestAxis()) {
@@ -183,7 +198,7 @@ bool KDNode::intersect(KDNode* node, Ray ray, Object3D** hitObject, Vector3D& po
 	return true;
 }
 
-std::string KDNode::toString(int depth) {
+std::string KDNode::toString(int depth) const {
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2);
 	stream << "KDNode " << depth << ": {" << endl;

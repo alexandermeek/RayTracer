@@ -1,23 +1,20 @@
-#pragma once
+#ifndef PLYREADER_H
+#define PLYREADER_H
+
+#include <vector>
 class PLYReader {
 	public:
-		PLYReader(std::string filename);
-		~PLYReader();
+		PLYReader(const std::string filename);
 
 		std::string getFilename();
 		int getNumVertices();
 		int getNumFaces();
-		Vector3D getMax();
-		Vector3D getMin();
-		Vector3D getCentre();
 
 		bool readPLY(std::vector<Object3D*>& objects, std::vector<Vector3D*>& vertices);
 	private:
 		std::string filename;
 		int numVertices = 0;
 		int numFaces = 0;
-		Vector3D vmax = Vector3D(INT32_MIN, INT32_MIN, INT32_MIN);
-		Vector3D vmin = Vector3D(INT32_MAX, INT32_MAX, INT32_MAX);
 
 		const std::string DELIMITER = " ";
 		const std::string DESC_PLY = "ply";
@@ -25,9 +22,9 @@ class PLYReader {
 		const std::string DESC_FACES = "element face";
 		const std::string DESC_END_HEADER = "end_header";
 
-		Vector3D* readPoint(std::string line);
-		Triangle3D readTriangle(std::string line, std::vector<Vector3D*>& vertices);
-		Sphere readSphere(std::string line, std::vector<Vector3D*>& vertices);
-		Box readBox(std::string line, std::vector<Vector3D*>& vertices);
+		Vector3D* readPoint(std::string line) const;
+		Triangle3D readTriangle(std::string line, const std::vector<Vector3D*>& vertices) const;
+		Sphere readSphere(std::string line, const std::vector<Vector3D*>& vertices) const;
+		Box readBox(std::string line, const std::vector<Vector3D*>& vertices) const;
 };
-
+#endif // PLYREADER_H
